@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --background: #FAF8F1;
+  --foreground: #0E2D54;
+  --nav-bg: rgba(250, 248, 241, 0.8);
+  --border: rgba(14, 45, 84, 0.1);
+  --accent: #5188B5;
+  --yellow: #FFB703;
+  --orange: #F66C51;
+  --lavender: #DCC5DF;
+  --mint: #C0E1D2;
+  --white: #FFFFFF;
+}
+
+[data-theme='dark'] {
+  --background: #0E2D54;
+  --foreground: #FAF8F1;
+  --nav-bg: rgba(14, 45, 84, 0.8);
+  --border: rgba(250, 248, 241, 0.1);
+  --accent: #5188B5;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Custom Scrollbar for Lenis smooth scrolling (optional, Lenis usually handles it, but good to style) */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--foreground);
+}

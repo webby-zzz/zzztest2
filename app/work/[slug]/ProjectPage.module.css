@@ -1,0 +1,212 @@
+.main {
+  width: 100%;
+  min-height: 100vh;
+  padding: 1vw;
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+.heroSection {
+  position: relative;
+  width: 100%;
+  height: 90vh;
+  border-radius: 2vw;
+  overflow: hidden;
+  margin-bottom: 4vw;
+}
+
+.heroImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.heroTitle {
+  position: absolute;
+  bottom: 3vw;
+  left: 3vw;
+  font-size: clamp(2rem, 5vw, 5rem);
+  font-weight: 500;
+  color: white;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.infoSection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6vw;
+  padding: 0 2vw;
+  margin-bottom: 8vw;
+}
+
+@media (max-width: 768px) {
+  .infoSection {
+    grid-template-columns: 1fr;
+  }
+}
+
+.label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.introText {
+  font-size: clamp(1.5rem, 2.5vw, 2.5rem);
+  line-height: 1.2;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  margin-bottom: 4vw;
+}
+
+.detailsTable {
+  display: flex;
+  flex-direction: column;
+}
+
+.detailRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  font-size: 1rem;
+}
+
+:global(.dark) .detailRow {
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.detailLabel {
+  color: var(--foreground);
+  opacity: 0.5;
+}
+
+.detailValue {
+  font-weight: 500;
+  text-align: right;
+}
+
+.scopeSection {
+  margin-top: 4vw;
+}
+
+.accordionItem {
+  border-bottom: 1px solid var(--border);
+}
+
+.scopeRow {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 0;
+  font-size: 1.5rem;
+  font-weight: 400;
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+  transition: opacity 0.3s ease;
+}
+
+.scopeRow:hover {
+  opacity: 0.7;
+}
+
+.scopeTitleContainer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.scopeIndex {
+  opacity: 0.3;
+}
+
+.accordionContent {
+  height: 0;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.scopeDescription {
+  padding-bottom: 2rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  opacity: 0.8;
+  max-width: 80%;
+}
+
+.detailRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 1rem;
+}
+
+.detailLabel {
+  color: var(--foreground);
+  opacity: 0.5;
+}
+
+.detailValue {
+  font-weight: 500;
+  text-align: right;
+}
+
+.gallerySection {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1vw;
+  padding: 0 1vw;
+}
+
+.galleryItem {
+  border-radius: 1.5vw;
+  overflow: hidden;
+  position: relative;
+}
+
+.galleryItem img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.galleryItemLarge {
+  grid-column: span 6;
+  aspect-ratio: 4/3;
+}
+
+.galleryItemMedium {
+  grid-column: span 3;
+  aspect-ratio: 1;
+}
+
+.galleryItemTall {
+  grid-column: span 3;
+  aspect-ratio: 3/4;
+}
+
+@media (max-width: 768px) {
+  .gallerySection {
+    display: flex;
+    flex-direction: column;
+  }
+  .galleryItemLarge, .galleryItemMedium, .galleryItemTall {
+    grid-column: span 12;
+    aspect-ratio: auto;
+    height: 60vh;
+  }
+}
+
+.wordSpan {
+  display: inline-block;
+  white-space: pre;
+}
