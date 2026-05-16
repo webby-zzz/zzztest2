@@ -5,22 +5,14 @@ import { useRouter } from "next/navigation";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styles from "./CircularGallery.module.css";
-import Link from "next/link";
-import Image from "next/image";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import Logo from "./Logo";
+import { SERVICES_DATA } from "../lib/data";
 
-gsap.registerPlugin(ScrollTrigger);
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
-const DUMMY_IMAGES = [
-  "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?q=80&w=1000&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1000&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1561557944-6e7860d1a7eb?q=80&w=1000&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?q=80&w=1000&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1000&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1561557944-6e7860d1a7eb?q=80&w=1000&auto=format&fit=crop",
-];
+const SERVICES = SERVICES_DATA;
 
 export default function CircularGallery() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -30,284 +22,188 @@ export default function CircularGallery() {
   const scrollTriggerRef = useRef<ScrollTrigger | null>(null);
   const router = useRouter();
 
-  const [showButtons, setShowButtons] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [transitioningImage, setTransitioningImage] = useState<{ src: string, rect: DOMRect } | null>(null);
+  const transitionOverlayRef = useRef<HTMLImageElement>(null);
 
-  const numItems = DUMMY_IMAGES.length;
+  const numItems = SERVICES.length;
   const anglePerItem = 360 / numItems;
 
   useEffect(() => {
-    if (!wrapperRef.current || !containerRef.current || !heroTextRef.current) return;
+    if (!wrapperRef.current || !containerRef.current) return;
 
-    const items = itemsRef.current;
-    const radius = window.innerWidth < 768 ? 300 : 600;
+    let ctx = gsap.context(() => {
+      const items = itemsRef.current;
+      
+      // Calculate radius dynamically to ensure it stays on screen but is large enough for gaps
+      const vh = window.innerHeight;
+      const vw = window.innerWidth;
+      const radius = vw < 768 ? Math.min(vw * 0.8, 400) : Math.min(vh * 0.85, 800); 
 
-    // 1. Position items in a 2D circle on the screen
-    items.forEach((item, i) => {
-      if (item) {
-        // start at top (-90deg)
-        const theta = (i * anglePerItem - 90) * (Math.PI / 180);
-        const x = Math.cos(theta) * radius;
-        const y = Math.sin(theta) * radius;
-        gsap.set(item, {
-          x: x,
-          y: y,
-          rotation: 0, // Always start upright
-          transformOrigin: "50% 50%",
-        });
-      }
-    });
-
-    // 2. Initial state of the wrapper
-    gsap.set(wrapperRef.current, {
-      scale: 0.5,
-      y: 0,
-      rotation: 0,
-    });
-
-
-    // 3. Create the master timeline
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top top",
-        end: "+=1200", // further reduced
-        scrub: 1,
-        pin: true,
-        snap: {
-          snapTo: (progress) => {
-            if (progress < 0.15) return progress;
-            const carouselWidth = 0.85;
-            const step = carouselWidth / (numItems * 5);
-            const carouselProgress = Math.max(0, progress - 0.15);
-            const currentStep = Math.round(carouselProgress / step);
-            return 0.15 + (currentStep * step);
-          },
-          duration: { min: 0.1, max: 0.3 },
-          delay: 0.1,
-          ease: "power2.inOut"
-        },
-        onUpdate: (self) => {
-          // Show buttons only when we've passed the zoom phase (e.g., 15% progress)
-          if (self.progress >= 0.15 && !showButtons) {
-            setShowButtons(true);
-          } else if (self.progress < 0.15 && showButtons) {
-            setShowButtons(false);
-          }
-
-          if (self.progress >= 0.15) {
-            const carouselProgress = (self.progress - 0.15) / 0.85;
-            const itemsPassed = Math.round(carouselProgress * (numItems * 5)); // 5 rotations
-            let calcIndex = (numItems - (itemsPassed % numItems)) % numItems;
-            setCurrentIndex(calcIndex);
-          }
+      // 1. Position items in a full circle
+      items.forEach((item, i) => {
+        if (item) {
+          const angle = (i * anglePerItem) - 90;
+          const theta = angle * (Math.PI / 180);
+          const x = Math.cos(theta) * radius;
+          const y = Math.sin(theta) * radius;
+          
+          gsap.set(item, {
+            x: x,
+            y: y,
+            rotation: 0,
+            transformOrigin: "50% 50%",
+          });
         }
-      },
+      });
+
+      // 2. Position wrapper at the bottom center to create a circle where only top half is shown
+      gsap.set(wrapperRef.current, {
+        top: "100%",
+        y: 0, 
+        rotation: 0,
+      });
+
+      // Initial text slide-up animation
+      if (heroTextRef.current) {
+        gsap.fromTo(heroTextRef.current.children, 
+          { y: 50, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.8, stagger: 0.2, ease: "power3.out" }
+        );
+      }
+
+      // ScrollTrigger timeline
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top top",
+          end: "+=6000", // Increased to require 3-4 more scrolls
+          scrub: 0.5,
+          pin: true,
+          snap: 1 / numItems,
+          onUpdate: (self) => {
+            // Adjust index calculation for 360 degree rotation
+            const index = Math.round(self.progress * numItems) % numItems;
+            setCurrentIndex(index);
+            
+            // Counter-rotate the cards so they remain perfectly upright
+            gsap.set(itemsRef.current, {
+              rotation: -(self.progress * 360)
+            });
+          }
+        },
+      });
+
+      scrollTriggerRef.current = tl.scrollTrigger || null;
+
+      // Rotate the wrapper a full 360 degrees
+      tl.fromTo(wrapperRef.current, 
+        { rotation: 0 },
+        {
+          rotation: 360,
+          ease: "none",
+        }
+      );
+    }, containerRef); // Scope to container
+
+    // Force ScrollTrigger to recalculate after layout and fonts are fully settled
+    document.fonts?.ready.then(() => {
+      ScrollTrigger.refresh();
     });
-
-    // Save ST instance for button navigation
-    scrollTriggerRef.current = tl.scrollTrigger || null;
-
-    // Phase 1: Zoom In (takes first 20% of scroll)
-    const targetScale = 2.2; // Reduced to keep images further back for an Apple vibe
-    const zoomRotation = 180; // Rotate half-circle clockwise to bring item 0 to the bottom
     
-    tl.to(wrapperRef.current, {
-      scale: targetScale,
-      y: -radius * targetScale,
-      rotation: zoomRotation,
-      duration: 0.15, // slightly faster
-      ease: "power2.inOut",
-    }, 0);
-
-    // Counter-rotate items to keep them upright
-    tl.to(itemsRef.current, {
-      rotation: -zoomRotation,
-      duration: 0.15,
-      ease: "power2.inOut",
-    }, 0);
-
-    // Fade out and slide up hero text (h1 words)
-    const words = gsap.utils.toArray(`.${styles.wordSpan}`, heroTextRef.current);
-    tl.to(words, {
-      y: -50,
-      opacity: 0,
-      stagger: 0.005,
-      duration: 0.06,
-      ease: "power2.in",
-    }, 0);
-
-    // Fade out and slide up sub-header at once
-    const subHeader = heroTextRef.current.querySelector('p');
-    if (subHeader) {
-      tl.to(subHeader, {
-        y: -50,
-        opacity: 0,
-        duration: 0.06,
-        ease: "power2.in",
-      }, 0);
-    }
-
-    // Phase 2: Carousel Scroll (takes remaining 80% of scroll)
-    // Rotate the massive dial to scrub through the items clockwise (5 rotations).
-    tl.to(wrapperRef.current, {
-      rotation: `+=${360 * 5}`,
-      duration: 0.85,
-      ease: "none",
-    }, 0.15);
-
-    // Counter-rotate items to keep them upright
-    tl.to(itemsRef.current, {
-      rotation: `-=${360 * 5}`,
-      duration: 0.85,
-      ease: "none",
-    }, 0.15);
+    const refreshTimeout = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 500);
 
     return () => {
-      ScrollTrigger.getAll().forEach((t) => t.kill());
+      clearTimeout(refreshTimeout);
+      ctx.revert(); // Cleanup all GSAP animations and ScrollTriggers on unmount
     };
-  }, [showButtons, anglePerItem, numItems]);
+  }, [numItems, anglePerItem]);
 
-
-  const handleNext = () => {
-    if (!scrollTriggerRef.current) return;
-    const st = scrollTriggerRef.current;
+  const handleServiceClick = (index: number, element: HTMLElement | null) => {
+    if (!element) return;
     
-    // We are in the 0.15 - 1.0 progress range.
-    // There are `numItems * 5` steps in this range.
-    const progressPerStep = 0.85 / (numItems * 5);
+    // Get the bounding box of the clicked image container
+    const rect = element.getBoundingClientRect();
+    const service = SERVICES[index];
     
-    // Calculate current step based on current progress
-    const currentCarouselProgress = Math.max(0, st.progress - 0.15);
-    const currentStep = Math.round(currentCarouselProgress / progressPerStep);
-    
-    const nextStep = Math.min(numItems * 5, currentStep + 1);
-    const targetProgress = 0.15 + (nextStep * progressPerStep);
-    
-    // Calculate target scroll position
-    const targetScroll = st.start + (st.end - st.start) * targetProgress;
-    window.scrollTo({ top: targetScroll, behavior: 'smooth' });
-  };
+    setTransitioningImage({ src: service.image, rect });
 
-  const handlePrev = () => {
-    if (!scrollTriggerRef.current) return;
-    const st = scrollTriggerRef.current;
-    
-    const progressPerStep = 0.85 / (numItems * 5);
-    const currentCarouselProgress = Math.max(0, st.progress - 0.15);
-    const currentStep = Math.round(currentCarouselProgress / progressPerStep);
-    
-    const prevStep = Math.max(0, currentStep - 1);
-    const targetProgress = 0.15 + (prevStep * progressPerStep);
-    
-    const targetScroll = st.start + (st.end - st.start) * targetProgress;
-    window.scrollTo({ top: targetScroll, behavior: 'smooth' });
-  };
-
-  const handleItemClick = (e: React.MouseEvent, href: string, src: string, index: number) => {
-    e.preventDefault();
-    const item = itemsRef.current[index];
-    if (!item || !containerRef.current) return;
-
-    const img = item.querySelector(`.${styles.image}`) as HTMLImageElement;
-    if (!img) return;
-
-    const rect = img.getBoundingClientRect();
-
-    // Create a clone for the transition
-    const clone = document.createElement("div");
-    clone.style.position = "fixed";
-    clone.style.top = `${rect.top}px`;
-    clone.style.left = `${rect.left}px`;
-    clone.style.width = `${rect.width}px`;
-    clone.style.height = `${rect.height}px`;
-    clone.style.borderRadius = "50%";
-    clone.style.backgroundImage = `url(${src})`;
-    clone.style.backgroundSize = "cover";
-    clone.style.backgroundPosition = "center";
-    clone.style.zIndex = "1000";
-    clone.style.pointerEvents = "none";
-    document.body.appendChild(clone);
-
-    // Fade out the gallery and text
-    gsap.to([wrapperRef.current, heroTextRef.current, `.${styles.navButtons}`], {
-      opacity: 0,
-      duration: 0.4,
-      ease: "power2.inOut"
-    });
-
-    // Animate the clone to fill the hero area
-    gsap.to(clone, {
-      top: "1vw",
-      left: "1vw",
-      width: "calc(100vw - 2vw)",
-      height: "90vh",
-      borderRadius: "2vw",
-      duration: 0.8,
-      ease: "power4.inOut",
-      onComplete: () => {
-        router.push(href + "?transition=seamless");
-        // Keep clone for a moment to ensure seamless handoff
-        gsap.to(clone, {
-          opacity: 0,
-          duration: 0.4,
-          delay: 0.2,
+    // Wait a tick for the overlay image to render, then animate
+    setTimeout(() => {
+      if (transitionOverlayRef.current) {
+        gsap.to(transitionOverlayRef.current, {
+          top: 0,
+          left: 0,
+          width: "100vw",
+          height: "100vh",
+          borderRadius: "0px",
+          duration: 0.8,
+          ease: "power3.inOut",
           onComplete: () => {
-            clone.remove();
+            router.push(`/services/${service.id}`);
           }
         });
       }
-    });
+    }, 50);
   };
 
-  const renderText = (text: string) => {
-    return text.split(" ").map((word, index) => (
-      <span key={index} className={styles.wordSpan}>
-        {word}{" "}
-      </span>
-    ));
-  };
 
   return (
     <div className={styles.galleryContainer} ref={containerRef}>
+      
       <div className={styles.stickyContent}>
+        
         <div className={styles.heroText} ref={heroTextRef}>
-          <h1>{renderText("India's leading marketing agency.")}</h1>
-          <p>Think Success? Think ZZZ</p>
+          <h1>India's best marketing agency</h1>
+          <p>Think success? Think ZZZ</p>
+          <div className={styles.centerActions}>
+            <button className={styles.joinButton} onClick={() => handleServiceClick(currentIndex, itemsRef.current[currentIndex])}>
+              View {SERVICES[currentIndex].name}
+            </button>
+          </div>
         </div>
         
         <div className={styles.scene}>
           <div className={styles.galleryWrapper} ref={wrapperRef}>
-            {DUMMY_IMAGES.map((src, i) => (
+            {SERVICES.map((service, i) => (
               <div 
                 key={i} 
-                className={styles.galleryItem}
+                className={`${styles.galleryItem} ${currentIndex === i ? styles.active : ""}`}
                 ref={(el) => { itemsRef.current[i] = el; }}
-                onClick={(e) => handleItemClick(e, `/work/test-project-${i + 1}`, src, i)}
+                onClick={(e) => handleServiceClick(i, e.currentTarget)}
               >
                 <div className={styles.imageContainer}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={src} alt="test" className={styles.image} />
-                </div>
-                <div className={styles.itemInfo}>
-                  <h3>test {i + 1}</h3>
+                  <img src={service.image} alt={service.name} className={styles.image} />
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Carousel Navigation Buttons */}
-        <div className={`${styles.navButtons} ${showButtons ? styles.show : ""}`}>
-          <button onClick={handlePrev} className={styles.navButton} aria-label="Previous">
-            <ArrowLeft size={24} />
-          </button>
-          <button onClick={handleNext} className={styles.navButton} aria-label="Next">
-            <ArrowRight size={24} />
-          </button>
-        </div>
-
       </div>
+
+      {/* Transition Overlay */}
+      {transitioningImage && (
+        <img
+          ref={transitionOverlayRef}
+          src={transitioningImage.src}
+          alt="Transition overlay"
+          style={{
+            position: "fixed",
+            top: transitioningImage.rect.top,
+            left: transitioningImage.rect.left,
+            width: transitioningImage.rect.width,
+            height: transitioningImage.rect.height,
+            objectFit: "cover",
+            borderRadius: "40px", // matches gallery item border radius
+            zIndex: 9999,
+          }}
+        />
+      )}
+
     </div>
   );
 }

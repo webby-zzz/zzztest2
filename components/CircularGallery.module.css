@@ -1,11 +1,11 @@
 .galleryContainer {
-  height: 1200px; /* provides plenty of scrollable area for the long continuous scroll */
   position: relative;
   width: 100%;
+  background-color: var(--background);
 }
 
 .stickyContent {
-  position: relative; /* the pin makes it sticky, but ScrollTrigger prefers relative here */
+  position: relative;
   height: 100vh;
   width: 100%;
   overflow: hidden;
@@ -13,53 +13,112 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: var(--background);
 }
 
 .heroText {
   position: absolute;
-  top: 50%;
+  top: 55%; /* Pushed down from 45% to not clash with service cards */
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  z-index: 10;
+  z-index: 100;
+  width: 100%;
+  max-width: 600px;
   pointer-events: none;
 }
 
 .heroText h1 {
-  font-size: clamp(1rem, 2vw, 2rem);
+  font-size: clamp(2rem, 5vw, 4rem);
   font-weight: 700;
-  letter-spacing: -0.02em;
-  margin-bottom: 0.5rem;
+  letter-spacing: -0.01em;
+  margin-bottom: 1.5rem;
   color: var(--foreground);
 }
 
 .heroText p {
-  font-size: 0.875rem;
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.6;
   opacity: 0.7;
   color: var(--foreground);
+  margin-bottom: 2.5rem;
 }
 
-.wordSpan {
-  display: inline-block;
-  white-space: pre;
+
+.logoCircle {
+  width: 32px;
+  height: 32px;
+  background: #FFFFFF;
+  border-radius: 50%;
+  position: relative;
 }
 
-.scene {
-  width: 100%;
-  height: 100vh;
-  perspective: 2000px; /* deeper perspective for zooming */
+.logoCircle::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  width: 16px;
+  height: 16px;
+  background: #FFFFFF;
+  border-radius: 50%;
+}
+
+.topRight {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.textBtn {
+  background: none;
+  border: none;
+  color: #FFFFFF;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.outlineBtn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.centerActions {
   display: flex;
   justify-content: center;
-  align-items: center;
-  transform-style: preserve-3d;
+  pointer-events: auto;
+}
+
+.joinButton {
+  background: var(--foreground);
+  border: none;
+  padding: 14px 32px;
+  border-radius: 999px;
+  color: var(--background);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+.joinButton:hover {
+  opacity: 0.8;
 }
 
 .galleryWrapper {
-  width: 100vw;
-  height: 100vh;
+  width: 0;
+  height: 0;
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 100%; /* Rotate around bottom center */
+  left: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -68,59 +127,30 @@
 
 .galleryItem {
   position: absolute;
-  width: 10vw;
-  height: 10vw;
-  min-width: 100px;
-  min-height: 100px;
-  border-radius: 50%;
-  transition: filter 0.3s ease;
+  width: 12vw;
+  height: 12vw;
+  min-width: 160px;
+  min-height: 160px;
+  border-radius: 40px;
   cursor: pointer;
+  overflow: hidden;
+  background: #111111;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.galleryItem:hover {
-  filter: brightness(1.1);
+.galleryItem.active {
+  border-color: rgba(255, 255, 255, 0.4);
 }
 
 .imageContainer {
   width: 100%;
   height: 100%;
-  border-radius: 50%;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-.galleryItem:hover .image {
-  transform: scale(1.05);
-}
-
-.itemInfo {
-  position: absolute;
-  bottom: -50px;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  transform: translateZ(30px);
-  color: var(--foreground);
-}
-
-.galleryItem:hover .itemInfo {
-  opacity: 1;
-}
-
-.itemInfo h3 {
-  font-size: 1.5rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
 }
 
 /* Nav Buttons */
@@ -133,45 +163,40 @@
   display: flex;
   justify-content: space-between;
   padding: 0 4rem;
-  z-index: 50;
-  pointer-events: none; /* Let clicks pass through empty space */
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-
-.navButtons.show {
-  opacity: 1;
+  z-index: 150;
+  pointer-events: none;
 }
 
 .navButton {
-  pointer-events: auto; /* Re-enable clicks on buttons themselves */
-  width: 60px;
-  height: 60px;
+  pointer-events: auto;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
-  background-color: var(--foreground);
-  color: var(--background);
-  border: none;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: all 0.3s ease;
 }
 
-.navButton:active {
-  transform: scale(0.9);
+.navButton:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.1);
 }
 
 @media (max-width: 768px) {
+  .galleryItem {
+    width: 35vw;
+    height: 45vw;
+  }
   .navButtons {
     padding: 0 1rem;
   }
   .navButton {
-    width: 48px;
-    height: 48px;
-  }
-  .galleryWrapper {
-    width: 250px;
-    height: 350px;
+    width: 56px;
+    height: 56px;
   }
 }

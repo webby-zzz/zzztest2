@@ -1,24 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-  --background: #FAF8F1;
-  --foreground: #0E2D54;
-  --nav-bg: rgba(250, 248, 241, 0.8);
-  --border: rgba(14, 45, 84, 0.1);
-  --accent: #5188B5;
-  --yellow: #FFB703;
-  --orange: #F66C51;
-  --lavender: #DCC5DF;
-  --mint: #C0E1D2;
+  --background: #FFFFFF;
+  --foreground: #000000;
+  --nav-bg: rgba(255, 255, 255, 0.8);
+  --border: rgba(0, 0, 0, 0.1);
+  --accent: #000000;
   --white: #FFFFFF;
+  --glass-bg: rgba(0, 0, 0, 0.03);
+  --glass-border: rgba(0, 0, 0, 0.1);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
 }
 
 [data-theme='dark'] {
-  --background: #0E2D54;
-  --foreground: #FAF8F1;
-  --nav-bg: rgba(14, 45, 84, 0.8);
-  --border: rgba(250, 248, 241, 0.1);
-  --accent: #5188B5;
+  --background: #000000;
+  --foreground: #FFFFFF;
+  --nav-bg: rgba(0, 0, 0, 0.8);
+  --border: rgba(255, 255, 255, 0.1);
+  --accent: #FFFFFF;
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: 0 8px 32px rgba(255, 255, 255, 0.05);
 }
 
 * {

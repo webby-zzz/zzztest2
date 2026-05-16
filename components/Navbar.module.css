@@ -42,4 +42,23 @@
 
 .themeToggle:hover {
   background-color: var(--accent);
+  color: var(--background);
+}
+
+.menuToggle {
+  background: transparent;
+  border: none;
+  color: var(--foreground);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.menuToggle:hover {
+  background-color: var(--accent);
+  color: var(--background);
 }

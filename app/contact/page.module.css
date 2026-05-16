@@ -1,0 +1,458 @@
+.container {
+  min-height: 100vh;
+  background-color: var(--background);
+  color: var(--foreground);
+  /* The navbar is fixed, so add padding-top */
+  padding-top: 80px; 
+}
+
+/* BRUTALIST HERO GRID */
+.gridHero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid var(--border);
+  border-top: 1px solid var(--border);
+}
+
+.heroLeft {
+  padding: 4rem;
+  display: flex;
+  align-items: center;
+  border-right: 1px solid var(--border);
+}
+
+.massiveText {
+  font-size: clamp(4rem, 10vw, 12rem);
+  font-weight: 800;
+  line-height: 0.85;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+}
+
+.heroRight {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+.gridCell {
+  padding: 4rem 3rem;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Internal borders for the 2x2 grid */
+.gridCell:nth-child(1) { border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.gridCell:nth-child(2) { border-bottom: 1px solid var(--border); }
+.gridCell:nth-child(3) { border-right: 1px solid var(--border); }
+.gridCell:nth-child(4) { /* Bottom right, no extra borders needed */ }
+
+.cellTitle {
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  margin-bottom: 2rem;
+}
+
+.cellText, .link {
+  font-size: 1rem;
+  line-height: 1.6;
+  opacity: 0.8;
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.2s ease;
+}
+
+.link:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.tableText {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.5rem 2rem;
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+.socialList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.outlineBtn {
+  margin-top: auto;
+  align-self: flex-start;
+  padding: 0.75rem 2rem;
+  background: transparent;
+  border: 1px solid var(--foreground);
+  color: var(--foreground);
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 2rem;
+}
+
+.outlineBtn:hover {
+  background: var(--foreground);
+  color: var(--background);
+}
+
+/* STRIP SECTION */
+.stripSection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid var(--border);
+}
+
+.stripText {
+  padding: 4rem;
+  font-size: 1.125rem;
+  line-height: 1.8;
+  opacity: 0.8;
+  max-width: 800px;
+  border-right: 1px solid var(--border);
+}
+
+.badgeWrapper {
+  padding: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.rotatingBadge {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.badgeSvg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  animation: rotate 15s linear infinite;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 2px;
+  font-weight: 600;
+}
+
+.badgeIcon {
+  position: relative;
+  z-index: 2;
+  background: var(--foreground);
+  color: var(--background);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* BOOKING SECTION */
+.bookingSection {
+  padding: 8rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.bookingHeader {
+  margin-bottom: 4rem;
+}
+
+.bookingHeader h2 {
+  font-size: 4rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  margin-bottom: 1rem;
+}
+
+.bookingHeader p {
+  font-size: 1.25rem;
+  opacity: 0.6;
+}
+
+.bookingGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+}
+
+.formContainer, .calendarContainer {
+  background: var(--glass-bg);
+  backdrop-filter: blur(24px);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: 3rem;
+}
+
+.formTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+/* FORM */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.inputGroup label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  opacity: 0.8;
+}
+
+.input, .textarea {
+  width: 100%;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  color: var(--foreground);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.input:focus, .textarea:focus {
+  outline: none;
+  border-color: var(--foreground);
+  background: var(--background);
+}
+
+.submitBtn {
+  margin-top: 1rem;
+  padding: 1.25rem;
+  background: var(--foreground);
+  color: var(--background);
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1.125rem;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.submitBtn:hover {
+  opacity: 0.8;
+}
+
+/* CALENDAR */
+.calHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.calMonth {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.calNav {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.calNav button {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--foreground);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.calNav button:hover {
+  background: var(--foreground);
+  color: var(--background);
+}
+
+.calGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.calDayLabel {
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  opacity: 0.5;
+  margin-bottom: 0.5rem;
+}
+
+.calDay {
+  aspect-ratio: 1;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  color: var(--foreground);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  font-size: 0.875rem;
+  opacity: 0.3;
+}
+
+.calDayActive {
+  opacity: 1;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--border);
+  transition: all 0.2s ease;
+}
+
+.calDayActive:hover {
+  border-color: var(--foreground);
+}
+
+.calDaySelected {
+  background: var(--foreground);
+  color: var(--background);
+  border-color: var(--foreground);
+}
+
+.timeSlotsWrapper h4 {
+  font-size: 0.875rem;
+  opacity: 0.6;
+  margin-bottom: 1rem;
+}
+
+.timeSlots {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.timeSlot {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--foreground);
+  padding: 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.timeSlot:hover {
+  border-color: var(--foreground);
+}
+
+.timeSlotSelected {
+  background: var(--foreground);
+  color: var(--background);
+  border-color: var(--foreground);
+}
+
+.confirmBtn {
+  width: 100%;
+  padding: 1.25rem;
+  background: transparent;
+  color: var(--foreground);
+  border: 1px solid var(--foreground);
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1.125rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.confirmBtn:hover {
+  background: var(--foreground);
+  color: var(--background);
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .gridHero {
+    grid-template-columns: 1fr;
+  }
+  
+  .heroLeft {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding: 3rem 2rem;
+  }
+
+  .stripSection {
+    grid-template-columns: 1fr;
+  }
+
+  .stripText {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .badgeWrapper {
+    justify-content: center;
+  }
+
+  .bookingGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .heroRight {
+    grid-template-columns: 1fr;
+  }
+  
+  .gridCell:nth-child(1) { border-right: none; }
+  .gridCell:nth-child(3) { border-right: none; border-bottom: 1px solid var(--border); }
+  
+  .massiveText {
+    font-size: 4rem;
+  }
+  
+  .formContainer, .calendarContainer {
+    padding: 2rem 1.5rem;
+  }
+}
