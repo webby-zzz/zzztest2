@@ -1,0 +1,211 @@
+.section {
+  padding: 8rem 2rem;
+  background-color: var(--background);
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid var(--border);
+}
+
+.container {
+  max-width: 1200px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4.5rem;
+}
+
+.headingBlock {
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.badge {
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+.headingBlock h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  color: var(--foreground);
+}
+
+.headingAccent {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent-color);
+}
+
+.headingBlock p {
+  font-size: 1rem;
+  line-height: 1.6;
+  opacity: 0.6;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+/* 3D Flip Card Styles */
+.cardContainer {
+  perspective: 1000px;
+  height: 260px;
+  cursor: pointer;
+}
+
+.cardInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.65s cubic-bezier(0.25, 1, 0.5, 1);
+  transform-style: preserve-3d;
+}
+
+.cardContainer:hover .cardInner {
+  transform: rotateY(180deg);
+}
+
+.cardFront,
+.cardBack {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 28px;
+  padding: 2.25rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-sizing: border-box;
+}
+
+/* Front Face Layout */
+.cardFront {
+  z-index: 2;
+  transform: rotateY(0deg);
+  justify-content: flex-start;
+  gap: 2.25rem;
+}
+
+/* Back Face Layout */
+.cardBack {
+  transform: rotateY(180deg);
+  z-index: 1;
+  justify-content: space-between;
+  border-color: var(--accent-color);
+  background: var(--glass-bg);
+  box-shadow: 0 10px 30px rgba(96, 165, 250, 0.05);
+}
+
+.circleGraphic {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-color);
+  transition: transform 0.4s ease, background-color 0.4s ease, color 0.4s ease;
+}
+
+.cardContainer:hover .circleGraphic {
+  transform: scale(1.08);
+}
+
+.icon {
+  display: block;
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.cardContent h3 {
+  font-family: var(--font-sans);
+  font-size: 1.2rem;
+  font-weight: 650;
+  color: var(--foreground);
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+.cardContent p {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  opacity: 0.55;
+}
+
+/* Back Card Content Details */
+.backTitle {
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--accent-color);
+}
+
+.backTeaser {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  opacity: 0.75;
+}
+
+.ctaButton {
+  background: transparent;
+  border: none;
+  color: var(--foreground);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  padding: 0;
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  border-bottom: 1.5px solid var(--foreground);
+  padding-bottom: 0.2rem;
+  transition: gap 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.ctaButton:hover {
+  gap: 0.6rem;
+  color: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 680px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .section {
+    padding: 6rem 1.5rem;
+  }
+  .cardContainer {
+    height: 240px;
+  }
+}

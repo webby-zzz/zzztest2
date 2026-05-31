@@ -15,6 +15,8 @@ export function SmoothScroller({ children }: { children: React.ReactNode }) {
       touchMultiplier: 2,
     });
 
+    (window as any).lenis = lenis;
+
     function raf(time: number) {
       lenis.raf(time);
       requestAnimationFrame(raf);
@@ -24,6 +26,7 @@ export function SmoothScroller({ children }: { children: React.ReactNode }) {
 
     return () => {
       lenis.destroy();
+      delete (window as any).lenis;
     };
   }, []);
 

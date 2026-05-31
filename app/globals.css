@@ -1,26 +1,59 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700;800&family=Syne:wght@400;700;800&display=swap');
 
 :root {
-  --background: #FFFFFF;
-  --foreground: #000000;
-  --nav-bg: rgba(255, 255, 255, 0.8);
-  --border: rgba(0, 0, 0, 0.1);
-  --accent: #000000;
-  --white: #FFFFFF;
-  --glass-bg: rgba(0, 0, 0, 0.03);
-  --glass-border: rgba(0, 0, 0, 0.1);
-  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  /* Brand Palette Definitions */
+  --brand-navy: #0E2D54;
+  --brand-blue: #5188B5;
+  --brand-yellow: #FFB703;
+  --brand-coral: #F66C51;
+  --brand-white: #FFFFFF;
+  --brand-cream: #FAF8F1;
+  --brand-lavender: #DCC5DF;
+  --brand-mint: #C0E1D2;
+
+  /* Theme Mappings - Light Mode */
+  --background: var(--brand-cream);
+  --foreground: var(--brand-navy);
+  --nav-bg: rgba(250, 248, 241, 0.85);
+  --border: rgba(14, 45, 84, 0.1);
+  --accent: var(--brand-navy);
+  --accent-color: var(--brand-coral); /* High impact coral accent */
+  --white: var(--brand-white);
+
+  --font-sans: 'Outfit', sans-serif;
+  --font-serif: 'Cormorant Garamond', serif;
+  --font-display: 'Syne', sans-serif;
+
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(14, 45, 84, 0.08);
+  --glass-shadow: 0 8px 32px rgba(14, 45, 84, 0.04);
+  --glass-blur: blur(20px);
+
+  /* Folder Component Colors */
+  --blue-folder-tab: var(--brand-blue);
+  --blue-folder-back: var(--brand-lavender);
+  --blue-folder-front: var(--brand-navy);
+  --blue-folder-paper: var(--brand-white);
 }
 
 [data-theme='dark'] {
-  --background: #000000;
-  --foreground: #FFFFFF;
-  --nav-bg: rgba(0, 0, 0, 0.8);
-  --border: rgba(255, 255, 255, 0.1);
-  --accent: #FFFFFF;
-  --glass-bg: rgba(255, 255, 255, 0.05);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --glass-shadow: 0 8px 32px rgba(255, 255, 255, 0.05);
+  /* Theme Mappings - Dark Mode */
+  --background: var(--brand-navy);
+  --foreground: var(--brand-cream);
+  --nav-bg: rgba(14, 45, 84, 0.85);
+  --border: rgba(250, 248, 241, 0.1);
+  --accent: var(--brand-cream);
+  --accent-color: var(--brand-yellow); /* Yellow accent for visibility on dark navy */
+  --glass-bg: rgba(81, 136, 181, 0.05);
+  --glass-border: rgba(250, 248, 241, 0.08);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  --glass-blur: blur(25px);
+
+  /* Folder Component Colors */
+  --blue-folder-tab: var(--brand-yellow);
+  --blue-folder-back: var(--brand-mint);
+  --blue-folder-front: var(--brand-blue);
+  --blue-folder-paper: var(--brand-cream);
 }
 
 * {
@@ -35,8 +68,9 @@ body {
   overflow-x: hidden;
   background-color: var(--background);
   color: var(--foreground);
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-sans);
   transition: background-color 0.3s ease, color 0.3s ease;
+  -webkit-font-smoothing: antialiased;
 }
 
 a {
@@ -44,17 +78,42 @@ a {
   text-decoration: none;
 }
 
-/* Custom Scrollbar for Lenis smooth scrolling (optional, Lenis usually handles it, but good to style) */
+/* Custom Scrollbar for Lenis smooth scrolling */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
   background: var(--background);
 }
 ::-webkit-scrollbar-thumb {
   background: var(--border);
-  border-radius: 4px;
+  border-radius: 99px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--foreground);
 }
+
+/* Utility classes */
+.glassmorphism {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.text-accent-highlight {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 500;
+  color: var(--accent-color);
+}
+
+/* FOUC Prevention for GSAP ScrollTrigger Elements */
+html body .gsap-reveal-children > * {
+  opacity: 0;
+}
+html body .gsap-reveal-item {
+  opacity: 0;
+}
+

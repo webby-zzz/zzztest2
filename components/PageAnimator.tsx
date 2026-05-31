@@ -15,9 +15,6 @@ export default function PageAnimator({
   useEffect(() => {
     if (containerRef.current) {
       if (shouldSlideUp) {
-        // Set initial state to below the viewport
-        gsap.set(containerRef.current, { y: "100vh", opacity: 0 });
-        
         // Animate up smoothly
         gsap.to(containerRef.current, {
           y: 0,
@@ -26,9 +23,9 @@ export default function PageAnimator({
           ease: "power3.out",
         });
       } else {
-        // Just fade in or stay static if we're doing a custom transition
-        gsap.set(containerRef.current, { y: 0, opacity: 0 });
+        // Just fade in
         gsap.to(containerRef.current, {
+          y: 0,
           opacity: 1,
           duration: 0.5,
           ease: "power2.out",
@@ -38,7 +35,18 @@ export default function PageAnimator({
   }, [shouldSlideUp]);
 
   return (
-    <div ref={containerRef} style={{ width: "100%", minHeight: "100vh", backgroundColor: "var(--background)", position: "relative", zIndex: 40 }}>
+    <div 
+      ref={containerRef} 
+      style={{ 
+        width: "100%", 
+        minHeight: "100vh", 
+        backgroundColor: "var(--background)", 
+        position: "relative", 
+        zIndex: 40,
+        opacity: 0,
+        transform: shouldSlideUp ? "translateY(100vh)" : "translateY(0)"
+      }}
+    >
       {children}
     </div>
   );

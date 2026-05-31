@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styles from "./CircularGallery.module.css";
-import Logo from "./Logo";
 import { SERVICES_DATA } from "../lib/data";
 
 if (typeof window !== "undefined") {
@@ -13,6 +12,15 @@ if (typeof window !== "undefined") {
 }
 
 const SERVICES = SERVICES_DATA;
+
+const colors = [
+  "--brand-navy",
+  "--brand-blue",
+  "--brand-yellow",
+  "--brand-coral",
+  "--brand-lavender",
+  "--brand-mint",
+];
 
 export default function CircularGallery() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -23,8 +31,8 @@ export default function CircularGallery() {
   const router = useRouter();
 
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [transitioningImage, setTransitioningImage] = useState<{ src: string, rect: DOMRect } | null>(null);
-  const transitionOverlayRef = useRef<HTMLImageElement>(null);
+  const [transitioningCircle, setTransitioningCircle] = useState<{ color: string, rect: DOMRect } | null>(null);
+  const transitionOverlayRef = useRef<HTMLDivElement>(null);
 
   const numItems = SERVICES.length;
   const anglePerItem = 360 / numItems;
@@ -64,11 +72,32 @@ export default function CircularGallery() {
         rotation: 0,
       });
 
-      // Initial text slide-up animation
+      // 3. Staggered Entrance Animations
+      const entranceTl = gsap.timeline({
+        defaults: { ease: "power4.out" }
+      });
+
+      // Slide up and fade in hero text
       if (heroTextRef.current) {
-        gsap.fromTo(heroTextRef.current.children, 
+        entranceTl.fromTo(heroTextRef.current.children, 
           { y: 50, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.8, stagger: 0.2, ease: "power3.out" }
+          { y: 0, opacity: 1, duration: 1.0, stagger: 0.12 }
+        );
+      }
+
+      // Blossom out circles (fade in and scale up from center with elegant elastic overshoot)
+      const validItems = items.filter(Boolean);
+      if (validItems.length > 0) {
+        entranceTl.fromTo(validItems,
+          { scale: 0.4, opacity: 0 },
+          { 
+            scale: 1, 
+            opacity: 1, 
+            duration: 1.2, 
+            stagger: 0.08, 
+            ease: "back.out(1.15)"
+          },
+          "-=0.6" // start slightly before the text finishes for continuity
         );
       }
 
@@ -77,7 +106,7 @@ export default function CircularGallery() {
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top top",
-          end: "+=6000", // Increased to require 3-4 more scrolls
+          end: "+=3200", 
           scrub: 0.5,
           pin: true,
           snap: 1 / numItems,
@@ -124,13 +153,13 @@ export default function CircularGallery() {
   const handleServiceClick = (index: number, element: HTMLElement | null) => {
     if (!element) return;
     
-    // Get the bounding box of the clicked image container
     const rect = element.getBoundingClientRect();
     const service = SERVICES[index];
+    const colorVar = colors[index % colors.length];
     
-    setTransitioningImage({ src: service.image, rect });
+    setTransitioningCircle({ color: `var(${colorVar})`, rect });
 
-    // Wait a tick for the overlay image to render, then animate
+    // Wait a tick for the overlay to render, then animate
     setTimeout(() => {
       if (transitionOverlayRef.current) {
         gsap.to(transitionOverlayRef.current, {
@@ -149,56 +178,78 @@ export default function CircularGallery() {
     }, 50);
   };
 
-
   return (
     <div className={styles.galleryContainer} ref={containerRef}>
       
       <div className={styles.stickyContent}>
         
         <div className={styles.heroText} ref={heroTextRef}>
-          <h1>India's best marketing agency</h1>
-          <p>Think success? Think ZZZ</p>
-          <div className={styles.centerActions}>
-            <button className={styles.joinButton} onClick={() => handleServiceClick(currentIndex, itemsRef.current[currentIndex])}>
-              View {SERVICES[currentIndex].name}
+          <div className={styles.badge} style={{ opacity: 0 }}>[ 00 / GALERIE D'ART ]</div>
+          <h1 style={{ opacity: 0 }}>Reimagining marketing <br />as a digital <span className={styles.serifAccent}>experience</span>.</h1>
+          <p style={{ opacity: 0 }}>Think success. Think <span className={styles.boldWord}>ZZZ</span>.</p>
+          <div className={styles.centerActions} style={{ opacity: 0 }}>
+            <button 
+              className={styles.joinButton} 
+              onClick={() => {
+                const lenis = (window as any).lenis;
+                if (lenis) {
+                  lenis.scrollTo("#brand-beliefs", { duration: 1.5 });
+                } else {
+                  const target = document.getElementById("brand-beliefs");
+                  if (target) {
+                    target.scrollIntoView({ behavior: "smooth" });
+                  }
+                }
+              }}
+            >
+              Explore More
             </button>
           </div>
         </div>
         
         <div className={styles.scene}>
           <div className={styles.galleryWrapper} ref={wrapperRef}>
-            {SERVICES.map((service, i) => (
-              <div 
-                key={i} 
-                className={`${styles.galleryItem} ${currentIndex === i ? styles.active : ""}`}
-                ref={(el) => { itemsRef.current[i] = el; }}
-                onClick={(e) => handleServiceClick(i, e.currentTarget)}
-              >
-                <div className={styles.imageContainer}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={service.image} alt={service.name} className={styles.image} />
+            {SERVICES.map((service, i) => {
+              const colorVar = colors[i % colors.length];
+              // Navy (0), Blue (1), Coral (3) are dark backgrounds; Yellow (2), Lavender (4), Mint (5) are light backgrounds
+              const isDark = i % 6 === 0 || i % 6 === 1 || i % 6 === 3;
+              const textColor = isDark ? "var(--brand-cream)" : "var(--brand-navy)";
+              return (
+                <div 
+                  key={i} 
+                  className={`${styles.galleryItem} ${currentIndex === i ? styles.active : ""}`}
+                  ref={(el) => { itemsRef.current[i] = el; }}
+                  onClick={(e) => handleServiceClick(i, e.currentTarget)}
+                  style={{
+                    backgroundColor: `var(${colorVar})`,
+                    color: textColor,
+                    opacity: 0
+                  }}
+                >
+                  <div className={styles.circleContent}>
+                    <span className={styles.circleNum}>{String(i + 1).padStart(2, "0")}</span>
+                    <span className={styles.circleName}>{service.name}</span>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
       </div>
 
       {/* Transition Overlay */}
-      {transitioningImage && (
-        <img
+      {transitioningCircle && (
+        <div
           ref={transitionOverlayRef}
-          src={transitioningImage.src}
-          alt="Transition overlay"
           style={{
             position: "fixed",
-            top: transitioningImage.rect.top,
-            left: transitioningImage.rect.left,
-            width: transitioningImage.rect.width,
-            height: transitioningImage.rect.height,
-            objectFit: "cover",
-            borderRadius: "40px", // matches gallery item border radius
+            top: transitioningCircle.rect.top,
+            left: transitioningCircle.rect.left,
+            width: transitioningCircle.rect.width,
+            height: transitioningCircle.rect.height,
+            backgroundColor: transitioningCircle.color,
+            borderRadius: "50%",
             zIndex: 9999,
           }}
         />

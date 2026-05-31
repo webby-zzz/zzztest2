@@ -4,9 +4,11 @@ import { notFound } from "next/navigation";
 
 // Generate static params for all services so they are built ahead of time
 export function generateStaticParams() {
-  return SERVICES_DATA.map((service) => ({
-    id: service.id,
-  }));
+  return SERVICES_DATA
+    .filter((service) => service.id !== "social-media-marketing")
+    .map((service) => ({
+      id: service.id,
+    }));
 }
 
 export default function ServicePage({ params }: { params: { id: string } }) {
