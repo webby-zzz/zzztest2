@@ -10,7 +10,7 @@ export default function Footer() {
     <footer className={styles.footer}>
       <div className={styles.container}>
         <div className={styles.grid}>
-          
+
           {/* Card 1: DIRECTORY */}
           <div className={styles.folderCard}>
             <div className={styles.folderTab}>
@@ -30,11 +30,12 @@ export default function Footer() {
 
               <h3 className={styles.colTitle}>DIRECTORY</h3>
               <div className={styles.links}>
-                <Link href="/"><span>Services</span> <Folder size={14} className={styles.linkFolderIcon} /></Link>
-                <Link href="/#methodology"><span>Methodology</span> <Folder size={14} className={styles.linkFolderIcon} /></Link>
-                <Link href="/#portfolio"><span>Portfolio</span> <Folder size={14} className={styles.linkFolderIcon} /></Link>
-                <Link href="/#faq"><span>FAQ</span> <Folder size={14} className={styles.linkFolderIcon} /></Link>
-                <Link href="/contact"><span>Book a Call</span> <Folder size={14} className={styles.linkFolderIcon} /></Link>
+                <Link href="/"><span>Home</span> <Folder size={14} className={styles.linkFolderIcon} /></Link>
+                <Link href="/#about-us"><span>About Us</span> <Folder size={14} className={styles.linkFolderIcon} /></Link>
+                <Link href="/#services-grid"><span>Services</span> <Folder size={14} className={styles.linkFolderIcon} /></Link>
+                <Link href="/#portfolio-highlights"><span>Portfolio</span> <Folder size={14} className={styles.linkFolderIcon} /></Link>
+                <Link href="/#blog-insights"><span>Blog</span> <Folder size={14} className={styles.linkFolderIcon} /></Link>
+                <Link href="/#contact-cta"><span>Careers</span> <Folder size={14} className={styles.linkFolderIcon} /></Link>
               </div>
             </div>
           </div>
@@ -63,14 +64,14 @@ export default function Footer() {
                 </div>
               </div>
 
-              <h3 className={styles.colTitle}>OUR PLATFORMS</h3>
+              <h3 className={styles.colTitle}>OUR SERVICES</h3>
               <div className={styles.links}>
-                <Link href="/#services">Instagram</Link>
-                <Link href="/#services">Facebook</Link>
-                <Link href="/#services">YouTube</Link>
-                <Link href="/#services">Pinterest</Link>
-                <Link href="/#services">Twitter / X</Link>
-                <Link href="/#services">Threads</Link>
+                <Link href="/#services-grid">Branding</Link>
+                <Link href="/#services-grid">Web Design</Link>
+                <Link href="/#services-grid">Digital Marketing</Link>
+                <Link href="/#services-grid">UX/UI</Link>
+                <Link href="/#services-grid">Motion Graphics</Link>
+                <Link href="/#services-grid">Photography</Link>
               </div>
             </div>
           </div>
@@ -83,7 +84,7 @@ export default function Footer() {
             </div>
             <div className={styles.folderBody}>
               <h3 className={styles.colTitle}>CONNECT WITH US</h3>
-              
+
               <div className={styles.contactDetails}>
                 <div className={styles.contactItem}>
                   <MapPin size={16} className={styles.contactIcon} />
@@ -134,10 +135,10 @@ export default function Footer() {
 
           {/* Right Column Grid Group (Row 1: Resources & Agency Info, Row 2: Copyright bar) */}
           <div className={styles.rightColumnGroup}>
-            
+
             {/* Row 1: RESOURCES & AGENCY INFO */}
             <div className={styles.rowOneGrid}>
-              
+
               {/* Card 4: RESOURCES */}
               <div className={styles.folderCard}>
                 <div className={styles.folderTab}>

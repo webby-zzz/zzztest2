@@ -34,7 +34,7 @@ export default function HamburgerMenu({ isOpen, onClose }: HamburgerMenuProps) {
         delay: 0.1
       });
 
-      gsap.fromTo(linksRef.current, 
+      gsap.fromTo(linksRef.current,
         { y: 20, opacity: 0 },
         {
           y: 0,
@@ -66,10 +66,8 @@ export default function HamburgerMenu({ isOpen, onClose }: HamburgerMenuProps) {
   }, [isOpen]);
 
   const menuItems = [
-    { label: "Services", href: "/" },
-    { label: "Methodology", href: "/#methodology" },
-    { label: "Portfolio", href: "/#portfolio" },
-    { label: "FAQ", href: "/#faq" },
+    { label: "Home", href: "/" },
+    { label: "Work", href: "/#portfolio-highlights" },
     { label: "Book a Call", href: "/contact" },
   ];
 
@@ -83,9 +81,9 @@ export default function HamburgerMenu({ isOpen, onClose }: HamburgerMenuProps) {
   return (
     <>
       {/* Backdrop overlay */}
-      <div 
-        className={styles.overlay} 
-        ref={overlayRef} 
+      <div
+        className={styles.overlay}
+        ref={overlayRef}
         onClick={onClose}
       />
 
@@ -100,12 +98,12 @@ export default function HamburgerMenu({ isOpen, onClose }: HamburgerMenuProps) {
 
         <nav className={styles.nav}>
           {menuItems.map((item, index) => (
-            <Link 
+            <Link
               key={item.label}
-              href={item.href} 
+              href={item.href}
               className={styles.navLink}
               ref={(el) => { linksRef.current[index] = el; }}
-              onClick={onClose} 
+              onClick={onClose}
             >
               {item.label}
             </Link>
@@ -116,11 +114,11 @@ export default function HamburgerMenu({ isOpen, onClose }: HamburgerMenuProps) {
           <span className={styles.resourcesTitle}>RESOURCES</span>
           <nav className={styles.resourcesNav}>
             {resourceItems.map((item, index) => (
-              <Link 
+              <Link
                 key={item.label}
-                href={item.href} 
+                href={item.href}
                 className={styles.resourceLink}
-                onClick={onClose} 
+                onClick={onClose}
               >
                 {item.label}
               </Link>
