@@ -102,7 +102,7 @@ export default function TextRevealWildcard() {
   return (
     <section className={styles.section} ref={sectionRef}>
       <div className={styles.container}>
-        <span className={`${styles.badge} gsap-reveal-item`} ref={badgeRef} style={{ opacity: 0 }}>[ 10 / MANIFESTO ]</span>
+        <span className={`${styles.badge} gsap-reveal-item`} ref={badgeRef} style={{ opacity: 0 }}>[ 08 / MANIFESTO ]</span>
         <p className={styles.paragraph} ref={textRef}>
           {REVEAL_TEXT.split(" ").map((word, i) => (
             <span key={i} className={styles.word}>

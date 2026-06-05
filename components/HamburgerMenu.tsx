@@ -104,6 +104,7 @@ export default function HamburgerMenu({ isOpen, onClose }: HamburgerMenuProps) {
               className={styles.navLink}
               ref={(el) => { linksRef.current[index] = el; }}
               onClick={onClose}
+              scroll={false}
             >
               {item.label}
             </Link>

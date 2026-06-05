@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700;800&family=Syne:wght@400;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Fira+Code:wght@300;400;500;600;700&display=swap');
 
 :root {
   /* Brand Palette Definitions */
@@ -20,9 +20,9 @@
   --accent-color: var(--brand-coral); /* High impact coral accent */
   --white: var(--brand-white);
 
-  --font-sans: 'Outfit', sans-serif;
-  --font-serif: 'Cormorant Garamond', serif;
-  --font-display: 'Syne', sans-serif;
+  --font-sans: 'Fira Code', monospace;
+  --font-serif: 'Century Expanded', 'Century Schoolbook', 'TeX Gyre Schola', 'Cormorant Garamond', serif;
+  --font-display: 'Fira Code', monospace;
 
   --glass-bg: rgba(255, 255, 255, 0.6);
   --glass-border: rgba(14, 45, 84, 0.08);
@@ -34,19 +34,31 @@
   --blue-folder-back: var(--brand-lavender);
   --blue-folder-front: var(--brand-navy);
   --blue-folder-paper: var(--brand-white);
+
+  /* Section-specific backgrounds to cut monotony */
+  --services-bg: var(--brand-blue);
+  --services-text: var(--brand-cream);
+  --wcu-bg: var(--brand-mint);
+  --wcu-text: var(--brand-navy);
+  --stats-bg: var(--brand-navy);
+  --stats-text: var(--brand-cream);
+  --test-bg: var(--brand-lavender);
+  --test-text: var(--brand-navy);
+  --reveal-bg: var(--brand-navy);
+  --reveal-text: var(--brand-cream);
 }
 
 [data-theme='dark'] {
   /* Theme Mappings - Dark Mode */
-  --background: var(--brand-navy);
+  --background: #050e1a; /* Rich, bold deep brand navy */
   --foreground: var(--brand-cream);
-  --nav-bg: rgba(14, 45, 84, 0.85);
-  --border: rgba(250, 248, 241, 0.1);
+  --nav-bg: rgba(5, 14, 26, 0.85);
+  --border: rgba(81, 136, 181, 0.15); /* Brand-blue tinted border */
   --accent: var(--brand-cream);
   --accent-color: var(--brand-yellow); /* Yellow accent for visibility on dark navy */
-  --glass-bg: rgba(81, 136, 181, 0.05);
-  --glass-border: rgba(250, 248, 241, 0.08);
-  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  --glass-bg: rgba(81, 136, 181, 0.08); /* Brand-blue tinted glass background */
+  --glass-border: rgba(81, 136, 181, 0.15);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
   --glass-blur: blur(25px);
 
   /* Folder Component Colors */
@@ -54,6 +66,18 @@
   --blue-folder-back: var(--brand-mint);
   --blue-folder-front: var(--brand-blue);
   --blue-folder-paper: var(--brand-cream);
+
+  /* Section-specific backgrounds to cut monotony - Dark Mode */
+  --services-bg: #0d2745; /* Deep, bold midnight brand blue */
+  --services-text: var(--brand-cream);
+  --wcu-bg: #082c1f; /* Rich, bold deep mint-emerald */
+  --wcu-text: var(--brand-cream);
+  --stats-bg: #071224; /* Bold deep brand navy */
+  --stats-text: var(--brand-cream);
+  --test-bg: #211038; /* Bold, deep royal velvet lavender-plum */
+  --test-text: var(--brand-cream);
+  --reveal-bg: #381409; /* Bold, deep terracotta/burnt brand coral */
+  --reveal-text: var(--brand-cream);
 }
 
 * {

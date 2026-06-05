@@ -22,39 +22,43 @@ export default function ClientLogos() {
   const marqueesRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (headingRef.current) {
-      gsap.fromTo(headingRef.current.children,
-        { opacity: 0, y: 30, scale: 0.98 },
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          stagger: 0.1,
-          duration: 0.8,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: headingRef.current,
-            start: "top 92%",
+    const ctx = gsap.context(() => {
+      if (headingRef.current) {
+        gsap.fromTo(headingRef.current.children,
+          { opacity: 0, y: 30, scale: 0.98 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            stagger: 0.1,
+            duration: 0.8,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: headingRef.current,
+              start: "top 92%",
+            }
           }
-        }
-      );
-    }
+        );
+      }
 
-    if (marqueesRef.current) {
-      gsap.fromTo(marqueesRef.current,
-        { opacity: 0, y: 40 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1.1,
-          ease: "power4.out",
-          scrollTrigger: {
-            trigger: marqueesRef.current,
-            start: "top 92%",
+      if (marqueesRef.current) {
+        gsap.fromTo(marqueesRef.current,
+          { opacity: 0, y: 40 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1.1,
+            ease: "power4.out",
+            scrollTrigger: {
+              trigger: marqueesRef.current,
+              start: "top 92%",
+            }
           }
-        }
-      );
-    }
+        );
+      }
+    });
+
+    return () => ctx.revert();
   }, []);
 
   return (

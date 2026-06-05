@@ -7,8 +7,7 @@ import StatsSection from "@/components/sections/StatsSection";
 import PortfolioHighlights from "@/components/sections/PortfolioHighlights";
 import Testimonials from "@/components/sections/Testimonials";
 import HowWeWork from "@/components/sections/HowWeWork";
-import TextRevealWildcard from "@/components/sections/TextRevealWildcard";
-import BlogInsights from "@/components/sections/BlogInsights";
+import AboutMe from "@/components/sections/AboutMe";
 import ContactCTA from "@/components/sections/ContactCTA";
 
 export default function Home() {
@@ -25,8 +24,7 @@ export default function Home() {
       <div id="methodology">
         <HowWeWork />
       </div>
-      <TextRevealWildcard />
-      <BlogInsights />
+      <AboutMe />
       <ContactCTA />
     </main>
   );

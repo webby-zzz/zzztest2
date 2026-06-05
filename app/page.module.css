@@ -1142,29 +1142,7 @@
   transform: translateX(-4px);
 }
 
-/* Media query to force exact 100vh stacking panels on desktop */
-@media (min-width: 769px) {
-  .hero,
-  .section {
-    height: 100vh !important;
-    min-height: 100vh !important;
-    max-height: 100vh !important;
-    overflow: hidden !important;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
 
-  .containerInner {
-    height: 100% !important;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 3vh;
-    padding: 4vh 0 !important;
-  }
-}
 
 /* Side-by-side What We Do layout */
 .whatWeDoLayout {

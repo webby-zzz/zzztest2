@@ -1,10 +1,13 @@
 .section {
-  padding: 12rem 2rem;
-  background-color: var(--background);
+  padding: 6rem 2rem;
+  background-color: var(--reveal-bg);
+  color: var(--reveal-text);
+  --foreground: var(--reveal-text);
+  --background: var(--reveal-bg);
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 80vh;
+  min-height: 50vh;
   border-bottom: 1px solid var(--border);
 }
 
@@ -47,12 +50,7 @@
   color: var(--accent-color);
 }
 
-@media (min-width: 1025px) {
-  .section {
-    height: 100vh;
-    padding: 0 2rem;
-  }
-}
+
 
 @media (max-width: 600px) {
   .section {

@@ -16,9 +16,10 @@
   background-color: var(--background);
 }
 
+
 .heroText {
   position: absolute;
-  top: 62%; /* Pushed down to avoid clashing with service circles */
+  top: 70%; /* Pushed down to avoid clashing with service circles */
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
@@ -131,19 +132,54 @@
   pointer-events: auto;
 }
 
-.joinButton {
-  background: var(--foreground);
-  border: none;
-  padding: 14px 32px;
-  border-radius: 999px;
-  color: var(--background);
-  font-size: 1rem;
-  font-weight: 700;
+.scrollDownContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.65rem;
   cursor: pointer;
+  pointer-events: auto;
+  margin-top: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.scrollDownText {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-weight: 650;
+  color: var(--foreground);
+  opacity: 0.75;
   transition: opacity 0.3s ease;
 }
-.joinButton:hover {
-  opacity: 0.8;
+
+.scrollDownArrow {
+  width: 24px;
+  height: 24px;
+  color: var(--accent-color);
+  animation: bounceArrow 2s infinite;
+  transition: color 0.3s ease;
+}
+
+.scrollDownContainer:hover .scrollDownText {
+  opacity: 1;
+}
+
+.scrollDownContainer:hover {
+  transform: translateY(2px);
+}
+
+@keyframes bounceArrow {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-8px);
+  }
+  60% {
+    transform: translateY(-4px);
+  }
 }
 
 .galleryWrapper {

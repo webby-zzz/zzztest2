@@ -298,7 +298,7 @@ export default function HowWeWork() {
     <section className={styles.section} ref={sectionRef}>
       <div className={styles.headerContainer}>
         <div className={`${styles.headingBlock} gsap-reveal-children`} ref={headingRef}>
-          <span className={styles.badge} style={{ opacity: 0 }}>[ 06 / WORKFLOW ]</span>
+          <span className={styles.badge} style={{ opacity: 0 }}>[ 07 / WORKFLOW ]</span>
           <h2 style={{ opacity: 0 }}>How we <span className={styles.headingAccent}>work</span>.</h2>
           <p style={{ opacity: 0 }}>A transparent timeline mapping our deployment pipeline from kickoff to delivery.</p>
         </div>

@@ -3,18 +3,9 @@
 import React, { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Tag } from "lucide-react";
+import Link from "next/link";
 import styles from "./ServicesGrid.module.css";
-import { 
-  Sparkles, 
-  Laptop, 
-  Smartphone, 
-  PenTool, 
-  Search, 
-  TrendingUp, 
-  Share2, 
-  Video, 
-  Camera 
-} from "lucide-react";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -22,88 +13,126 @@ if (typeof window !== "undefined") {
 
 const SERVICES_GRID_DATA = [
   {
-    title: "Brand Strategy & Identity",
-    desc: "From corporate foundations to complete visual assets.",
-    teaser: "We construct detailed design guidelines and corporate foundations. Let's design a voice that cuts through the market clutter.",
-    icon: Sparkles,
+    id: "social-media-marketing",
+    title: "Social Media Marketing",
+    desc: "Engaging brand content and community management across platforms.",
+    image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=600&auto=format&fit=crop",
+    category: "MARKETING",
+    timeframe: "Ongoing",
+    tags: ["INSTAGRAM", "COMMUNITY"]
   },
   {
-    title: "Web Design",
-    desc: "Premium interfaces built for maximum scroll impact.",
-    teaser: "We combine layout design with pixel precision. Experience custom visual paths that engage users instantly.",
-    icon: Laptop,
+    id: "content-creation",
+    title: "Content Creation",
+    desc: "Bespoke reels, carousels, and visual posts tailored for your audience.",
+    image: "https://images.unsplash.com/photo-1542435503-956c469947f6?q=80&w=600&auto=format&fit=crop",
+    category: "CREATIVE",
+    timeframe: "2-4 WEEKS",
+    tags: ["REELS", "GRAPHICS"]
   },
   {
-    title: "App Development",
-    desc: "Blazing fast react structures with zero load overhead.",
-    teaser: "We engineer Next.js architectures optimized for speed and longevity. Get clean source code that scales effortlessly.",
-    icon: Smartphone,
+    id: "branding-logo",
+    title: "Branding & Logo",
+    desc: "Distinct visual identities, logo marks, and complete brand style guides.",
+    image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=600&auto=format&fit=crop",
+    category: "DESIGN",
+    timeframe: "3-5 WEEKS",
+    tags: ["LOGO", "GUIDELINES"]
   },
   {
-    title: "Copywriting & Copy",
-    desc: "High-intent messaging designed to convert visitors.",
-    teaser: "We craft copy lines that capture user interest. Replace generic descriptions with high-converting marketing frameworks.",
-    icon: PenTool,
+    id: "linkedin-marketing",
+    title: "LinkedIn Marketing",
+    desc: "Authority-building thought leadership content for founders and brands.",
+    image: "https://images.unsplash.com/photo-1557200134-90327ee9fafa?q=80&w=600&auto=format&fit=crop",
+    category: "MARKETING",
+    timeframe: "Ongoing",
+    tags: ["FOUNDER B2B", "STRATEGY"]
   },
   {
-    title: "SEO & Search Strategy",
-    desc: "Securing search visibility that drives organic inbound.",
-    teaser: "Our technical audit process targets high-intent keyword ranks. Rank at the top and convert visitors without ad spend.",
-    icon: Search,
+    id: "photography-videography",
+    title: "Photography & Videography",
+    desc: "Premium product shoots and campaign video production.",
+    image: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=600&auto=format&fit=crop",
+    category: "CREATIVE",
+    timeframe: "2-4 WEEKS",
+    tags: ["SHOOTS", "EDITING"]
   },
   {
-    title: "Performance Marketing",
-    desc: "Targeted scaling pipelines built around transparent data.",
-    teaser: "We construct advertising paths that track real customer acquisition. Optimize budget allocation with clear ROI maps.",
-    icon: TrendingUp,
+    id: "packaging-design",
+    title: "Packaging Design",
+    desc: "Premium physical package layouts, labels, and tactile mockups.",
+    image: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=600&auto=format&fit=crop",
+    category: "DESIGN",
+    timeframe: "4-6 WEEKS",
+    tags: ["TACTILE", "LABELS"]
   },
   {
-    title: "Social Media Growth",
-    desc: "Engaging brand content that builds loyal customer bases.",
-    teaser: "We schedule, write, and produce media templates tailored for growth. Turn casual scrolls into active community members.",
-    icon: Share2,
+    id: "website-development-seo",
+    title: "Website Development & SEO",
+    desc: "Ultra-fast Next.js code structures with organic search ranking strategies.",
+    image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=600&auto=format&fit=crop",
+    category: "DEVELOPMENT",
+    timeframe: "4-8 WEEKS",
+    tags: ["NEXT.JS", "RANKING"]
   },
   {
-    title: "Motion & 3D Design",
-    desc: "Subtle transitions and models that capture attention.",
-    teaser: "We animate UI systems, custom products, and brand reels. Elevate visual hierarchy with custom frame interactions.",
-    icon: Video,
+    id: "brochures-lookbook-flyers",
+    title: "Brochures, Lookbook & Flyers",
+    desc: "Elegant print layouts, digital lookbooks, and high-impact flyers.",
+    image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?q=80&w=600&auto=format&fit=crop",
+    category: "DESIGN",
+    timeframe: "1-3 WEEKS",
+    tags: ["PRINT", "EDITORIAL"]
   },
   {
-    title: "Creative Production",
-    desc: "Premium photo shoots and video assets for campaigns.",
-    teaser: "We produce campaign-ready assets built around high-fidelity cameras. Make a lasting first impression across all media channels.",
-    icon: Camera,
+    id: "event-invites-wedding-cards",
+    title: "Event Invites & Wedding Cards",
+    desc: "Exclusive bespoke stationery, digital invites, and premium wedding card designs.",
+    image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop",
+    category: "CREATIVE",
+    timeframe: "2-4 WEEKS",
+    tags: ["STATIONERY", "BESPOKE"]
   }
 ];
 
-function ServiceFlipCard({ title, desc, teaser, icon: Icon }: typeof SERVICES_GRID_DATA[0]) {
+interface ServiceCardProps {
+  id: string;
+  title: string;
+  desc: string;
+  image: string;
+  category: string;
+  timeframe: string;
+  tags: string[];
+}
+
+function ServiceCard({ id, title, desc, image, category, tags }: Omit<ServiceCardProps, 'timeframe'>) {
   return (
-    <div className={`${styles.cardContainer} gsap-reveal-item`} style={{ opacity: 0 }}>
-      <div className={styles.cardInner}>
+    <Link href={`/services/${id}`} className={styles.cardLink} scroll={false}>
+      <div className={`${styles.card} glassmorphism gsap-reveal-item`} style={{ opacity: 0 }}>
+        <div className={styles.imageWrapper}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={image} alt={title} className={styles.image} />
+        </div>
         
-        {/* Front of Card */}
-        <div className={`${styles.cardFront} glassmorphism`}>
-          <div className={styles.circleGraphic}>
-            <Icon size={22} className={styles.icon} />
+        <div className={styles.cardContent}>
+          <div className={styles.metaRow}>
+            <span className={styles.categoryTag}>{category}</span>
           </div>
-          <div className={styles.cardContent}>
-            <h3>{title}</h3>
-            <p>{desc}</p>
+          
+          <h3 className={styles.cardTitle}>{title}</h3>
+          <p className={styles.cardDesc}>{desc}</p>
+          
+          <div className={styles.pillsRow}>
+            {tags.map((tag, idx) => (
+              <span key={idx} className={styles.pill}>
+                <Tag size={10} className={styles.tagIcon} />
+                {tag}
+              </span>
+            ))}
           </div>
         </div>
-
-        {/* Back of Card */}
-        <div className={`${styles.cardBack} glassmorphism`}>
-          <h4 className={styles.backTitle}>{title}</h4>
-          <p className={styles.backTeaser}>{teaser}</p>
-          <button className={styles.ctaButton}>
-            Explore <span>→</span>
-          </button>
-        </div>
-
       </div>
-    </div>
+    </Link>
   );
 }
 
@@ -112,42 +141,46 @@ export default function ServicesGrid() {
   const headingRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (headingRef.current) {
-      gsap.fromTo(headingRef.current.children,
-        { opacity: 0, y: 30, scale: 0.98 },
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          stagger: 0.1,
-          duration: 0.8,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: headingRef.current,
-            start: "top 92%",
+    const ctx = gsap.context(() => {
+      if (headingRef.current) {
+        gsap.fromTo(headingRef.current.children,
+          { opacity: 0, y: 30, scale: 0.98 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            stagger: 0.1,
+            duration: 0.8,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: headingRef.current,
+              start: "top 92%",
+            }
           }
-        }
-      );
-    }
+        );
+      }
 
-    if (containerRef.current) {
-      const cards = containerRef.current.querySelectorAll(`.${styles.cardContainer}`);
-      gsap.fromTo(cards,
-        { opacity: 0, y: 50, scale: 0.96 },
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          stagger: 0.08,
-          duration: 1.1,
-          ease: "power4.out",
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top 92%",
+      if (containerRef.current) {
+        const cards = containerRef.current.querySelectorAll(`.${styles.card}`);
+        gsap.fromTo(cards,
+          { opacity: 0, y: 50, scale: 0.96 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            stagger: 0.05,
+            duration: 0.9,
+            ease: "power4.out",
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: "top 92%",
+            }
           }
-        }
-      );
-    }
+        );
+      }
+    });
+
+    return () => ctx.revert();
   }, []);
 
   return (
@@ -161,7 +194,7 @@ export default function ServicesGrid() {
 
         <div className={styles.grid} ref={containerRef}>
           {SERVICES_GRID_DATA.map((srv, index) => (
-            <ServiceFlipCard key={index} {...srv} />
+            <ServiceCard key={index} {...srv} />
           ))}
         </div>
       </div>

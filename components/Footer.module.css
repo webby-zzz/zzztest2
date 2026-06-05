@@ -1,7 +1,16 @@
 /* Footer Main Wrap */
 .footer {
   width: 100%;
-  background: var(--background);
+  background: linear-gradient(135deg, var(--brand-navy) 0%, #153860 50%, #1d4b80 100%);
+  color: var(--brand-cream);
+  --foreground: var(--brand-cream);
+  --background: var(--brand-navy);
+  --border: rgba(250, 248, 241, 0.15);
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+  --glass-blur: blur(20px);
+  --accent-color: var(--brand-yellow);
   padding: 8rem 0 4rem 0;
   border-top: 1px solid var(--border);
   position: relative;
@@ -61,23 +70,17 @@
   border-right: 1.5px solid var(--glass-border);
   border-radius: 14px 14px 0 0;
   z-index: 2;
-  box-shadow: 0 -4px 16px rgba(14, 45, 84, 0.02);
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.1);
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 [data-theme='dark'] .folderTab {
-  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.2);
 }
 
 /* Tab Cover: hides the top-border of folder body under the tab */
 .tabCover {
-  position: absolute;
-  bottom: -2.5px;
-  left: 1.5px;
-  width: calc(100% - 3px);
-  height: 4px;
-  background: var(--background);
-  z-index: 4;
+  display: none;
 }
 
 /* Tab Curve Scoop (bottom right of tab) */
@@ -89,7 +92,7 @@
   width: 12px;
   height: 12px;
   border-bottom-left-radius: 12px;
-  box-shadow: -3px 3px 0 0 var(--background);
+  box-shadow: -3px 3px 0 0 #13345a; /* Blend with local gradient background */
   z-index: 4;
   pointer-events: none;
 }
@@ -113,7 +116,9 @@
   background: var(--glass-bg);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
-  border: 1.5px solid var(--glass-border);
+  border-bottom: 1.5px solid var(--glass-border);
+  border-left: 1.5px solid var(--glass-border);
+  border-right: 1.5px solid var(--glass-border);
   box-shadow: var(--glass-shadow);
   border-radius: 0 24px 24px 24px;
   padding: 2.25rem 2rem;
@@ -122,25 +127,43 @@
   flex-direction: column;
   z-index: 1;
   position: relative;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+/* Pseudo element top border that starts after the tab width */
+.folderBody::before {
+  content: '';
+  position: absolute;
+  top: -1.5px;
+  left: 132px;
+  right: -1.5px;
+  height: 1.5px;
+  background: var(--glass-border);
+  z-index: 3;
+  transition: background-color 0.3s ease;
 }
 
 .folderCard:hover .folderBody {
   border-color: var(--accent-color);
-  box-shadow: 0 10px 40px rgba(246, 108, 81, 0.06);
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 15px 40px rgba(246, 108, 81, 0.12);
+}
+
+.folderCard:hover .folderBody::before {
+  background: var(--accent-color);
 }
 
 [data-theme='dark'] .folderCard:hover .folderBody {
-  box-shadow: 0 10px 40px rgba(255, 183, 3, 0.06);
+  box-shadow: 0 15px 40px rgba(255, 183, 3, 0.12);
 }
 
 .folderCard:hover .folderTab {
   border-color: var(--accent-color);
-  box-shadow: 0 -4px 16px rgba(246, 108, 81, 0.04);
+  box-shadow: 0 -4px 16px rgba(246, 108, 81, 0.08);
 }
 
 [data-theme='dark'] .folderCard:hover .folderTab {
-  box-shadow: 0 -4px 16px rgba(255, 183, 3, 0.04);
+  box-shadow: 0 -4px 16px rgba(255, 183, 3, 0.08);
 }
 
 .colTitle {

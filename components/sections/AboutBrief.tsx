@@ -17,34 +17,38 @@ export default function AboutBrief() {
   useEffect(() => {
     if (!textRef.current || !visualRef.current) return;
 
-    gsap.fromTo(textRef.current.children,
-      { opacity: 0, y: 25 },
-      {
-        opacity: 1,
-        y: 0,
-        stagger: 0.12,
-        duration: 0.8,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: textRef.current,
-          start: "top 92%",
+    const ctx = gsap.context(() => {
+      gsap.fromTo(textRef.current!.children,
+        { opacity: 0, y: 25 },
+        {
+          opacity: 1,
+          y: 0,
+          stagger: 0.12,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: textRef.current,
+            start: "top 92%",
+          }
         }
-      }
-    );
+      );
 
-    gsap.fromTo(visualRef.current,
-      { opacity: 0, scale: 0.96 },
-      {
-        opacity: 1,
-        scale: 1,
-        duration: 1,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: visualRef.current,
-          start: "top 92%",
+      gsap.fromTo(visualRef.current,
+        { opacity: 0, scale: 0.96 },
+        {
+          opacity: 1,
+          scale: 1,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: visualRef.current,
+            start: "top 92%",
+          }
         }
-      }
-    );
+      );
+    });
+
+    return () => ctx.revert();
   }, []);
 
   return (
@@ -53,7 +57,7 @@ export default function AboutBrief() {
         
         {/* Left Side: Copy content */}
         <div className={`${styles.textCol} gsap-reveal-children`} ref={textRef}>
-          <span className={styles.badge} style={{ opacity: 0 }}>[ 04 / OUR STORY ]</span>
+          <span className={styles.badge} style={{ opacity: 0 }}>[ 02 / OUR STORY ]</span>
           <h2 style={{ opacity: 0 }}>
             Built by <span className={styles.serifAccent}>creatives</span>.<br />
             Driven by <span className={styles.boldAccent}>strategy</span>.
@@ -61,23 +65,11 @@ export default function AboutBrief() {
           
           <div className={styles.paragraphs} style={{ opacity: 0 }}>
             <p>
-              We are a modern collective of designers, writers, and technical developers obsessed with commercial growth. We replace visual noise and slow templates with bespoke visual languages and ultra-speed assets.
-            </p>
-            <p>
-              Our philosophy revolves around digital subtraction. We remove the generic elements to leave only what actively enhances customer experience and scales brand authority.
+              We are a modern design and engineering collective focused on commercial growth. We replace visual noise and slow templates with bespoke, high-performance visual systems, stripping away the generic to leave only what scales your brand authority.
             </p>
           </div>
 
-          {/* Pull Quote */}
-          <blockquote className={styles.pullQuote} style={{ opacity: 0 }}>
-            "Bespoke design is not about decoration; it is about building a distinct commercial moat."
-          </blockquote>
 
-          <div className={styles.linksBlock} style={{ opacity: 0 }}>
-            <Link href="#contact-cta" className={styles.aboutBtn}>
-              Our Story <span>→</span>
-            </Link>
-          </div>
         </div>
 
         {/* Right Side: Looping Reel Illustration */}

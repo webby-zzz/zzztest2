@@ -24,114 +24,16 @@ import {
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styles from "./page.module.css";
+import { CASE_STUDIES_DATA } from "@/lib/data";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
 // Brand Bubbles data (Portfolio Case Studies)
-const BRAND_BUBBLES = [
-  {
-    id: "acme",
-    logo: "AC",
-    label: "E-Commerce Feed",
-    color: "var(--brand-yellow)",
-    brandName: "Acme Shop",
-    industry: "Fashion E-commerce",
-    brief: "Scale organic Instagram feed reach and turn casual scrolls into high-intent shoppers.",
-    work: "We designed a cohesive editorial grid layout, produced premium product static posts, and established a video transition style for stories.",
-    outcome: "+145% sales conversion rate directly from Instagram Stories.",
-    avatar: "AS",
-    feed: [
-      "https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=400&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=400&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=400&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=400&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=400&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=400&auto=format&fit=crop"
-    ]
-  },
-  {
-    id: "nike",
-    logo: "NK",
-    label: "Viral SNKRS Launch",
-    color: "var(--brand-coral)",
-    brandName: "Nike SNKRS",
-    industry: "Retail / Apparel",
-    brief: "Build viral hype on X and Reels for a limited-edition capsule sneaker release.",
-    work: "We scripted short-form videos with built-in hooks, managed micro-influencer product seedings, and executed real-time community engagement in replies.",
-    outcome: "12M+ organic views generated, shoe collection sold out in 4 minutes.",
-    avatar: "NS",
-    feed: [
-      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=400&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1608231387042-66d1773070a5?q=80&w=400&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?q=80&w=400&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?q=80&w=400&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1520639888713-7851133b1ed0?q=80&w=400&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1575537302964-96cd47c06b1b?q=80&w=400&auto=format&fit=crop"
-    ]
-  },
-  {
-    id: "lumos",
-    logo: "LM",
-    label: "SaaS Authority",
-    color: "var(--brand-blue)",
-    brandName: "Lumos SaaS",
-    industry: "Tech / Enterprise",
-    brief: "Establish LinkedIn and Twitter/X thought leadership within the cloud management niche.",
-    work: "We created custom technical carousels, wrote high-value industry breakdowns, and ran a Thread-based early mover growth strategy.",
-    outcome: "+340% increase in monthly qualified demo signups from social referrals.",
-    avatar: "LS",
-    feed: [
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=400&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=400&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=400&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=400&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=400&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=400&auto=format&fit=crop"
-    ]
-  },
-  {
-    id: "kaizen",
-    logo: "KZ",
-    label: "Portfolio Reels",
-    color: "var(--brand-mint)",
-    brandName: "Kaizen Agency",
-    industry: "Creative Services",
-    brief: "Position a top-tier creative studio through cinematic behind-the-scenes content on Instagram.",
-    work: "We structured a Reels-first content calendar, color graded behind-the-scenes footage, and designed stylized typography overlays.",
-    outcome: "Generated $180k in organic client leads through DM inquiries.",
-    avatar: "KA",
-    feed: [
-      "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=400&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=400&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=400&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=400&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1531538606174-0f90ff5dce83?q=80&w=400&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=400&auto=format&fit=crop"
-    ]
-  },
-  {
-    id: "equinox",
-    logo: "EQ",
-    label: "Grids & Pins",
-    color: "var(--brand-lavender)",
-    brandName: "Equinox Spa",
-    industry: "Wellness / Hospitality",
-    brief: "Construct a highly aesthetic, curated presence to drive luxury booking inquiries.",
-    work: "We created a minimalist Pinterest strategy, organized rich boards for aesthetic decor search, and designed a grid theme for Instagram.",
-    outcome: "+220% booking inquiries with zero paid ad spend.",
-    avatar: "ES",
-    feed: [
-      "https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=400&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1519751138087-5bf79df62d5b?q=80&w=400&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=400&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?q=80&w=400&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1527203561188-dae1bc1a417f?q=80&w=400&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=400&auto=format&fit=crop"
-    ]
-  }
-];
+const BRAND_BUBBLES = CASE_STUDIES_DATA.filter(item => 
+  item.services.includes("social-media-marketing")
+);
 
 // FAQS
 const FAQS = [
@@ -163,12 +65,13 @@ export default function SocialMediaPage() {
   const faqRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const faqBodiesRef = useRef<(HTMLDivElement | null)[]>([]);
+  const approachTextRef = useRef<HTMLParagraphElement>(null);
 
   // States
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedBrand, setSelectedBrand] = useState<typeof BRAND_BUBBLES[0] | null>(null);
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
-  const [form, setForm] = useState({ name: "", email: "", phone: "", company: "", brief: "", budget: "" });
+  const [form, setForm] = useState({ name: "", email: "", phone: "", company: "", brief: "", socialLinks: "", location: "" });
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
 
   const modalOverlayRef = useRef<HTMLDivElement>(null);
@@ -192,48 +95,11 @@ export default function SocialMediaPage() {
         );
       }
 
-      // 2. PARALLAX EFFECT 1: Hero collage elements
-      const collage1 = heroRef.current?.querySelector(`.${styles.collageItem1}`);
-      const collage2 = heroRef.current?.querySelector(`.${styles.collageItem2}`);
-      const collage3 = heroRef.current?.querySelector(`.${styles.collageItem3}`);
-      const collage4 = heroRef.current?.querySelector(`.${styles.collageItem4}`);
-
-      if (collage1) {
-        gsap.to(collage1, {
-          yPercent: -20,
-          scrollTrigger: {
-            trigger: heroRef.current,
-            start: "top top",
-            end: "bottom top",
-            scrub: true,
-          }
-        });
-      }
-      if (collage2) {
-        gsap.to(collage2, {
-          yPercent: -45,
-          scrollTrigger: {
-            trigger: heroRef.current,
-            start: "top top",
-            end: "bottom top",
-            scrub: true,
-          }
-        });
-      }
-      if (collage3) {
-        gsap.to(collage3, {
-          yPercent: -25,
-          scrollTrigger: {
-            trigger: heroRef.current,
-            start: "top top",
-            end: "bottom top",
-            scrub: true,
-          }
-        });
-      }
-      if (collage4) {
-        gsap.to(collage4, {
-          yPercent: -50,
+      // 2. PARALLAX EFFECT 1: Hero background banner parallax
+      const heroBg = heroRef.current?.querySelector(`.${styles.heroBackground}`);
+      if (heroBg) {
+        gsap.to(heroBg, {
+          yPercent: -15,
           scrollTrigger: {
             trigger: heroRef.current,
             start: "top top",
@@ -348,7 +214,8 @@ export default function SocialMediaPage() {
       // 5. Scroll Reveal: Approach Section
       const approachHead = approachRef.current?.querySelector(".gsap-reveal-head");
       if (approachHead) {
-        gsap.fromTo(approachHead.children,
+        const animElements = approachHead.querySelectorAll(`.${styles.badge}, h2`);
+        gsap.fromTo(animElements,
           { opacity: 0, y: 30, scale: 0.98 },
           {
             opacity: 1,
@@ -360,6 +227,25 @@ export default function SocialMediaPage() {
             scrollTrigger: {
               trigger: approachHead,
               start: "top 92%",
+            }
+          }
+        );
+      }
+
+      if (approachTextRef.current) {
+        const words = approachTextRef.current.querySelectorAll(`.${styles.word}`);
+        gsap.fromTo(words,
+          { opacity: 0.15 },
+          {
+            opacity: 1,
+            stagger: 0.06,
+            duration: 0.4,
+            ease: "power1.out",
+            scrollTrigger: {
+              trigger: approachTextRef.current,
+              start: "top 80%",
+              end: "bottom 55%",
+              scrub: 0.1,
             }
           }
         );
@@ -496,30 +382,7 @@ export default function SocialMediaPage() {
         );
       }
 
-      // 9. Card Slide Up / Section Stacking effect (Exactly 100vh Stacking)
-      if (window.innerWidth > 768) {
-        const sectionsToPin = [
-          { current: heroRef.current, next: whatWeDoRef.current },
-          { current: whatWeDoRef.current, next: inclusionsRef.current },
-          { current: inclusionsRef.current, next: approachRef.current },
-          { current: approachRef.current, next: bubblesRef.current },
-          { current: bubblesRef.current, next: faqRef.current },
-        ];
 
-        sectionsToPin.forEach(({ current, next }) => {
-          if (!current || !next) return;
-
-          ScrollTrigger.create({
-            trigger: current,
-            start: "top top",
-            endTrigger: next,
-            end: "top top",
-            pin: true,
-            pinSpacing: false,
-            invalidateOnRefresh: true,
-          });
-        });
-      }
 
     }, containerRef);
 
@@ -622,7 +485,7 @@ export default function SocialMediaPage() {
     setStatus("sending");
     setTimeout(() => {
       setStatus("sent");
-      setForm({ name: "", email: "", phone: "", company: "", brief: "", budget: "" });
+      setForm({ name: "", email: "", phone: "", company: "", brief: "", socialLinks: "", location: "" });
       setTimeout(() => setStatus("idle"), 4000);
     }, 1500);
   };
@@ -633,35 +496,17 @@ export default function SocialMediaPage() {
       {/* SECTION: Hero Banner */}
       <section className={`${styles.hero} ${styles.zHero}`} ref={heroRef}>
 
-        {/* PARALLAX COLLAGE BACKGROUND */}
+        {/* HERO BACKGROUND IMAGE */}
         <div className={styles.heroBackground}>
-          <div className={styles.collage}>
-            <div className={`${styles.collageItem} ${styles.collageItem1}`}>
-              <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=400&auto=format&fit=crop" alt="Collage 1" className={styles.collageImage} />
-            </div>
-            <div className={`${styles.collageItem} ${styles.collageItem2}`}>
-              <img src="https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?q=80&w=400&auto=format&fit=crop" alt="Collage 2" className={styles.collageImage} />
-            </div>
-            <div className={`${styles.collageItem} ${styles.collageItem3}`}>
-              <img src="https://images.unsplash.com/photo-1611606063065-ee7946f0787a?q=80&w=400&auto=format&fit=crop" alt="Collage 3" className={styles.collageImage} />
-            </div>
-            <div className={`${styles.collageItem} ${styles.collageItem4}`}>
-              <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=400&auto=format&fit=crop" alt="Collage 4" className={styles.collageImage} />
-            </div>
-          </div>
+          <img 
+            src="/service banner.jpeg" 
+            alt="Service Page Banner" 
+            className={styles.heroImage}
+          />
         </div>
 
         {/* HERO CONTENT */}
         <div className={styles.heroContent}>
-          <div className={`${styles.badge} gsap-hero-el`} style={{ opacity: 0 }}>
-            [ Service // organic growth ]
-          </div>
-          <h1 className="gsap-hero-el" style={{ opacity: 0 }}>
-            Social Media That <br />Actually <span className={styles.serifAccent}>Converts</span>.
-          </h1>
-          <p className={`${styles.heroSub} gsap-hero-el`} style={{ opacity: 0 }}>
-            Strategy-led, content-driven, and built for the algorithm — and for humans.
-          </p>
           <div className="gsap-hero-el" style={{ opacity: 0 }}>
             <button className={styles.ctaButton} onClick={handleAuditClick}>
               Get My Social Audit <ArrowRight size={18} />
@@ -794,9 +639,15 @@ export default function SocialMediaPage() {
         <div className={styles.containerInner}>
 
           <div className={`${styles.headingBlock} gsap-reveal-head`}>
-            <span className={styles.badge} style={{ opacity: 0 }}>[ 02 / OUR METHODOLOGY ]</span>
+            <span className={styles.badge} style={{ opacity: 0 }}>[ 03 / OUR METHODOLOGY ]</span>
             <h2 style={{ opacity: 0 }}>Purpose over <span className={styles.serifAccent}>vanity</span>.</h2>
-            <p style={{ opacity: 0 }}>We don't post for the sake of posting. Every piece of content starts with understanding your audience, your competitors, and your goals. We then build a content strategy that maps to your business objectives — not just vanity metrics.</p>
+            <p className={styles.revealParagraph} ref={approachTextRef}>
+              {`We don't post for the sake of posting. Every piece of content starts with understanding your audience, your competitors, and your goals. We then build a content strategy that maps to your business objectives — not just vanity metrics.`.split(" ").map((word, idx) => (
+                <span key={idx} className={styles.word}>
+                  {word}{" "}
+                </span>
+              ))}
+            </p>
           </div>
 
           <div className={styles.approachGrid}>
@@ -822,7 +673,7 @@ export default function SocialMediaPage() {
         <div className={styles.containerInner}>
 
           <div className={`${styles.headingBlock} gsap-reveal-head`}>
-            <span className={styles.badge} style={{ opacity: 0 }}>[ 03 / FEATURED WORK ]</span>
+            <span className={styles.badge} style={{ opacity: 0 }}>[ 04 / FEATURED WORK ]</span>
             <h2 style={{ opacity: 0 }}>Interactive <span className={styles.serifAccent}>portfolio</span>.</h2>
             <p style={{ opacity: 0 }}>Click on the interactive bubbles below to explore live social feeds, project briefs, and performance outcomes for our selected partners.</p>
           </div>
@@ -907,7 +758,7 @@ export default function SocialMediaPage() {
                     </div>
                   </div>
                   <div className={styles.phoneGrid}>
-                    {selectedBrand.feed.map((img, idx) => (
+                    {selectedBrand.feed?.map((img, idx) => (
                       <div key={idx} className={styles.gridPost}>
                         <img src={img} alt={`feed post ${idx}`} className={styles.gridPostImage} />
                       </div>
@@ -926,8 +777,8 @@ export default function SocialMediaPage() {
         <div className={styles.containerInner}>
 
           <div className={`${styles.headingBlock} gsap-reveal-head`} style={{ alignSelf: "center", textAlign: "center", marginBottom: "2rem" }}>
-            <span className={styles.badge} style={{ opacity: 0 }}>[ 04 / RESOURCES ]</span>
-            <h2 style={{ opacity: 0 }}>Frequently asked <span className={styles.serifAccent}>questions</span>.</h2>
+            <span className={styles.badge} style={{ opacity: 0 }}>[ 05 / RESOURCES ]</span>
+            <h2 style={{ opacity: 0, whiteSpace: "nowrap" }}>Frequently asked <span className={styles.serifAccent}>questions</span>.</h2>
           </div>
 
           <div className={styles.faqGrid}>
@@ -974,7 +825,7 @@ export default function SocialMediaPage() {
 
             {/* Info */}
             <div className={`${styles.contactInfo} gsap-reveal-info`}>
-              <span className={styles.badge} style={{ opacity: 0 }}>[ 05 / KICKOFF ]</span>
+              <span className={styles.badge} style={{ opacity: 0 }}>[ 06 / KICKOFF ]</span>
               <h3 style={{ opacity: 0 }}>Ready to stop posting into <br />the <span className={styles.serifAccent}>void</span>?</h3>
               <p style={{ opacity: 0 }}>Don’t settle for templates and vanity metrics. Fill out the audit enquiry card to get a bespoke review of your brand's grid and conversion roadmap.</p>
 
@@ -1048,28 +899,38 @@ export default function SocialMediaPage() {
                   </div>
                 </div>
 
-                <div className={styles.inputGroup}>
-                  <label htmlFor="budget" className={styles.label}>Monthly Budget Range (Optional)</label>
-                  <select
-                    id="budget"
-                    value={form.budget}
-                    onChange={(e) => setForm({ ...form, budget: e.target.value })}
-                    className={styles.select}
-                  >
-                    <option value="" disabled>Select a budget tier...</option>
-                    <option value="tier1">$1,500 - $3,000 / mo</option>
-                    <option value="tier2">$3,000 - $5,000 / mo</option>
-                    <option value="tier3">$5,000 - $10,000 / mo</option>
-                    <option value="tier4">$10,000+ / mo</option>
-                  </select>
+                <div className={styles.formRow}>
+                  <div className={styles.inputGroup}>
+                    <label htmlFor="socialLinks" className={styles.label}>Brand Social Media & Other Links</label>
+                    <input
+                      type="text"
+                      id="socialLinks"
+                      placeholder="e.g. instagram.com/brandname"
+                      value={form.socialLinks}
+                      onChange={(e) => setForm({ ...form, socialLinks: e.target.value })}
+                      className={styles.input}
+                    />
+                  </div>
+
+                  <div className={styles.inputGroup}>
+                    <label htmlFor="location" className={styles.label}>City / Country</label>
+                    <input
+                      type="text"
+                      id="location"
+                      placeholder="e.g. Mumbai, India"
+                      value={form.location}
+                      onChange={(e) => setForm({ ...form, location: e.target.value })}
+                      className={styles.input}
+                    />
+                  </div>
                 </div>
 
                 <div className={styles.inputGroup}>
-                  <label htmlFor="brief" className={styles.label}>Brief Description of Need</label>
+                  <label htmlFor="brief" className={styles.label}>Brief Description of Project</label>
                   <textarea
                     id="brief"
                     rows={4}
-                    placeholder="Tell us about your social channels, audience plateaus, and objectives..."
+                    placeholder="Tell us about your project, social channels, and objectives..."
                     value={form.brief}
                     onChange={(e) => setForm({ ...form, brief: e.target.value })}
                     className={styles.textarea}
@@ -1085,10 +946,6 @@ export default function SocialMediaPage() {
                   {status === "sending" && "Sending Enquiry..."}
                   {status === "sent" && "Proposal Request Sent ✓"}
                 </button>
-
-                <p className={styles.smallPrint}>
-                  We respond within 24 hours. No automated sales pitches — a real agency human reads every single message.
-                </p>
 
               </form>
             </div>

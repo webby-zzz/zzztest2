@@ -9,13 +9,13 @@
 /* SECTION: Hero Banner */
 .hero {
   position: relative;
-  min-height: 95vh;
+  height: 100vh;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  padding: 8rem 2rem 4rem 2rem;
+  padding: 0;
   border-bottom: 1px solid var(--border);
   box-sizing: border-box;
 }
@@ -25,75 +25,33 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 120%; /* Extra height to accommodate parallax translation */
+  height: 115%; /* Extra height to support yPercent -15 parallax translation */
   z-index: 1;
   pointer-events: none;
 }
 
-.collage {
-  position: relative;
+.heroImage {
   width: 100%;
   height: 100%;
-}
-
-.collageItem {
-  position: absolute;
-  border-radius: 16px;
-  box-shadow: var(--glass-shadow);
-  border: 1px solid var(--glass-border);
-  overflow: hidden;
-  opacity: 0.25;
-  transition: opacity 0.5s ease;
-  will-change: transform;
-}
-
-[data-theme='dark'] .collageItem {
-  opacity: 0.15;
-}
-
-.collageItem1 {
-  width: 280px;
-  height: 200px;
-  top: 15%;
-  left: 10%;
-}
-
-.collageItem2 {
-  width: 240px;
-  height: 320px;
-  top: 45%;
-  right: 8%;
-}
-
-.collageItem3 {
-  width: 320px;
-  height: 220px;
-  bottom: 10%;
-  left: 15%;
-}
-
-.collageItem4 {
-  width: 200px;
-  height: 200px;
-  top: 12%;
-  right: 15%;
-}
-
-.collageImage {
-  width: 100%;
-  height: 100%;
+  display: block;
   object-fit: cover;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+[data-theme='dark'] .heroImage {
+  opacity: 1;
 }
 
 .heroContent {
-  position: relative;
+  position: absolute;
+  bottom: 4rem;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 10;
-  max-width: 800px;
-  text-align: center;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 1.5rem;
 }
 
 .badge {
@@ -152,7 +110,7 @@
 
 /* SECTION: General Section Layout */
 .section {
-  padding: 8rem 2rem;
+  padding: 5rem 2rem;
   display: flex;
   justify-content: center;
   border-bottom: 1px solid var(--border);
@@ -164,7 +122,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 4rem;
+  gap: 3rem;
 }
 
 .headingBlock {
@@ -1052,16 +1010,16 @@
 
 .zApproach {
   z-index: 4;
-  background-color: var(--brand-coral);
-  color: #FFFFFF;
+  background-color: var(--brand-blue);
+  color: var(--brand-cream);
 }
 .zApproach .headingBlock h2,
 .zApproach .headingBlock p,
 .zApproach .headingBlock span {
-  color: #FFFFFF !important;
+  color: var(--brand-cream) !important;
 }
 [data-theme='dark'] .zApproach {
-  background-color: #38120c;
+  background-color: #11263d;
   color: var(--brand-cream);
 }
 [data-theme='dark'] .zApproach .headingBlock h2,
@@ -1072,14 +1030,14 @@
 
 .zBubbles {
   z-index: 5;
-  background-color: var(--brand-blue);
-  color: var(--brand-cream);
+  background-color: var(--brand-coral);
+  color: #FFFFFF;
 }
 .zBubbles h2,
 .zBubbles h3,
 .zBubbles p,
 .zBubbles span {
-  color: var(--brand-cream) !important;
+  color: #FFFFFF !important;
 }
 .zBubbles .badge {
   color: var(--brand-yellow) !important;
@@ -1088,7 +1046,7 @@
   color: var(--brand-yellow) !important;
 }
 [data-theme='dark'] .zBubbles {
-  background-color: #11263d;
+  background-color: #38120c;
   color: var(--brand-cream);
 }
 
@@ -1142,29 +1100,7 @@
   transform: translateX(-4px);
 }
 
-/* Media query to force exact 100vh stacking panels on desktop */
-@media (min-width: 769px) {
-  .hero,
-  .section {
-    height: 100vh !important;
-    min-height: 100vh !important;
-    max-height: 100vh !important;
-    overflow: hidden !important;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
 
-  .containerInner {
-    height: 100% !important;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 3vh;
-    padding: 4vh 0 !important;
-  }
-}
 
 /* Side-by-side What We Do layout */
 .whatWeDoLayout {
@@ -1474,5 +1410,17 @@
 .backButton:hover {
   opacity: 0.8;
   transform: translateX(-8px);
+}
+
+.revealParagraph {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1.25rem, 2.2vw, 1.85rem) !important;
+  line-height: 1.5 !important;
+  opacity: 1 !important;
+}
+
+.word {
+  opacity: 0.15;
 }
 

@@ -106,10 +106,9 @@ export default function CircularGallery() {
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top top",
-          end: "+=3200", 
+          end: "+=1800", 
           scrub: 0.5,
           pin: true,
-          snap: 1 / numItems,
           onUpdate: (self) => {
             // Adjust index calculation for 360 degree rotation
             const index = Math.round(self.progress * numItems) % numItems;
@@ -184,12 +183,11 @@ export default function CircularGallery() {
       <div className={styles.stickyContent}>
         
         <div className={styles.heroText} ref={heroTextRef}>
-          <div className={styles.badge} style={{ opacity: 0 }}>[ 00 / GALERIE D'ART ]</div>
           <h1 style={{ opacity: 0 }}>Reimagining marketing <br />as a digital <span className={styles.serifAccent}>experience</span>.</h1>
           <p style={{ opacity: 0 }}>Think success. Think <span className={styles.boldWord}>ZZZ</span>.</p>
           <div className={styles.centerActions} style={{ opacity: 0 }}>
-            <button 
-              className={styles.joinButton} 
+            <div 
+              className={styles.scrollDownContainer} 
               onClick={() => {
                 const lenis = (window as any).lenis;
                 if (lenis) {
@@ -202,8 +200,18 @@ export default function CircularGallery() {
                 }
               }}
             >
-              Explore More
-            </button>
+              <span className={styles.scrollDownText}>Scroll Down</span>
+              <svg 
+                className={styles.scrollDownArrow} 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2.5" 
+                viewBox="0 0 24 24" 
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+              </svg>
+            </div>
           </div>
         </div>
         

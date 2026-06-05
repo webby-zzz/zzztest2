@@ -149,7 +149,7 @@ export default function Footer() {
                   <h3 className={styles.colTitle}>RESOURCES</h3>
                   <div className={styles.links}>
                     <Link href="#">Client Portal</Link>
-                    <Link href="#">Case Studies</Link>
+                    <Link href="#">Our Work</Link>
                     <Link href="#">Whitepapers</Link>
                     <Link href="#">Download Brochure</Link>
                   </div>

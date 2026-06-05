@@ -7,21 +7,25 @@ import { ArrowLeft } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styles from "./page.module.css";
-import { BRANDS_DUMMY_DATA } from "../../../lib/data";
+import { CASE_STUDIES_DATA } from "../../../lib/data";
 
-gsap.registerPlugin(ScrollTrigger);
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export default function ServiceClient({ service }: { service: any }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const heroOverlayRef = useRef<HTMLDivElement>(null);
   const textRefs = useRef<(HTMLElement | null)[]>([]);
   const showcaseRef = useRef<HTMLDivElement>(null);
+  const manifestoTextRef = useRef<HTMLParagraphElement>(null);
   
   const [activeBrandIndex, setActiveBrandIndex] = useState(0);
 
   useEffect(() => {
     // Scroll to top instantly on mount to ensure transition is seamless
     window.scrollTo(0, 0);
+    setActiveBrandIndex(0);
 
     const ctx = gsap.context(() => {
       // 1. Hero Overlay Fade In
@@ -69,6 +73,26 @@ export default function ServiceClient({ service }: { service: any }) {
           }
         );
       }
+
+      // 4. Manifesto Scroll Reveal (Word by Word)
+      if (manifestoTextRef.current) {
+        const words = manifestoTextRef.current.querySelectorAll(`.${styles.word}`);
+        gsap.fromTo(words,
+          { opacity: 0.15 },
+          {
+            opacity: 1,
+            stagger: 0.08,
+            duration: 0.4,
+            ease: "power1.out",
+            scrollTrigger: {
+              trigger: manifestoTextRef.current,
+              start: "top 80%",
+              end: "bottom 55%",
+              scrub: 0.1,
+            }
+          }
+        );
+      }
     }, containerRef);
 
     return () => ctx.revert();
@@ -99,23 +123,20 @@ export default function ServiceClient({ service }: { service: any }) {
     }
   };
 
-  const activeBrand = BRANDS_DUMMY_DATA[activeBrandIndex];
+  const activeCaseStudies = CASE_STUDIES_DATA.filter(item => item.services.includes(service.id));
+  const displayCaseStudies = activeCaseStudies.length > 0 ? activeCaseStudies : CASE_STUDIES_DATA.slice(0, 3);
+  const activeCase = displayCaseStudies[activeBrandIndex] || displayCaseStudies[0];
 
   return (
     <div className={styles.container} ref={containerRef}>
       
-      {/* Hero Section */}
       <section className={styles.hero}>
-        <Image 
-          src={service.image} 
+        <img 
+          src="/service banner.jpeg" 
           alt={service.name} 
-          fill
-          priority
           className={styles.heroImage}
         />
-        <div className={styles.heroOverlay} ref={heroOverlayRef}>
-          <h1 className={styles.heroTitle}>{service.name}</h1>
-        </div>
+        <div className={styles.heroOverlay} ref={heroOverlayRef} />
       </section>
 
       {/* Content Section */}
@@ -124,6 +145,9 @@ export default function ServiceClient({ service }: { service: any }) {
         {/* Intro & Stats */}
         <div className={styles.introGrid}>
           <div className={styles.introCol}>
+            <h1 className={styles.contentTitle} ref={(el) => { textRefs.current[4] = el; }} style={{ marginBottom: "2rem", fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(2rem, 4vw, 3.25rem)" }}>
+              {service.name}
+            </h1>
             <p ref={(el) => { textRefs.current[0] = el; }}>
               {service.name} is a specialized service designed to scale your operations, provide deep expertise, and ensure organizational alignment. We approached this discipline to maximize your brand&apos;s potential and overall impact in the market.
             </p>
@@ -144,29 +168,48 @@ export default function ServiceClient({ service }: { service: any }) {
           </div>
         </div>
 
+        {/* Dynamic Manifesto / Reveal Section */}
+        <div className={styles.manifestoSection}>
+          <span className={styles.manifestoBadge}>[ 04 / SERVICE MANIFESTO ]</span>
+          <p className={styles.manifestoParagraph} ref={manifestoTextRef}>
+            {`We believe in digital subtraction. For ${service.name}, every detail, every pixel, and every line of code must serve a specific conversion purpose. True luxury is not loud; it is quiet, intentional, and impeccably executed. At ZZZ, we build products that do not beg for attention, but demand it through flawless performance and premium minimalism.`.split(" ").map((word, idx) => (
+              <span key={idx} className={styles.word}>
+                {word}{" "}
+              </span>
+            ))}
+          </p>
+        </div>
+
         {/* Brands & Showcase */}
         <div className={styles.showcaseSection}>
           <div className={styles.tabs} ref={(el) => { textRefs.current[5] = el; }}>
-            {BRANDS_DUMMY_DATA.map((brand, i) => (
+            {displayCaseStudies.map((brand, i) => (
               <button 
-                key={brand.name} 
+                key={brand.id} 
                 className={`${styles.tab} ${activeBrandIndex === i ? styles.active : ""}`}
                 onClick={() => handleTabChange(i)}
               >
-                {brand.name}
+                {brand.brandName}
               </button>
             ))}
           </div>
 
           <div className={styles.showcaseWindow} ref={showcaseRef}>
-            <p className={styles.showcaseText}>{activeBrand.description}</p>
-            
-            <div className={styles.showcaseImages}>
-              {activeBrand.images.map((img, idx) => (
-                <div key={idx} className={styles.showcaseImageWrapper}>
-                  <Image src={img} alt={`${activeBrand.name} showcase ${idx + 1}`} fill style={{ objectFit: "cover" }} />
-                </div>
-              ))}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "3rem", alignItems: "start" }} className="showcaseContentGrid">
+              <div className="showcaseDetails" style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+                <h3 className={styles.showcaseBrandName} style={{ fontFamily: "var(--font-display)", fontSize: "1.85rem", fontWeight: 800, color: "var(--accent-color)" }}>{activeCase.name}</h3>
+                <p className={styles.showcaseText}><strong>Brief:</strong> {activeCase.brief}</p>
+                <p className={styles.showcaseText}><strong>Execution:</strong> {activeCase.work}</p>
+                <p className={styles.showcaseText} style={{ color: "var(--accent-color)", fontWeight: 600 }}><strong>Outcome:</strong> {activeCase.outcome}</p>
+              </div>
+
+              <div className={styles.showcaseImages} style={{ margin: 0, gridTemplateColumns: "1fr" }}>
+                {activeCase.images.map((img, idx) => (
+                  <div key={idx} className={styles.showcaseImageWrapper} style={{ height: "240px" }}>
+                    <Image src={img} alt={`${activeCase.brandName} showcase ${idx + 1}`} fill style={{ objectFit: "cover" }} />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>

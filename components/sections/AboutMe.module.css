@@ -1,0 +1,224 @@
+.section {
+  padding: 5rem 2rem;
+  background-color: var(--background);
+  color: var(--foreground);
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid var(--border);
+}
+
+.container {
+  max-width: 1200px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.headingBlock {
+  max-width: 650px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.badge {
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+.headingBlock h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  color: var(--foreground);
+}
+
+.headingAccent {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent-color);
+}
+
+.headingBlock p {
+  font-size: 1rem;
+  line-height: 1.6;
+  opacity: 0.6;
+}
+
+/* Grid Layout */
+.layoutGrid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+/* Portrait Image styling */
+.imageCol {
+  display: flex;
+  justify-content: center;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  aspect-ratio: 4/5;
+  border-radius: 32px;
+  overflow: hidden;
+  display: block;
+}
+
+.portrait {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.imageWrapper:hover .portrait {
+  transform: scale(1.05);
+}
+
+.imageOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.2) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+/* Text Column Bio styling */
+.textCol {
+  padding: 3.5rem;
+  border-radius: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  justify-content: center;
+}
+
+.bioTitle {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--foreground);
+}
+
+.bioParagraph {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  opacity: 0.75;
+  font-weight: 400;
+}
+
+.actionRow {
+  margin-top: 1rem;
+}
+
+/* LinkedIn Action Button */
+.linkedinBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--foreground);
+  color: var(--background);
+  border: none;
+  padding: 1.1rem 2.25rem;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  text-decoration: none;
+}
+
+.linkedinBtn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  opacity: 0.95;
+}
+
+[data-theme='dark'] .linkedinBtn:hover {
+  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.08);
+}
+
+.arrow {
+  transition: transform 0.3s ease;
+}
+
+.linkedinBtn:hover .arrow {
+  transform: translateX(4px);
+}
+
+/* Responsive Rules */
+@media (max-width: 968px) {
+  .layoutGrid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  .imageWrapper {
+    max-width: 480px;
+    aspect-ratio: 1;
+  }
+  
+  .textCol {
+    padding: 2.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .section {
+    padding: 6rem 1.5rem;
+  }
+  
+  .container {
+    gap: 3rem;
+  }
+  
+  .textCol {
+    padding: 2rem 1.5rem;
+    border-radius: 24px;
+  }
+  
+  .linkedinBtn {
+    padding: 1rem 1.75rem;
+    font-size: 0.95rem;
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (min-width: 1025px) {
+  .section {
+    padding: 5rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .container {
+    gap: 3.25rem;
+    justify-content: center;
+  }
+
+  .imageWrapper {
+    max-width: 360px;
+    aspect-ratio: 4/5;
+  }
+  
+  .textCol {
+    padding: 2.5rem;
+    gap: 1.5rem;
+  }
+}
