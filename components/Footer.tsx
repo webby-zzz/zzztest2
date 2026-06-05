@@ -34,8 +34,8 @@ export default function Footer() {
                 <Link href="/#about-us"><span>About Us</span> <Folder size={14} className={styles.linkFolderIcon} /></Link>
                 <Link href="/#services-grid"><span>Services</span> <Folder size={14} className={styles.linkFolderIcon} /></Link>
                 <Link href="/#portfolio-highlights"><span>Portfolio</span> <Folder size={14} className={styles.linkFolderIcon} /></Link>
-                <Link href="/#blog-insights"><span>Blog</span> <Folder size={14} className={styles.linkFolderIcon} /></Link>
-                <Link href="/#contact-cta"><span>Careers</span> <Folder size={14} className={styles.linkFolderIcon} /></Link>
+                <Link href="/#testimonials"><span>Testimonials</span> <Folder size={14} className={styles.linkFolderIcon} /></Link>
+                <Link href="/contact"><span>Book a Call</span> <Folder size={14} className={styles.linkFolderIcon} /></Link>
               </div>
             </div>
           </div>
@@ -66,12 +66,12 @@ export default function Footer() {
 
               <h3 className={styles.colTitle}>OUR SERVICES</h3>
               <div className={styles.links}>
-                <Link href="/#services-grid">Branding</Link>
-                <Link href="/#services-grid">Web Design</Link>
-                <Link href="/#services-grid">Digital Marketing</Link>
-                <Link href="/#services-grid">UX/UI</Link>
-                <Link href="/#services-grid">Motion Graphics</Link>
-                <Link href="/#services-grid">Photography</Link>
+                <Link href="/services/social-media-marketing">Social Media Marketing</Link>
+                <Link href="/services/branding-logo">Branding & Logo</Link>
+                <Link href="/services/website-development-seo">Website Development & SEO</Link>
+                <Link href="/services/content-creation">Content Creation</Link>
+                <Link href="/services/linkedin-marketing">LinkedIn Marketing</Link>
+                <Link href="/services/photography-videography">Photography & Videography</Link>
               </div>
             </div>
           </div>
@@ -149,7 +149,7 @@ export default function Footer() {
                   <h3 className={styles.colTitle}>RESOURCES</h3>
                   <div className={styles.links}>
                     <Link href="#">Client Portal</Link>
-                    <Link href="#">Our Work</Link>
+                    <Link href="/#portfolio-highlights">Our Work</Link>
                     <Link href="#">Whitepapers</Link>
                     <Link href="#">Download Brochure</Link>
                   </div>

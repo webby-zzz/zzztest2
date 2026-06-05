@@ -67,6 +67,8 @@ export default function HamburgerMenu({ isOpen, onClose }: HamburgerMenuProps) {
 
   const menuItems = [
     { label: "Home", href: "/" },
+    { label: "About Us", href: "/#about-us" },
+    { label: "Services", href: "/#services-grid" },
     { label: "Work", href: "/#portfolio-highlights" },
     { label: "Book a Call", href: "/contact" },
   ];
