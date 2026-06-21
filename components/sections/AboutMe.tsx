@@ -84,7 +84,7 @@ export default function AboutMe() {
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img 
-                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop" 
+                src="/founder image.webp" 
                 alt="Founder Portrait" 
                 className={styles.portrait}
               />
@@ -105,7 +105,7 @@ export default function AboutMe() {
 
             <div className={styles.actionRow}>
               <a 
-                href="https://linkedin.com" 
+                href="https://in.linkedin.com/in/avantika-ginodia" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className={styles.linkedinBtn}

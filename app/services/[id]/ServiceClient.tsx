@@ -6,6 +6,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useTheme } from "next-themes";
 import styles from "./page.module.css";
 import { CASE_STUDIES_DATA } from "../../../lib/data";
 
@@ -20,11 +21,91 @@ export default function ServiceClient({ service }: { service: any }) {
   const showcaseRef = useRef<HTMLDivElement>(null);
   const manifestoTextRef = useRef<HTMLParagraphElement>(null);
   
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
   const [activeBrandIndex, setActiveBrandIndex] = useState(0);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const isDark = mounted && resolvedTheme === "dark";
+  
+  // Resolve banner images based on service.id and theme
+  const getBannerPaths = (id: string, isDarkTheme: boolean) => {
+    let desktop = "/service banner.jpeg";
+    let mobile = "/service banner.jpeg";
+
+    if (id === "social-media-marketing") {
+      desktop = isDarkTheme 
+        ? "/zzz banners optimized/SMM banner - dark.webp" 
+        : "/zzz banners optimized/SMM banner - light.webp";
+      mobile = isDarkTheme 
+        ? "/zzz banners optimized/SMM mobile banner - dark.webp" 
+        : "/zzz banners optimized/SMM mobile banner - light.webp";
+    } else if (id === "content-creation") {
+      desktop = isDarkTheme 
+        ? "/zzz banners optimized/Content Creation banner - dark.webp" 
+        : "/zzz banners optimized/Content Creation banner - light.webp";
+      mobile = isDarkTheme 
+        ? "/zzz banners optimized/Content Creation mobile banner - dark.webp" 
+        : "/zzz banners optimized/Content Creation mobile banner - light.webp";
+    } else if (id === "photography-videography") {
+      desktop = isDarkTheme
+        ? "/zzz banners optimized/Photohgraphy & Videography banner - light (2).webp"
+        : "/zzz banners optimized/Photohgraphy & Videography banner - light.webp";
+      mobile = isDarkTheme 
+        ? "/zzz banners optimized/Photohgraphy & Videography mobile banner - dark.webp" 
+        : "/zzz banners optimized/Photohgraphy & Videography mobile banner - light.webp";
+    } else if (id === "website-development") {
+      desktop = isDarkTheme 
+        ? "/zzz banners optimized/Website development banner - dark.webp" 
+        : "/zzz banners optimized/Website development banner - light.webp";
+      mobile = isDarkTheme
+        ? "/zzz banners optimized/Website development mobile banner - light (2).webp"
+        : "/zzz banners optimized/Website development mobile banner - light.webp";
+    } else if (id === "branding-packaging") {
+      desktop = isDarkTheme 
+        ? "/zzz banners optimized/Branding & Packaging banner - dark.webp" 
+        : "/zzz banners optimized/Branding & Packaging banner - light.webp";
+      mobile = isDarkTheme 
+        ? "/zzz banners optimized/Branding & Packaging mobile banner - dark.webp" 
+        : "/zzz banners optimized/Branding & Packaging mobile banner - light.webp";
+    } else if (id === "brochures-catalogues") {
+      desktop = isDarkTheme 
+        ? "/zzz banners optimized/Brochures & Catalogues banner - dark.webp" 
+        : "/zzz banners optimized/Brochures & Catalogues banner - light.webp";
+      mobile = isDarkTheme
+        ? "/zzz banners optimized/Brochures & Catalogues mobile banner - light (2).webp"
+        : "/zzz banners optimized/Brochures & Catalogues mobile banner - light.webp";
+    } else if (id === "linkedin-personal-branding") {
+      desktop = isDarkTheme 
+        ? "/zzz banners optimized/LinkedIn Personal Branding banner - dark.webp" 
+        : "/zzz banners optimized/LinkedIn Personal Branding banner - light.webp";
+      mobile = isDarkTheme 
+        ? "/zzz banners optimized/LinkedIn Personal Branding mobile banner - dark.webp" 
+        : "/zzz banners optimized/LinkedIn Personal Branding mobile banner - light.webp";
+    } else if (id === "event-invites-wedding-cards") {
+      desktop = isDarkTheme
+        ? "/zzz banners optimized/Event invite & Wedding card banner - light (2).webp"
+        : "/zzz banners optimized/Event invite & Wedding card banner - light.webp";
+      mobile = isDarkTheme
+        ? "/zzz banners optimized/Event invite & Wedding card mobile banner - light (2).webp"
+        : "/zzz banners optimized/Event invite & Wedding card mobile banner - light.webp";
+    }
+
+    return { desktop, mobile };
+  };
+
+  const banners = getBannerPaths(service.id, isDark);
 
   useEffect(() => {
     // Scroll to top instantly on mount to ensure transition is seamless
     window.scrollTo(0, 0);
+    const lenis = (window as any).lenis;
+    if (lenis) {
+      lenis.scrollTo(0, { immediate: true });
+    }
     setActiveBrandIndex(0);
 
     const ctx = gsap.context(() => {
@@ -65,7 +146,6 @@ export default function ServiceClient({ service }: { service: any }) {
             y: 0,
             opacity: 1,
             duration: 1.2,
-            ease: "power3.out",
             scrollTrigger: {
               trigger: showcaseRef.current,
               start: "top 80%",
@@ -131,11 +211,14 @@ export default function ServiceClient({ service }: { service: any }) {
     <div className={styles.container} ref={containerRef}>
       
       <section className={styles.hero}>
-        <img 
-          src="/service banner.jpeg" 
-          alt={service.name} 
-          className={styles.heroImage}
-        />
+        <picture className={styles.heroImageContainer}>
+          <source media="(max-width: 768px)" srcSet={banners.mobile} />
+          <img 
+            src={banners.desktop} 
+            alt={service.name} 
+            className={styles.heroImage}
+          />
+        </picture>
         <div className={styles.heroOverlay} ref={heroOverlayRef} />
       </section>
 

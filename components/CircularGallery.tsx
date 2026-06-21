@@ -38,6 +38,13 @@ export default function CircularGallery() {
   const anglePerItem = 360 / numItems;
 
   useEffect(() => {
+    // Reset scroll positions before initializing ScrollTrigger to prevent pin/offset calculation bugs
+    window.scrollTo(0, 0);
+    const lenis = (window as any).lenis;
+    if (lenis) {
+      lenis.scrollTo(0, { immediate: true });
+    }
+
     if (!wrapperRef.current || !containerRef.current) return;
 
     let ctx = gsap.context(() => {
@@ -51,7 +58,8 @@ export default function CircularGallery() {
       // 1. Position items in a full circle
       items.forEach((item, i) => {
         if (item) {
-          const angle = (i * anglePerItem) - 90;
+          // Arrange counter-clockwise: subtract angle instead of adding
+          const angle = -90 - (i * anglePerItem);
           const theta = angle * (Math.PI / 180);
           const x = Math.cos(theta) * radius;
           const y = Math.sin(theta) * radius;
@@ -109,6 +117,12 @@ export default function CircularGallery() {
           end: "+=1800", 
           scrub: 0.5,
           pin: true,
+          snap: {
+            snapTo: 1 / numItems,
+            duration: { min: 0.2, max: 0.5 },
+            delay: 0.05,
+            ease: "power2.out"
+          },
           onUpdate: (self) => {
             // Adjust index calculation for 360 degree rotation
             const index = Math.round(self.progress * numItems) % numItems;

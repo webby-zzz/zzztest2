@@ -353,330 +353,7 @@
   opacity: 0.85 !important;
 }
 
-/* SECTION: Interactive Brand Bubbles - NON-OVERLAPPING FLEX LAYOUT */
-.bubbleCluster {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
-  flex-wrap: wrap;
-  margin-top: 2rem;
-}
 
-.bubble {
-  position: relative;
-  border-radius: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  border: 1px solid var(--border);
-  box-shadow: var(--glass-shadow);
-  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease;
-  user-select: none;
-  flex-shrink: 0;
-}
-
-.bubble:hover {
-  transform: scale(1.08) !important;
-  box-shadow: 0 10px 40px rgba(96, 165, 250, 0.08);
-}
-
-.bubbleLogo {
-  font-family: var(--font-display);
-  font-weight: 800;
-  line-height: 1;
-}
-
-.bubbleLabel {
-  font-size: 0.65rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-weight: 700;
-  margin-top: 0.25rem;
-  opacity: 0.7;
-}
-
-/* Staggered non-overlapping sizes */
-.bubble1 { width: 140px; height: 140px; }
-.bubble2 { width: 125px; height: 125px; }
-.bubble3 { width: 170px; height: 170px; }
-.bubble4 { width: 140px; height: 140px; }
-.bubble5 { width: 125px; height: 125px; }
-
-/* MODAL OVERLAY & CONTENT - PREMIUM APPLE frosted glass LOOK */
-.modalOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(14, 45, 84, 0.25);
-  backdrop-filter: blur(28px) saturate(190%);
-  -webkit-backdrop-filter: blur(28px) saturate(190%);
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  box-sizing: border-box;
-}
-
-[data-theme='dark'] .modalOverlay {
-  background: rgba(0, 0, 0, 0.55);
-}
-
-.modalContent {
-  width: 100%;
-  max-width: 900px;
-  background: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  border-radius: 30px;
-  padding: 2.5rem;
-  box-shadow: 0 30px 70px rgba(14, 45, 84, 0.1), 0 1px 3px rgba(0, 0, 0, 0.05);
-  position: relative;
-  display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 3rem;
-  align-items: center;
-  box-sizing: border-box;
-  max-height: 90vh;
-  overflow-y: auto;
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-}
-
-[data-theme='dark'] .modalContent {
-  background: rgba(14, 45, 84, 0.65);
-  border: 1px solid rgba(250, 248, 241, 0.08);
-  box-shadow: 0 35px 80px rgba(0, 0, 0, 0.35);
-}
-
-.closeButton {
-  position: absolute;
-  top: 1.25rem;
-  right: 1.25rem;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.04);
-  border: none;
-  color: var(--foreground);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.25s, transform 0.25s;
-  z-index: 10;
-}
-
-[data-theme='dark'] .closeButton {
-  background: rgba(255, 255, 255, 0.08);
-}
-
-.closeButton:hover {
-  background: rgba(0, 0, 0, 0.08);
-  transform: scale(1.05);
-}
-
-[data-theme='dark'] .closeButton:hover {
-  background: rgba(255, 255, 255, 0.15);
-}
-
-.modalDetails {
-  display: flex;
-  flex-direction: column;
-  gap: 1.75rem;
-}
-
-.modalMeta {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.modalBrand {
-  font-family: var(--font-display);
-  font-size: 2.25rem;
-  font-weight: 800;
-  line-height: 1.1;
-}
-
-.modalIndustry {
-  font-size: 0.75rem;
-  padding: 0.35rem 0.85rem;
-  border-radius: 99px;
-  background: var(--border);
-  font-weight: 600;
-}
-
-.modalDetails h4 {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--accent-color);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.modalSection {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.modalSection p {
-  font-size: 0.975rem;
-  line-height: 1.6;
-  opacity: 0.7;
-}
-
-.outcomeCard {
-  border-radius: 20px;
-  padding: 1.5rem;
-  background: rgba(246, 108, 81, 0.06);
-  border: 1px solid rgba(246, 108, 81, 0.12);
-}
-
-[data-theme='dark'] .outcomeCard {
-  background: rgba(255, 183, 3, 0.05);
-  border: 1px solid rgba(255, 183, 3, 0.1);
-}
-
-.outcomeLabel {
-  font-size: 0.7rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  opacity: 0.6;
-  margin-bottom: 0.35rem;
-  display: block;
-}
-
-.outcomeText {
-  font-size: 1.1rem;
-  font-weight: 750;
-  color: var(--foreground);
-}
-
-/* SMARTPHONE MOCKUP */
-.phoneCol {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-
-.phoneFrame {
-  width: 270px;
-  height: 500px;
-  border-radius: 40px;
-  background: #000000;
-  border: 10px solid #1c1c1c;
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
-  overflow: hidden;
-  position: relative;
-  box-sizing: border-box;
-}
-
-/* Dynamic Island instead of Notch */
-.phoneFrame::after {
-  content: '';
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 75px;
-  height: 18px;
-  background: #000000;
-  border-radius: 9px;
-  z-index: 100;
-}
-
-.phoneScreen {
-  width: 100%;
-  height: 100%;
-  background: #ffffff;
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  color: #000000;
-}
-
-/* Inside Instagram Grid Mockup */
-.phoneHeader {
-  height: 48px;
-  border-bottom: 1px solid #dbdbdb;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 1rem;
-  font-weight: 700;
-  font-size: 0.9rem;
-  margin-top: 15px;
-  flex-shrink: 0;
-}
-
-.phoneProfile {
-  padding: 1rem;
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  border-bottom: 1px solid #efefef;
-  flex-shrink: 0;
-}
-
-.phoneAvatar {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: #efefef;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  color: #8e8e8e;
-  border: 1.5px solid #dbdbdb;
-}
-
-.profileMeta {
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-}
-
-.profileName {
-  font-weight: 700;
-  font-size: 0.95rem;
-}
-
-.profileBio {
-  font-size: 0.75rem;
-  color: #262626;
-  line-height: 1.2;
-}
-
-.phoneGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
-  padding: 2px;
-  background: #fafafa;
-}
-
-.gridPost {
-  aspect-ratio: 1;
-  background: #efefef;
-  position: relative;
-  overflow: hidden;
-}
-
-.gridPostImage {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
 
 /* SECTION: Frequently Asked Questions */
 .faqGrid {
@@ -977,7 +654,7 @@
   color: var(--brand-navy) !important;
 }
 [data-theme='dark'] .zWhatWeDo {
-  background-color: #0c2c22;
+  background: linear-gradient(135deg, #051612 0%, #0c2c22 100%);
   color: var(--brand-cream);
 }
 [data-theme='dark'] .zWhatWeDo h2,
@@ -998,7 +675,7 @@
   color: var(--brand-navy) !important;
 }
 [data-theme='dark'] .zWhatWeDoInclusions {
-  background-color: #091a2e;
+  background: linear-gradient(135deg, #030a14 0%, #091a2e 100%);
   color: var(--brand-cream);
 }
 [data-theme='dark'] .zWhatWeDoInclusions h2,
@@ -1019,7 +696,7 @@
   color: var(--brand-cream) !important;
 }
 [data-theme='dark'] .zApproach {
-  background-color: #11263d;
+  background: linear-gradient(135deg, #071220 0%, #11263d 100%);
   color: var(--brand-cream);
 }
 [data-theme='dark'] .zApproach .headingBlock h2,
@@ -1032,6 +709,14 @@
   z-index: 5;
   background-color: var(--brand-coral);
   color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5rem 0;
+}
+.zBubbles .containerInner {
+  padding: 0 2rem;
+  box-sizing: border-box;
 }
 .zBubbles h2,
 .zBubbles h3,
@@ -1043,11 +728,14 @@
   color: var(--brand-yellow) !important;
 }
 .zBubbles .serifAccent {
-  color: var(--brand-yellow) !important;
+  color: var(--brand-navy) !important;
 }
 [data-theme='dark'] .zBubbles {
-  background-color: #38120c;
+  background: linear-gradient(135deg, #180705 0%, #38120c 100%);
   color: var(--brand-cream);
+}
+[data-theme='dark'] .zBubbles .serifAccent {
+  color: var(--brand-yellow) !important;
 }
 
 .zFaq {
@@ -1061,7 +749,7 @@
   color: var(--brand-navy) !important;
 }
 [data-theme='dark'] .zFaq {
-  background-color: #211326;
+  background: linear-gradient(135deg, #0e0712 0%, #211326 100%);
   color: var(--brand-cream);
 }
 [data-theme='dark'] .zFaq h2,
@@ -1422,5 +1110,163 @@
 
 .word {
   opacity: 0.15;
+}
+
+/* Hero image container */
+.heroImageContainer {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* 2-Row Auto-Scrolling Marquee */
+.marqueeContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  overflow: hidden;
+  padding: 1rem 0;
+  mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+}
+
+.marqueeRow {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  padding: 12px 0;
+}
+
+.marqueeTrack {
+  display: flex;
+  gap: 1.5rem;
+  white-space: nowrap;
+  width: max-content;
+  align-items: center;
+}
+
+/* Continuous scrolling animations */
+.marqueeRowLTR .marqueeTrack {
+  animation: scrollLTR 35s linear infinite;
+}
+
+.marqueeRowRTL .marqueeTrack {
+  animation: scrollRTL 35s linear infinite;
+}
+
+.marqueeRow:hover .marqueeTrack {
+  animation-play-state: paused;
+}
+
+@keyframes scrollLTR {
+  0% {
+    transform: translateX(-33.3333%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes scrollRTL {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-33.3333%);
+  }
+}
+
+/* Portfolio Circular Bubbles */
+.carouselBubble {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1.5px solid rgba(14, 45, 84, 0.12);
+  box-shadow: 0 8px 24px rgba(14, 45, 84, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.3s ease;
+  user-select: none;
+  will-change: transform;
+  transform: translateZ(0);
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+}
+
+[data-theme='dark'] .carouselBubble {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.carouselBubble:hover {
+  transform: scale(1.1);
+  border-color: var(--brand-navy);
+}
+
+[data-theme='dark'] .carouselBubble:hover {
+  border-color: var(--brand-yellow);
+}
+
+.clientLogoImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+@media (max-width: 768px) {
+  .carouselBubble {
+    width: 90px;
+    height: 90px;
+  }
+  .marqueeContainer {
+    gap: 1rem;
+  }
+  .marqueeTrack {
+    gap: 1rem;
+  }
+}
+
+/* Glowing Frosted Glass Overrides in Dark Mode */
+[data-theme='dark'] .inclusionCard {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.12) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+}
+
+[data-theme='dark'] .approachCard {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.12) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+}
+
+[data-theme='dark'] .approachCard h3 {
+  color: var(--brand-cream) !important;
+}
+
+[data-theme='dark'] .approachCard p {
+  color: var(--brand-cream) !important;
+  opacity: 0.85 !important;
+}
+
+[data-theme='dark'] .accordion {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.12) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+}
+
+[data-theme='dark'] .formCard {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.12) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
 }
 

@@ -31,24 +31,6 @@ const SERVICES_GRID_DATA = [
     tags: ["REELS", "GRAPHICS"]
   },
   {
-    id: "branding-logo",
-    title: "Branding & Logo",
-    desc: "Distinct visual identities, logo marks, and complete brand style guides.",
-    image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=600&auto=format&fit=crop",
-    category: "DESIGN",
-    timeframe: "3-5 WEEKS",
-    tags: ["LOGO", "GUIDELINES"]
-  },
-  {
-    id: "linkedin-marketing",
-    title: "LinkedIn Marketing",
-    desc: "Authority-building thought leadership content for founders and brands.",
-    image: "https://images.unsplash.com/photo-1557200134-90327ee9fafa?q=80&w=600&auto=format&fit=crop",
-    category: "MARKETING",
-    timeframe: "Ongoing",
-    tags: ["FOUNDER B2B", "STRATEGY"]
-  },
-  {
     id: "photography-videography",
     title: "Photography & Videography",
     desc: "Premium product shoots and campaign video production.",
@@ -58,31 +40,40 @@ const SERVICES_GRID_DATA = [
     tags: ["SHOOTS", "EDITING"]
   },
   {
-    id: "packaging-design",
-    title: "Packaging Design",
-    desc: "Premium physical package layouts, labels, and tactile mockups.",
-    image: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=600&auto=format&fit=crop",
-    category: "DESIGN",
-    timeframe: "4-6 WEEKS",
-    tags: ["TACTILE", "LABELS"]
-  },
-  {
-    id: "website-development-seo",
-    title: "Website Development & SEO",
+    id: "website-development",
+    title: "Website Development",
     desc: "Ultra-fast Next.js code structures with organic search ranking strategies.",
     image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=600&auto=format&fit=crop",
     category: "DEVELOPMENT",
     timeframe: "4-8 WEEKS",
-    tags: ["NEXT.JS", "RANKING"]
+    tags: ["NEXT.JS", "SEO"]
   },
   {
-    id: "brochures-lookbook-flyers",
-    title: "Brochures, Lookbook & Flyers",
-    desc: "Elegant print layouts, digital lookbooks, and high-impact flyers.",
+    id: "branding-packaging",
+    title: "Branding & Packaging",
+    desc: "Distinct visual identities, premium package layouts, and complete brand style guides.",
+    image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=600&auto=format&fit=crop",
+    category: "DESIGN",
+    timeframe: "4-6 WEEKS",
+    tags: ["IDENTITY", "TACTILE"]
+  },
+  {
+    id: "brochures-catalogues",
+    title: "Brochures & Catalogues",
+    desc: "Elegant print layouts, digital lookbooks, and high-impact catalogues.",
     image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?q=80&w=600&auto=format&fit=crop",
     category: "DESIGN",
-    timeframe: "1-3 WEEKS",
+    timeframe: "2-3 WEEKS",
     tags: ["PRINT", "EDITORIAL"]
+  },
+  {
+    id: "linkedin-personal-branding",
+    title: "LinkedIn Personal Branding",
+    desc: "Authority-building thought leadership content for founders and brands.",
+    image: "https://images.unsplash.com/photo-1557200134-90327ee9fafa?q=60&w=600&auto=format&fit=crop",
+    category: "MARKETING",
+    timeframe: "Ongoing",
+    tags: ["FOUNDER B2B", "INFLUENCE"]
   },
   {
     id: "event-invites-wedding-cards",

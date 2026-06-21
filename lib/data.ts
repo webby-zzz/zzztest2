@@ -1,19 +1,18 @@
 export const SERVICES_DATA = [
   { id: "social-media-marketing", name: "Social Media Marketing", image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=1000&auto=format&fit=crop" },
   { id: "content-creation", name: "Content Creation", image: "https://images.unsplash.com/photo-1542435503-956c469947f6?q=80&w=1000&auto=format&fit=crop" },
-  { id: "branding-logo", name: "Branding & Logo", image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=1000&auto=format&fit=crop" },
-  { id: "linkedin-marketing", name: "LinkedIn Marketing", image: "https://images.unsplash.com/photo-1557200134-90327ee9fafa?q=80&w=1000&auto=format&fit=crop" },
   { id: "photography-videography", name: "Photography & Videography", image: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=1000&auto=format&fit=crop" },
-  { id: "packaging-design", name: "Packaging Design", image: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=1000&auto=format&fit=crop" },
-  { id: "website-development-seo", name: "Website Development & SEO", image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=1000&auto=format&fit=crop" },
-  { id: "brochures-lookbook-flyers", name: "Brochures, Lookbook & Flyers", image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?q=80&w=1000&auto=format&fit=crop" },
+  { id: "website-development", name: "Website Development", image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=1000&auto=format&fit=crop" },
+  { id: "branding-packaging", name: "Branding & Packaging", image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=1000&auto=format&fit=crop" },
+  { id: "brochures-catalogues", name: "Brochures & Catalogues", image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?q=80&w=1000&auto=format&fit=crop" },
+  { id: "linkedin-personal-branding", name: "LinkedIn Personal Branding", image: "https://images.unsplash.com/photo-1557200134-90327ee9fafa?q=80&w=1000&auto=format&fit=crop" },
   { id: "event-invites-wedding-cards", name: "Event Invites & Wedding Cards", image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop" },
 ];
 
 export const CASE_STUDIES_DATA = [
   {
     id: "apple",
-    services: ["branding-logo", "brochures-lookbook-flyers", "website-development-seo"],
+    services: ["branding-packaging", "brochures-catalogues", "website-development"],
     name: "Apple Ecosystem",
     brandName: "Apple",
     category: "DESIGN",
@@ -65,7 +64,7 @@ export const CASE_STUDIES_DATA = [
   },
   {
     id: "kaizen",
-    services: ["website-development-seo", "content-creation", "social-media-marketing"],
+    services: ["website-development", "content-creation", "social-media-marketing"],
     name: "Kaizen Dashboard",
     brandName: "Kaizen Agency",
     category: "DEVELOPMENT",
@@ -125,7 +124,7 @@ export const CASE_STUDIES_DATA = [
   },
   {
     id: "watch",
-    services: ["branding-logo", "packaging-design", "photography-videography"],
+    services: ["branding-packaging", "photography-videography"],
     name: "Minimalist Watch Mockup",
     brandName: "Chronos",
     category: "DESIGN",
@@ -146,7 +145,7 @@ export const CASE_STUDIES_DATA = [
   },
   {
     id: "lumos",
-    services: ["linkedin-marketing", "branding-logo", "website-development-seo", "social-media-marketing"],
+    services: ["linkedin-personal-branding", "branding-packaging", "website-development", "social-media-marketing"],
     name: "Lumos Rebrand Project",
     brandName: "Lumos SaaS",
     category: "STRATEGY",
@@ -176,7 +175,7 @@ export const CASE_STUDIES_DATA = [
   },
   {
     id: "nova",
-    services: ["website-development-seo", "branding-logo"],
+    services: ["website-development", "branding-packaging"],
     name: "Nova App Launch",
     brandName: "Nova App",
     category: "DEVELOPMENT",

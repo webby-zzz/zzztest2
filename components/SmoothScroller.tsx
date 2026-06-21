@@ -26,13 +26,25 @@ export function SmoothScroller({ children }: { children: React.ReactNode }) {
       // Stop scrolling momentarily to let Next.js render and layout settle
       lenis.stop();
       
-      const timer = setTimeout(() => {
-        lenis.start();
-        ScrollTrigger.clearScrollMemory();
-        ScrollTrigger.refresh(true);
-      }, 100);
+      // Refresh ScrollTrigger at progressive intervals to handle hydration and layout settling
+      const timers = [
+        setTimeout(() => {
+          lenis.start();
+          ScrollTrigger.clearScrollMemory();
+          ScrollTrigger.refresh(true);
+        }, 100),
+        setTimeout(() => {
+          ScrollTrigger.refresh(true);
+        }, 300),
+        setTimeout(() => {
+          ScrollTrigger.refresh(true);
+        }, 600)
+      ];
 
-      return () => clearTimeout(timer);
+      return () => {
+        timers.forEach(clearTimeout);
+        lenis.start(); // Ensure scroller is always restarted on cleanup
+      };
     }
   }, [pathname]);
 

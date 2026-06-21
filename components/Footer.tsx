@@ -67,11 +67,13 @@ export default function Footer() {
               <h3 className={styles.colTitle}>OUR SERVICES</h3>
               <div className={styles.links}>
                 <Link href="/services/social-media-marketing">Social Media Marketing</Link>
-                <Link href="/services/branding-logo">Branding & Logo</Link>
-                <Link href="/services/website-development-seo">Website Development & SEO</Link>
                 <Link href="/services/content-creation">Content Creation</Link>
-                <Link href="/services/linkedin-marketing">LinkedIn Marketing</Link>
                 <Link href="/services/photography-videography">Photography & Videography</Link>
+                <Link href="/services/website-development">Website Development</Link>
+                <Link href="/services/branding-packaging">Branding & Packaging</Link>
+                <Link href="/services/brochures-catalogues">Brochures & Catalogues</Link>
+                <Link href="/services/linkedin-personal-branding">LinkedIn Personal Branding</Link>
+                <Link href="/services/event-invites-wedding-cards">Event Invites & Wedding Cards</Link>
               </div>
             </div>
           </div>
@@ -90,31 +92,45 @@ export default function Footer() {
                   <MapPin size={16} className={styles.contactIcon} />
                   <div>
                     <strong>Address</strong>
-                    <span>1323 Month, 23306</span>
+                    <span>Kolkata, India.<br />Operating globally.</span>
                   </div>
                 </div>
                 <div className={styles.contactItem}>
                   <Mail size={16} className={styles.contactIcon} />
                   <div>
                     <strong>Email</strong>
-                    <span>hello@zzz.design</span>
+                    <span>
+                      <a href="mailto:info@zipzapzop.in" className={styles.contactLink}>info@zipzapzop.in</a> | <a href="mailto:avantika@zipzapzop.in" className={styles.contactLink}>avantika@zipzapzop.in</a>
+                    </span>
                   </div>
                 </div>
                 <div className={styles.contactItem}>
                   <Phone size={16} className={styles.contactIcon} />
                   <div>
                     <strong>Phone</strong>
-                    <span>+123-356-6678</span>
+                    <span>+91 89109 76453</span>
                   </div>
                 </div>
               </div>
 
               {/* Social Grid */}
               <div className={styles.socialGrid}>
-                <a href="#" className={styles.socialPaperCard} aria-label="Instagram">
+                <a 
+                  href="https://www.instagram.com/zipzapzop.marketing/" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className={styles.socialPaperCard} 
+                  aria-label="Instagram"
+                >
                   <Instagram size={18} className={styles.insta} />
                 </a>
-                <a href="#" className={styles.socialPaperCard} aria-label="LinkedIn">
+                <a 
+                  href="https://in.linkedin.com/company/zipzapzop" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className={styles.socialPaperCard} 
+                  aria-label="LinkedIn"
+                >
                   <Linkedin size={18} className={styles.linkedin} />
                 </a>
                 <a href="#" className={styles.socialPaperCard} aria-label="Behance">

@@ -23,6 +23,7 @@ import {
 } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useTheme } from "next-themes";
 import styles from "./page.module.css";
 import { CASE_STUDIES_DATA } from "@/lib/data";
 
@@ -30,28 +31,54 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-// Brand Bubbles data (Portfolio Case Studies)
-const BRAND_BUBBLES = CASE_STUDIES_DATA.filter(item => 
-  item.services.includes("social-media-marketing")
-);
+// Brand Bubbles data
+const BRAND_BUBBLES = [
+  { brandName: "Dragon King", logoFile: "Dragon King logo.webp" },
+  { brandName: "Gokul", logoFile: "Gokul logo.webp" },
+  { brandName: "Matri", logoFile: "Matri Logo .webp" },
+  { brandName: "Lokaloom", logoFile: "Lokaloom logo.webp" },
+  { brandName: "Travellers Paraadise", logoFile: "Travellers Paraadise logo.webp" },
+  { brandName: "Koala Kidz", logoFile: "Koala Kidz logo.webp" },
+  { brandName: "Vedic Fuel", logoFile: "Vedic Fuel logo.webp" },
+  { brandName: "House Of Dreams", logoFile: "House Of Dreams logo.webp" },
+  { brandName: "Cabcon", logoFile: "Cabcon logo.webp" },
+  { brandName: "Crepes", logoFile: "Crepes Logo.webp" },
+  { brandName: "Klocal", logoFile: "Klocal logo.webp" },
+  { brandName: "ChefTeeDee", logoFile: "Chef TeeDee logo.webp" },
+  { brandName: "Indecor", logoFile: "Indecor logo.webp" },
+  { brandName: "Shhyam Shah", logoFile: "Shhyam Shah logo.webp" },
+  { brandName: "Deco Imagination", logoFile: "Deco Imagination logo.webp" },
+  { brandName: "Cafe Mirosh", logoFile: "Mirosh logo.webp" },
+  { brandName: "Hustle Culture", logoFile: "Hustle Culture logo.webp" },
+  { brandName: "Funcorp", logoFile: "Funcorp logo.webp" },
+  { brandName: "PDS by Sneha", logoFile: "PDS logo.webp" }
+];
 
 // FAQS
 const FAQS = [
   {
-    q: "How many posts per month do we get?",
-    a: "Packages typically include 12–20 posts/month depending on your tier and business goals. We tailor this post frequency to platform algorithms and your budget to optimize engagement and reach."
+    q: "How involved do I need to be?",
+    a: "You don't need to manage the day-to-day. We handle strategy, content planning and execution while keeping you involved for approvals and business insights."
   },
   {
-    q: "Do you handle paid ads as well?",
-    a: "We offer organic social media management and paid advertising as separate services. Both can be bundled together for a full-funnel approach where paid ads retarget users engaged by organic content."
+    q: "Do you create the content or do I need to provide it?",
+    a: "Most brands use a combination of both. We develop concepts, scripts and creatives while incorporating brand assets, product footage and content captured during shoots."
   },
   {
-    q: "Will you create the content or do we provide it?",
-    a: "We create everything — high-fidelity graphic designs, written copywriting, captions, and script formats. If photography/video is needed, we provide structured creative briefs. You maintain full approval."
+    q: "How long does it take to see results?",
+    a: "Social media is a long-term investment. While engagement improvements can happen within weeks, meaningful growth is built through consistent execution over time."
   },
   {
-    q: "How long before we see results?",
-    a: "Typically, it takes 60–90 days for meaningful algorithm and follower growth. However, engagement improvements, comment replies, and profile conversions can begin showing in the first few weeks."
+    q: "Is every package customised?",
+    a: "Yes. Every business has different goals, audiences and content requirements. We tailor our approach to suit your brand's specific needs."
+  },
+  {
+    q: "Do you also manage paid advertising?",
+    a: "Yes. Paid campaigns can be integrated alongside organic content strategies to support awareness, traffic, lead generation or sales objectives."
+  },
+  {
+    q: "What happens before we start?",
+    a: "We begin with a discovery call to understand your business, audience, competitors and objectives before creating a strategy tailored to your goals."
   }
 ];
 
@@ -68,19 +95,31 @@ export default function SocialMediaPage() {
   const approachTextRef = useRef<HTMLParagraphElement>(null);
 
   // States
-  const [modalVisible, setModalVisible] = useState(false);
-  const [selectedBrand, setSelectedBrand] = useState<typeof BRAND_BUBBLES[0] | null>(null);
+  const [mounted, setMounted] = useState(false);
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
   const [form, setForm] = useState({ name: "", email: "", phone: "", company: "", brief: "", socialLinks: "", location: "" });
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
 
-  const modalOverlayRef = useRef<HTMLDivElement>(null);
-  const modalCardRef = useRef<HTMLDivElement>(null);
-
   // Scroll to top instantly on mount
   useEffect(() => {
     window.scrollTo(0, 0);
+    const lenis = (window as any).lenis;
+    if (lenis) {
+      lenis.scrollTo(0, { immediate: true });
+    }
+    setMounted(true);
   }, []);
+
+  const { resolvedTheme } = useTheme();
+  const isDark = mounted && resolvedTheme === "dark";
+  const banners = {
+    desktop: isDark 
+      ? "/zzz banners optimized/SMM banner - dark.webp" 
+      : "/zzz banners optimized/SMM banner - light.webp",
+    mobile: isDark 
+      ? "/zzz banners optimized/SMM mobile banner - dark.webp" 
+      : "/zzz banners optimized/SMM mobile banner - light.webp"
+  };
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -289,18 +328,18 @@ export default function SocialMediaPage() {
         );
       }
 
-      const bubbles = bubblesRef.current?.querySelectorAll(`.${styles.bubble}`);
-      if (bubbles && bubbles.length > 0) {
-        gsap.fromTo(bubbles,
-          { opacity: 0, scale: 0.4 },
+      const marqueeRows = bubblesRef.current?.querySelectorAll(`.${styles.marqueeRow}`);
+      if (marqueeRows && marqueeRows.length > 0) {
+        gsap.fromTo(marqueeRows,
+          { opacity: 0, y: 30 },
           {
             opacity: 1,
-            scale: 1,
-            stagger: 0.1,
-            duration: 1.2,
-            ease: "back.out(1.2)",
+            y: 0,
+            stagger: 0.2,
+            duration: 1.0,
+            ease: "power3.out",
             scrollTrigger: {
-              trigger: bubblesRef.current?.querySelector(`.${styles.bubbleCluster}`),
+              trigger: bubblesRef.current?.querySelector(`.${styles.marqueeContainer}`),
               start: "top 92%",
             }
           }
@@ -382,63 +421,10 @@ export default function SocialMediaPage() {
         );
       }
 
-
-
     }, containerRef);
 
     return () => ctx.revert();
   }, []);
-
-  const openModal = (brand: typeof BRAND_BUBBLES[0]) => {
-    setSelectedBrand(brand);
-    setModalVisible(true);
-  };
-
-  const closeModal = () => {
-    if (!modalOverlayRef.current || !modalCardRef.current) return;
-
-    // Apple-like smooth exit
-    gsap.timeline({
-      onComplete: () => {
-        setModalVisible(false);
-        setSelectedBrand(null);
-      }
-    })
-      .to(modalCardRef.current, {
-        scale: 0.94,
-        y: 25,
-        opacity: 0,
-        duration: 0.3,
-        ease: "power2.in"
-      })
-      .to(modalOverlayRef.current, {
-        opacity: 0,
-        duration: 0.2,
-        ease: "power2.in"
-      }, "-=0.15");
-  };
-
-  // Apple-like modal entrance
-  useEffect(() => {
-    if (modalVisible && modalOverlayRef.current && modalCardRef.current) {
-      gsap.set(modalOverlayRef.current, { opacity: 0 });
-      gsap.set(modalCardRef.current, { scale: 0.94, y: 25, opacity: 0 });
-
-      gsap.timeline()
-        .to(modalOverlayRef.current, {
-          opacity: 1,
-          duration: 0.4,
-          ease: "power2.out"
-        })
-        .to(modalCardRef.current, {
-          scale: 1,
-          y: 0,
-          opacity: 1,
-          duration: 0.5,
-          ease: "back.out(1.05)"
-        }, "-=0.2");
-    }
-  }, [modalVisible]);
 
   // Accordion smooth height animation
   useEffect(() => {
@@ -480,7 +466,7 @@ export default function SocialMediaPage() {
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.name || !form.email) return;
+    if (!form.name || !form.email || !form.phone || !form.company || !form.location || !form.brief) return;
 
     setStatus("sending");
     setTimeout(() => {
@@ -498,57 +484,25 @@ export default function SocialMediaPage() {
 
         {/* HERO BACKGROUND IMAGE */}
         <div className={styles.heroBackground}>
-          <img 
-            src="/service banner.jpeg" 
-            alt="Service Page Banner" 
-            className={styles.heroImage}
-          />
+          <picture className={styles.heroImageContainer}>
+            <source media="(max-width: 768px)" srcSet={banners.mobile} />
+            <img 
+              src={banners.desktop} 
+              alt="Social Media Marketing Banner" 
+              className={styles.heroImage}
+            />
+          </picture>
         </div>
 
         {/* HERO CONTENT */}
         <div className={styles.heroContent}>
           <div className="gsap-hero-el" style={{ opacity: 0 }}>
             <button className={styles.ctaButton} onClick={handleAuditClick}>
-              Get My Social Audit <ArrowRight size={18} />
+              Enquire Now <ArrowRight size={18} />
             </button>
           </div>
         </div>
 
-      </section>
-
-      {/* SECTION: What We Do - Platforms */}
-      <section className={`${styles.section} ${styles.zWhatWeDo}`} ref={whatWeDoRef}>
-        <div className={styles.containerInner}>
-          <div className={`${styles.headingBlock} gsap-reveal-head`}>
-            <span className={styles.badge} style={{ opacity: 0 }}>[ 01 / WHAT WE DO ]</span>
-            <h2 style={{ opacity: 0 }}>Platforms We <span className={styles.serifAccent}>Handle</span>.</h2>
-            <p style={{ opacity: 0 }}>We manage, grow, and monetise your social presence across channels. From strategy to consistency.</p>
-          </div>
-
-          <div className={styles.platformsGridCompact}>
-            {[
-              { name: "Instagram", desc: "Visual feed, Reels edits, story template strategies.", icon: Instagram },
-              { name: "Facebook", desc: "Interactive community & meta conversion ads.", icon: Facebook },
-              { name: "YouTube", desc: "Shorts creation & thumbnail search engine SEO.", icon: Youtube },
-              { name: "Pinterest", desc: "Boards categorisation & rich catalog links.", icon: Share2 },
-              { name: "Twitter / X", desc: "Voice guidelines & interactive trend monitoring.", icon: MessageSquare },
-              { name: "Threads", desc: "Growth campaigns & text conversational hooks.", icon: Sparkles }
-            ].map((p, idx) => {
-              const Icon = p.icon;
-              return (
-                <div key={idx} className={`${styles.platformCardCompact} glassmorphism`} style={{ opacity: 0 }}>
-                  <div className={styles.iconWrapperCompact}>
-                    <Icon size={26} strokeWidth={2.5} />
-                  </div>
-                  <div className={styles.platformCardCompactContent}>
-                    <h3>{p.name}</h3>
-                    <p>{p.desc}</p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
       </section>
 
       {/* SECTION: Package Inclusions */}
@@ -559,40 +513,36 @@ export default function SocialMediaPage() {
 
             {/* Left Column: Title Block & "You Get" Visual Badge */}
             <div className={`${styles.inclusionsLeft} gsap-reveal-inclusions-left`}>
-              <span className={styles.badge} style={{ opacity: 0 }}>[ 02 / PACKAGE INCLUSIONS ]</span>
+              <span className={styles.badge} style={{ opacity: 0 }}>[ 01 / PACKAGE INCLUSIONS ]</span>
               <h2 style={{ opacity: 0 }} className={styles.inclusionsTitle}>
-                What's Included In Our <span className={styles.serifAccent}>Packages</span>.
+                What's included in our packages.
               </h2>
               <p style={{ opacity: 0 }} className={styles.inclusionsSub}>
-                Everything you need for organic social growth, bundled into a clear monthly execution plan.
+                Everything you need to build a consistent, engaging and professionally managed social media presence.
               </p>
 
               <div className={`${styles.youGetContainer} glassmorphism`} style={{ opacity: 0 }}>
-                <div className={styles.youGetLabel}>you get.</div>
+                <div className={styles.youGetLabel}>you also get</div>
                 <div className={styles.youGetSpecs}>
                   <div className={styles.specItem}>
                     <span className={styles.specDot} />
-                    <span>Dedicated Content Director</span>
+                    <span>Dedicated Account Manager</span>
                   </div>
                   <div className={styles.specItem}>
                     <span className={styles.specDot} />
-                    <span>24/7 Slack Channel Access</span>
+                    <span>Fast Turnaround & Communication</span>
                   </div>
                   <div className={styles.specItem}>
                     <span className={styles.specDot} />
-                    <span>Weekly Custom Reporting</span>
+                    <span>Monthly Analytics & Recommendations</span>
                   </div>
                   <div className={styles.specItem}>
                     <span className={styles.specDot} />
-                    <span>All Source Design Files</span>
+                    <span>Monthly Strategy Calls</span>
                   </div>
                   <div className={styles.specItem}>
                     <span className={styles.specDot} />
-                    <span>Monthly Audit Roadmaps</span>
-                  </div>
-                  <div className={styles.specItem}>
-                    <span className={styles.specDot} />
-                    <span>1-on-1 Strategy Calls</span>
+                    <span>Creative Collaboration Support</span>
                   </div>
                 </div>
               </div>
@@ -601,12 +551,12 @@ export default function SocialMediaPage() {
             {/* Right Column: Inclusions Grid */}
             <div className={styles.inclusionsGridCompact}>
               {[
-                { title: "Strategic Monthly Calendar", desc: "Post themes mapping back to core business targets." },
-                { title: "Custom Styled Visuals", desc: "High-fidelity static and animated story assets." },
-                { title: "Cinematic Reel Scripting", desc: "Word-by-word scripts and hooks guidance." },
-                { title: "Active Community Management", desc: "Prompt comment replies and DM inquiries handling." },
-                { title: "Weekly & Monthly Reporting", desc: "Attribution reports detailing absolute gains." },
-                { title: "Algorithmic Trend Research", desc: "Competitor quarterly audits and updates." }
+                { title: "Strategic Monthly Content Planning", desc: "Content calendars designed around your goals, audience and brand positioning." },
+                { title: "Reels Production & Creative Direction", desc: "From concepts and scripting to editing and publishing-ready content." },
+                { title: "Custom Visual & Brand Assets", desc: "Branded posts, stories and creatives that keep your feed cohesive." },
+                { title: "Social Media Management", desc: "Content scheduling, profile maintenance and day-to-day account handling." },
+                { title: "Analytics, Reporting & Optimisation", desc: "Performance tracking with insights to continuously improve results." },
+                { title: "Dedicated Account Support", desc: "A single point of contact to ensure smooth communication and execution." }
               ].map((inc, i) => (
                 <div
                   key={i}
@@ -639,10 +589,10 @@ export default function SocialMediaPage() {
         <div className={styles.containerInner}>
 
           <div className={`${styles.headingBlock} gsap-reveal-head`}>
-            <span className={styles.badge} style={{ opacity: 0 }}>[ 03 / OUR METHODOLOGY ]</span>
+            <span className={styles.badge} style={{ opacity: 0 }}>[ 02 / OUR METHODOLOGY ]</span>
             <h2 style={{ opacity: 0 }}>Purpose over <span className={styles.serifAccent}>vanity</span>.</h2>
             <p className={styles.revealParagraph} ref={approachTextRef}>
-              {`We don't post for the sake of posting. Every piece of content starts with understanding your audience, your competitors, and your goals. We then build a content strategy that maps to your business objectives — not just vanity metrics.`.split(" ").map((word, idx) => (
+              {`Likes are great. Loyalty is better. That's why we focus on creating content that builds trust, starts conversations and keeps your brand top of mind.`.split(" ").map((word, idx) => (
                 <span key={idx} className={styles.word}>
                   {word}{" "}
                 </span>
@@ -652,10 +602,10 @@ export default function SocialMediaPage() {
 
           <div className={styles.approachGrid}>
             {[
-              { num: "01", title: "Strategy First", desc: "Before we create a single post, we do a full brand and audience audit. Zero guesswork." },
-              { num: "02", title: "Platform-Specific", desc: "What works on Instagram won't work on LinkedIn. Each platform gets its own custom treatment." },
-              { num: "03", title: "Data-Driven", desc: "We review analytics weekly and course-correct. No lazy set-and-forget loops." },
-              { num: "04", title: "Brand-Consistent", desc: "Your grid will look curated, not chaotic. Colours, tone, and visual language stay consistent." }
+              { num: "01", title: "Strategy First", desc: "Every decision starts with audience insights." },
+              { num: "02", title: "Platform-Specific", desc: "Different platforms need different content." },
+              { num: "03", title: "Data-Led", desc: "Performance guides every move." },
+              { num: "04", title: "Consistent Branding", desc: "A recognizable brand across every touchpoint." }
             ].map((app, i) => (
               <div key={i} className={`${styles.approachCard} glassmorphism`} style={{ opacity: 0 }}>
                 <span className={styles.approachNum}>{app.num}</span>
@@ -673,104 +623,46 @@ export default function SocialMediaPage() {
         <div className={styles.containerInner}>
 
           <div className={`${styles.headingBlock} gsap-reveal-head`}>
-            <span className={styles.badge} style={{ opacity: 0 }}>[ 04 / FEATURED WORK ]</span>
-            <h2 style={{ opacity: 0 }}>Interactive <span className={styles.serifAccent}>portfolio</span>.</h2>
-            <p style={{ opacity: 0 }}>Click on the interactive bubbles below to explore live social feeds, project briefs, and performance outcomes for our selected partners.</p>
+            <span className={styles.badge} style={{ opacity: 0 }}>[ 03 / FEATURED WORK ]</span>
+            <h2 style={{ opacity: 0 }}>Work <span className={styles.serifAccent}>portfolio</span>.</h2>
+            <p style={{ opacity: 0 }}>Tap on the logos below to explore our recent social media work - feed displays, project briefs & outcomes.</p>
           </div>
 
-          {/* Bubble Grid Cluster */}
-          <div className={styles.bubbleCluster}>
-            {BRAND_BUBBLES.map((b, i) => {
-              const positionClass = styles[`bubble${i + 1}`];
-              return (
-                <div
-                  key={b.id}
-                  className={`${styles.bubble} glassmorphism ${positionClass}`}
-                  style={{ borderColor: b.color, opacity: 0 }}
-                  onClick={() => openModal(b)}
-                >
-                  <span className={styles.bubbleLogo} style={{ color: b.color, fontSize: "1.75rem" }}>{b.logo}</span>
-                  <span className={styles.bubbleLabel}>{b.label.split(" ")[0]}</span>
+        </div>
+
+        {/* 2-Row Marquee Carousel */}
+        <div className={styles.marqueeContainer}>
+          {/* Row 1: Left to Right */}
+          <div className={`${styles.marqueeRow} ${styles.marqueeRowLTR}`}>
+            <div className={styles.marqueeTrack}>
+              {[...BRAND_BUBBLES.slice(0, 10), ...BRAND_BUBBLES.slice(0, 10), ...BRAND_BUBBLES.slice(0, 10)].map((b, i) => (
+                <div className={styles.carouselBubble} key={`r1-${i}`}>
+                  <img 
+                    src={`/zzz clientele optimized/${b.logoFile}`} 
+                    alt={b.brandName} 
+                    className={styles.clientLogoImg}
+                  />
                 </div>
-              );
-            })}
+              ))}
+            </div>
           </div>
 
+          {/* Row 2: Right to Left */}
+          <div className={`${styles.marqueeRow} ${styles.marqueeRowRTL}`}>
+            <div className={styles.marqueeTrack}>
+              {[...BRAND_BUBBLES.slice(10), ...BRAND_BUBBLES.slice(10), ...BRAND_BUBBLES.slice(10)].map((b, i) => (
+                <div className={styles.carouselBubble} key={`r2-${i}`}>
+                  <img 
+                    src={`/zzz clientele optimized/${b.logoFile}`} 
+                    alt={b.brandName} 
+                    className={styles.clientLogoImg}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
-
-      {/* INTERACTIVE POPUP MODAL */}
-      {modalVisible && selectedBrand && (
-        <div
-          className={styles.modalOverlay}
-          ref={modalOverlayRef}
-          onClick={closeModal}
-        >
-          <div
-            className={styles.modalContent}
-            ref={modalCardRef}
-            onClick={(e) => e.stopPropagation()}
-          >
-
-            {/* Close */}
-            <button className={styles.closeButton} onClick={closeModal}>
-              <X size={18} />
-            </button>
-
-            {/* Left: Case Details */}
-            <div className={styles.modalDetails}>
-              <div className={styles.modalMeta}>
-                <h3 className={styles.modalBrand} style={{ color: selectedBrand.color }}>{selectedBrand.brandName}</h3>
-                <span className={styles.modalIndustry}>{selectedBrand.industry}</span>
-              </div>
-
-              <div className={styles.modalSection}>
-                <h4>The Brief</h4>
-                <p>{selectedBrand.brief}</p>
-              </div>
-
-              <div className={styles.modalSection}>
-                <h4>Our Execution</h4>
-                <p>{selectedBrand.work}</p>
-              </div>
-
-              <div className={styles.outcomeCard}>
-                <span className={styles.outcomeLabel}>Key Outcome</span>
-                <p className={styles.outcomeText} style={{ color: selectedBrand.color }}>{selectedBrand.outcome}</p>
-              </div>
-            </div>
-
-            {/* Right: Phone Grid Mockup */}
-            <div className={styles.phoneCol}>
-              <div className={styles.phoneFrame}>
-                <div className={styles.phoneScreen}>
-                  <div className={styles.phoneHeader}>
-                    <span>@{selectedBrand.brandName.toLowerCase().replace(" ", "")}</span>
-                    <Instagram size={14} />
-                  </div>
-                  <div className={styles.phoneProfile}>
-                    <div className={styles.phoneAvatar} style={{ color: selectedBrand.color, borderColor: selectedBrand.color }}>
-                      {selectedBrand.logo}
-                    </div>
-                    <div className={styles.profileMeta}>
-                      <span className={styles.profileName}>{selectedBrand.brandName}</span>
-                      <span className={styles.profileBio}>{selectedBrand.industry}<br />Curated by ZZZ Agency.</span>
-                    </div>
-                  </div>
-                  <div className={styles.phoneGrid}>
-                    {selectedBrand.feed?.map((img, idx) => (
-                      <div key={idx} className={styles.gridPost}>
-                        <img src={img} alt={`feed post ${idx}`} className={styles.gridPostImage} />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      )}
 
       {/* SECTION: Frequently Asked Questions */}
       <section className={`${styles.section} ${styles.zFaq}`} ref={faqRef}>
@@ -825,9 +717,9 @@ export default function SocialMediaPage() {
 
             {/* Info */}
             <div className={`${styles.contactInfo} gsap-reveal-info`}>
-              <span className={styles.badge} style={{ opacity: 0 }}>[ 06 / KICKOFF ]</span>
-              <h3 style={{ opacity: 0 }}>Ready to stop posting into <br />the <span className={styles.serifAccent}>void</span>?</h3>
-              <p style={{ opacity: 0 }}>Don’t settle for templates and vanity metrics. Fill out the audit enquiry card to get a bespoke review of your brand's grid and conversion roadmap.</p>
+              <span className={styles.badge} style={{ opacity: 0 }}>[ 06 / CONNECT ]</span>
+              <h3 style={{ opacity: 0 }}>Ready to grow your brand on <br /><span className={styles.serifAccent}>social media</span>?</h3>
+              <p style={{ opacity: 0 }}>Tell us about your brand and goals. We'll review your current presence and explore how social media can drive meaningful growth for your business.</p>
 
               <div className={styles.formDetails}>
                 <div style={{ opacity: 0 }}>
@@ -879,6 +771,7 @@ export default function SocialMediaPage() {
                     <input
                       type="text"
                       id="phone"
+                      required
                       placeholder="e.g. +91 99999 99999"
                       value={form.phone}
                       onChange={(e) => setForm({ ...form, phone: e.target.value })}
@@ -891,6 +784,7 @@ export default function SocialMediaPage() {
                     <input
                       type="text"
                       id="company"
+                      required
                       placeholder="e.g. Acme Corp"
                       value={form.company}
                       onChange={(e) => setForm({ ...form, company: e.target.value })}
@@ -901,7 +795,7 @@ export default function SocialMediaPage() {
 
                 <div className={styles.formRow}>
                   <div className={styles.inputGroup}>
-                    <label htmlFor="socialLinks" className={styles.label}>Brand Social Media & Other Links</label>
+                    <label htmlFor="socialLinks" className={styles.label}>Website & Social links</label>
                     <input
                       type="text"
                       id="socialLinks"
@@ -917,6 +811,7 @@ export default function SocialMediaPage() {
                     <input
                       type="text"
                       id="location"
+                      required
                       placeholder="e.g. Mumbai, India"
                       value={form.location}
                       onChange={(e) => setForm({ ...form, location: e.target.value })}
@@ -926,11 +821,12 @@ export default function SocialMediaPage() {
                 </div>
 
                 <div className={styles.inputGroup}>
-                  <label htmlFor="brief" className={styles.label}>Brief Description of Project</label>
+                  <label htmlFor="brief" className={styles.label}>Tell us about your brand</label>
                   <textarea
                     id="brief"
                     rows={4}
-                    placeholder="Tell us about your project, social channels, and objectives..."
+                    required
+                    placeholder="What do you do, what are your goals, and what challenges are you currently facing?"
                     value={form.brief}
                     onChange={(e) => setForm({ ...form, brief: e.target.value })}
                     className={styles.textarea}
@@ -942,7 +838,7 @@ export default function SocialMediaPage() {
                   disabled={status !== "idle"}
                   className={styles.submitBtn}
                 >
-                  {status === "idle" && "Start My Project →"}
+                  {status === "idle" && "Book A Discovery Call →"}
                   {status === "sending" && "Sending Enquiry..."}
                   {status === "sent" && "Proposal Request Sent ✓"}
                 </button>

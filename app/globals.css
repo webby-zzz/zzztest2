@@ -56,10 +56,10 @@
   --border: rgba(81, 136, 181, 0.15); /* Brand-blue tinted border */
   --accent: var(--brand-cream);
   --accent-color: var(--brand-yellow); /* Yellow accent for visibility on dark navy */
-  --glass-bg: rgba(81, 136, 181, 0.08); /* Brand-blue tinted glass background */
-  --glass-border: rgba(81, 136, 181, 0.15);
-  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
-  --glass-blur: blur(25px);
+  --glass-bg: rgba(255, 255, 255, 0.06);
+  --glass-border: rgba(255, 255, 255, 0.14);
+  --glass-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+  --glass-blur: blur(24px);
 
   /* Folder Component Colors */
   --blue-folder-tab: var(--brand-yellow);
@@ -133,11 +133,5 @@ a {
   color: var(--accent-color);
 }
 
-/* FOUC Prevention for GSAP ScrollTrigger Elements */
-html body .gsap-reveal-children > * {
-  opacity: 0;
-}
-html body .gsap-reveal-item {
-  opacity: 0;
-}
+
 
