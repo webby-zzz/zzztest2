@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Fira+Code:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 :root {
   /* Brand Palette Definitions */
@@ -20,9 +20,9 @@
   --accent-color: var(--brand-coral); /* High impact coral accent */
   --white: var(--brand-white);
 
-  --font-sans: 'Fira Code', monospace;
+  --font-sans: 'Poppins', sans-serif;
   --font-serif: 'Century Expanded', 'Century Schoolbook', 'TeX Gyre Schola', 'Cormorant Garamond', serif;
-  --font-display: 'Fira Code', monospace;
+  --font-display: 'Poppins', sans-serif;
 
   --glass-bg: rgba(255, 255, 255, 0.6);
   --glass-border: rgba(14, 45, 84, 0.08);
@@ -50,33 +50,35 @@
 
 [data-theme='dark'] {
   /* Theme Mappings - Dark Mode */
-  --background: #050e1a; /* Rich, bold deep brand navy */
+  --background: #030812; /* Deep, rich space black/navy */
   --foreground: var(--brand-cream);
-  --nav-bg: rgba(5, 14, 26, 0.85);
-  --border: rgba(81, 136, 181, 0.15); /* Brand-blue tinted border */
+  --nav-bg: rgba(3, 8, 18, 0.75);
+  --border: rgba(81, 136, 181, 0.18); /* Brand-blue tinted border */
   --accent: var(--brand-cream);
-  --accent-color: var(--brand-yellow); /* Yellow accent for visibility on dark navy */
-  --glass-bg: rgba(255, 255, 255, 0.06);
-  --glass-border: rgba(255, 255, 255, 0.14);
-  --glass-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
-  --glass-blur: blur(24px);
+  --accent-color: #00f2fe; /* High impact electric-cyan accent */
+  
+  /* Frost / Glass effect variables */
+  --glass-bg: rgba(6, 18, 36, 0.45); /* Deep translucent blue-tinted frost background */
+  --glass-border: rgba(81, 136, 181, 0.24); /* Glowing blue-cyan reflective border */
+  --glass-shadow: 0 20px 45px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.15); /* Bevel highlight */
+  --glass-blur: blur(20px);
 
   /* Folder Component Colors */
-  --blue-folder-tab: var(--brand-yellow);
-  --blue-folder-back: var(--brand-mint);
-  --blue-folder-front: var(--brand-blue);
-  --blue-folder-paper: var(--brand-cream);
+  --blue-folder-tab: var(--brand-blue);
+  --blue-folder-back: var(--brand-lavender);
+  --blue-folder-front: var(--brand-navy);
+  --blue-folder-paper: var(--brand-white);
 
-  /* Section-specific backgrounds to cut monotony - Dark Mode */
-  --services-bg: #0d2745; /* Deep, bold midnight brand blue */
+  /* Section-specific backgrounds to cut monotony - Dark Mode (made transparent to allow background gradient flow) */
+  --services-bg: transparent;
   --services-text: var(--brand-cream);
-  --wcu-bg: #082c1f; /* Rich, bold deep mint-emerald */
+  --wcu-bg: transparent;
   --wcu-text: var(--brand-cream);
-  --stats-bg: #071224; /* Bold deep brand navy */
+  --stats-bg: transparent;
   --stats-text: var(--brand-cream);
-  --test-bg: #211038; /* Bold, deep royal velvet lavender-plum */
+  --test-bg: transparent;
   --test-text: var(--brand-cream);
-  --reveal-bg: #381409; /* Bold, deep terracotta/burnt brand coral */
+  --reveal-bg: transparent;
   --reveal-text: var(--brand-cream);
 }
 
@@ -96,6 +98,17 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
   -webkit-font-smoothing: antialiased;
 }
+
+[data-theme='dark'] body {
+  background-color: #030812;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(13, 40, 78, 0.45) 0px, transparent 55%),
+    radial-gradient(at 100% 0%, rgba(81, 136, 181, 0.25) 0px, transparent 50%),
+    radial-gradient(at 50% 100%, rgba(192, 225, 210, 0.1) 0px, transparent 50%),
+    linear-gradient(180deg, #030812 0%, #061224 50%, #02070e 100%);
+  background-attachment: fixed;
+}
+
 
 a {
   color: inherit;
@@ -124,6 +137,12 @@ a {
   -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow);
+  transition: border-color 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
+}
+
+[data-theme='dark'] .glassmorphism:hover {
+  border-color: rgba(0, 242, 254, 0.45);
+  box-shadow: 0 20px 40px rgba(0, 242, 254, 0.08), var(--glass-shadow);
 }
 
 .text-accent-highlight {
@@ -132,6 +151,38 @@ a {
   font-weight: 500;
   color: var(--accent-color);
 }
+
+/* Logo styling for theme-specific logo toggle */
+.logoContainer {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.logoDark,
+.logoLight {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+/* Default light mode rendering */
+.logoDark {
+  display: none !important;
+}
+.logoLight {
+  display: block !important;
+}
+
+/* Dark mode theme override */
+[data-theme='dark'] .logoDark {
+  display: block !important;
+}
+[data-theme='dark'] .logoLight {
+  display: none !important;
+}
+
 
 
 

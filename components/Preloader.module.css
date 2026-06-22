@@ -1,0 +1,62 @@
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #030812;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(13, 40, 78, 0.4) 0px, transparent 55%),
+    radial-gradient(at 100% 0%, rgba(81, 136, 181, 0.2) 0px, transparent 50%),
+    linear-gradient(180deg, #030812 0%, #051020 50%, #02070e 100%);
+  overflow: hidden;
+}
+
+.glassPanel {
+  position: relative;
+  width: 240px;
+  height: 240px;
+  border-radius: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background: rgba(6, 18, 36, 0.55);
+  border: 1px solid rgba(81, 136, 181, 0.3);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  overflow: hidden;
+}
+
+.logoWrapper {
+  position: relative;
+  z-index: 2;
+}
+
+/* Pulsing backdrop glow behind the logo */
+.glowBackdrop {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(circle, rgba(0, 242, 254, 0.3) 0%, rgba(0, 242, 254, 0) 70%);
+  border-radius: 50%;
+  filter: blur(15px);
+  z-index: 1;
+  animation: pulseGlow 3s infinite alternate ease-in-out;
+  pointer-events: none;
+}
+
+@keyframes pulseGlow {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.55;
+    background: radial-gradient(circle, rgba(0, 242, 254, 0.25) 0%, rgba(0, 242, 254, 0) 70%);
+  }
+  100% {
+    transform: scale(1.15);
+    opacity: 0.9;
+    background: radial-gradient(circle, rgba(0, 242, 254, 0.45) 0%, rgba(0, 242, 254, 0) 70%);
+  }
+}

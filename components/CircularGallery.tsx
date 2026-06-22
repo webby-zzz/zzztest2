@@ -52,8 +52,7 @@ export default function CircularGallery() {
       
       // Calculate radius dynamically to ensure it stays on screen but is large enough for gaps
       const vh = window.innerHeight;
-      const vw = window.innerWidth;
-      const radius = vw < 768 ? Math.min(vw * 0.8, 400) : Math.min(vh * 0.85, 800); 
+      const radius = Math.min(vh * 0.85, 800); 
 
       // 1. Position items in a full circle
       items.forEach((item, i) => {
@@ -73,7 +72,6 @@ export default function CircularGallery() {
         }
       });
 
-      // 2. Position wrapper at the bottom center to create a circle where only top half is shown
       gsap.set(wrapperRef.current, {
         top: "100%",
         y: 0, 
@@ -192,13 +190,15 @@ export default function CircularGallery() {
   };
 
   return (
-    <div className={styles.galleryContainer} ref={containerRef}>
+    <div className={styles.galleryContainer} ref={containerRef} id="hero-gallery">
       
       <div className={styles.stickyContent}>
         
         <div className={styles.heroText} ref={heroTextRef}>
-          <h1 style={{ opacity: 0 }}>Reimagining marketing <br />as a digital <span className={styles.serifAccent}>experience</span>.</h1>
-          <p style={{ opacity: 0 }}>Think success. Think <span className={styles.boldWord}>ZZZ</span>.</p>
+          <h1 style={{ opacity: 0 }} className={styles.heroTitle}>ZIP ZAP ZOP</h1>
+          <p style={{ opacity: 0 }} className={styles.heroSubtitle}>
+            Digital Marketing & Design Agency
+          </p>
           <div className={styles.centerActions} style={{ opacity: 0 }}>
             <div 
               className={styles.scrollDownContainer} 
@@ -245,8 +245,9 @@ export default function CircularGallery() {
                   style={{
                     backgroundColor: `var(${colorVar})`,
                     color: textColor,
-                    opacity: 0
-                  }}
+                    opacity: 0,
+                    "--circle-color-raw": `var(${colorVar})`
+                  } as React.CSSProperties}
                 >
                   <div className={styles.circleContent}>
                     <span className={styles.circleNum}>{String(i + 1).padStart(2, "0")}</span>

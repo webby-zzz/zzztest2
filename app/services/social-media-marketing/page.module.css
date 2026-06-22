@@ -9,7 +9,7 @@
 /* SECTION: Hero Banner */
 .hero {
   position: relative;
-  height: 100vh;
+  height: 80vh; /* Banner adjusted to 80vh so the next section slightly peaks in */
   width: 100%;
   display: flex;
   align-items: center;
@@ -22,7 +22,7 @@
 
 .heroBackground {
   position: absolute;
-  top: 0;
+  top: -7.5%; /* Push image up/center 115% tall container vertically */
   left: 0;
   width: 100%;
   height: 115%; /* Extra height to support yPercent -15 parallax translation */
@@ -35,6 +35,7 @@
   height: 100%;
   display: block;
   object-fit: cover;
+  object-position: center;
   opacity: 1;
   transition: opacity 0.3s ease;
 }
@@ -555,6 +556,10 @@
   }
   .inclusionsLayout {
     grid-template-columns: 1fr;
+    grid-template-areas: 
+      "title"
+      "grid"
+      "youget";
     gap: 2.5rem;
   }
   .modalContent {
@@ -567,11 +572,30 @@
   }
   .formGrid {
     grid-template-columns: 1fr;
-    gap: 3.5rem;
+    gap: 2rem;
   }
 }
 
 @media (max-width: 768px) {
+  .hero {
+    height: auto !important;
+    min-height: unset !important;
+  }
+  .heroBackground {
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+  }
+  .heroImage {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
+  }
+  .heroContent {
+    bottom: 1.5rem !important;
+  }
   .section {
     padding: 6rem 1.5rem;
   }
@@ -596,6 +620,23 @@
   .bubble5 { width: 110px; height: 110px; }
   .bubbleLabel { font-size: 0.55rem; }
   
+  .headingBlock h2 {
+    font-size: clamp(1.75rem, 6vw, 2.25rem) !important;
+  }
+  .contactInfo p {
+    margin-bottom: 1.25rem !important;
+  }
+  .formGrid {
+    gap: 1.5rem !important;
+  }
+  .accordionHeader {
+    padding: 1.25rem 1.25rem !important;
+    font-size: 1rem !important;
+  }
+  .accordionContent {
+    padding: 0 1.25rem 1.25rem 1.25rem !important;
+    font-size: 0.9rem !important;
+  }
   .formRow {
     grid-template-columns: 1fr;
   }
@@ -899,12 +940,16 @@
 .inclusionsLayout {
   display: grid;
   grid-template-columns: 1fr 1.2fr;
+  grid-template-areas: 
+    "title grid"
+    "youget grid";
   gap: 3.5rem;
-  align-items: center;
+  align-items: start;
   width: 100%;
 }
 
 .inclusionsLeft {
+  grid-area: title;
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
@@ -997,10 +1042,13 @@
 }
 
 .inclusionsGridCompact {
-
+  grid-area: grid;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 0.75rem;
+}
+.youGetContainer {
+  grid-area: youget;
 }.inclusionCard {
   display: flex;
   gap: 1rem;
@@ -1119,66 +1167,39 @@
   display: block;
 }
 
-/* 2-Row Auto-Scrolling Marquee */
-.marqueeContainer {
+/* 1-Row Interactive Slider styles */
+.sliderContainer {
   display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
   width: 100%;
   overflow: hidden;
-  padding: 1rem 0;
+  padding: 3rem 0;
+  cursor: grab;
+  position: relative;
+  user-select: none;
   mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
 }
 
-.marqueeRow {
-  display: flex;
-  width: 100%;
-  overflow: hidden;
-  padding: 12px 0;
+.sliderContainer:active {
+  cursor: grabbing;
 }
 
-.marqueeTrack {
+.sliderTrack {
   display: flex;
-  gap: 1.5rem;
-  white-space: nowrap;
-  width: max-content;
+  gap: var(--item-gap, 48px);
   align-items: center;
+  width: max-content;
+  will-change: transform;
+  
+  --item-width: 110px;
+  --item-gap: 48px;
+  --item-full-width: calc(var(--item-width) + var(--item-gap));
+  --half-item-width: calc(var(--item-width) / 2);
+  
+  transform: translate3d(calc(50vw - var(--half-item-width) - (var(--active-index) * var(--item-full-width)) + var(--drag-offset)), 0, 0);
 }
 
-/* Continuous scrolling animations */
-.marqueeRowLTR .marqueeTrack {
-  animation: scrollLTR 35s linear infinite;
-}
-
-.marqueeRowRTL .marqueeTrack {
-  animation: scrollRTL 35s linear infinite;
-}
-
-.marqueeRow:hover .marqueeTrack {
-  animation-play-state: paused;
-}
-
-@keyframes scrollLTR {
-  0% {
-    transform: translateX(-33.3333%);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
-
-@keyframes scrollRTL {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-33.3333%);
-  }
-}
-
-/* Portfolio Circular Bubbles */
-.carouselBubble {
+.sliderBubble {
   width: 110px;
   height: 110px;
   border-radius: 50%;
@@ -1190,26 +1211,26 @@
   justify-content: center;
   flex-shrink: 0;
   overflow: hidden;
-  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.3s ease;
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.3s ease;
   user-select: none;
-  will-change: transform;
-  transform: translateZ(0);
+  will-change: transform, opacity;
   -webkit-mask-image: -webkit-radial-gradient(white, black);
 }
 
-[data-theme='dark'] .carouselBubble {
+[data-theme='dark'] .sliderBubble {
   background: rgba(255, 255, 255, 0.08);
   border: 1.5px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
 
-.carouselBubble:hover {
-  transform: scale(1.1);
-  border-color: var(--brand-navy);
+.activeBubble {
+  border-color: var(--brand-navy) !important;
+  box-shadow: 0 12px 32px rgba(14, 45, 84, 0.15) !important;
 }
 
-[data-theme='dark'] .carouselBubble:hover {
-  border-color: var(--brand-yellow);
+[data-theme='dark'] .activeBubble {
+  border-color: var(--brand-yellow) !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35) !important;
 }
 
 .clientLogoImg {
@@ -1217,18 +1238,17 @@
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
+  pointer-events: none;
 }
 
 @media (max-width: 768px) {
-  .carouselBubble {
+  .sliderTrack {
+    --item-width: 90px;
+    --item-gap: 32px;
+  }
+  .sliderBubble {
     width: 90px;
     height: 90px;
-  }
-  .marqueeContainer {
-    gap: 1rem;
-  }
-  .marqueeTrack {
-    gap: 1rem;
   }
 }
 

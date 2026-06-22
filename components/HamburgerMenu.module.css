@@ -1,8 +1,8 @@
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(6px);
   z-index: 999;
   opacity: 0;
   pointer-events: none;
@@ -12,19 +12,19 @@
   position: fixed;
   top: 1rem;
   right: 1rem;
-  bottom: 1rem;
-  width: 380px;
+  width: 340px;
   max-width: calc(100vw - 2rem);
+  max-height: calc(100vh - 2rem);
   background: var(--glass-bg);
-  backdrop-filter: blur(24px);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow);
   border-radius: 24px;
   z-index: 1000;
   display: flex;
   flex-direction: column;
-  padding: 2.5rem;
-  padding-bottom: 8rem;
+  padding: 2.25rem 2rem;
   opacity: 0;
   transform: translateX(100%);
   overflow-y: auto;
@@ -34,14 +34,16 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 
 .title {
-  font-size: 0.875rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  opacity: 0.5;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  opacity: 0.55;
+  color: var(--foreground);
 }
 
 .closeBtn {
@@ -55,7 +57,7 @@
   padding: 0.5rem;
   margin: -0.5rem;
   border-radius: 50%;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .closeBtn:hover {
@@ -65,18 +67,19 @@
 .nav {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.25rem;
+  margin-bottom: 2.5rem;
 }
 
 .navLink {
   position: relative;
-  font-size: 1.75rem;
-  font-weight: 500;
-  letter-spacing: -0.02em;
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
   color: var(--foreground);
-  opacity: 0.5; /* Dim default state */
+  opacity: 0.6; /* Dim default state */
   display: block; /* Make the whole row clickable */
-  padding: 0.5rem 0;
+  padding: 0.35rem 0;
   cursor: pointer;
   pointer-events: auto;
   transition: opacity 0.3s ease, transform 0.3s ease;
@@ -84,46 +87,51 @@
 
 .navLink:hover {
   opacity: 1; /* Brighten on hover */
-  transform: translateX(12px);
-}
-
-.resourcesSection {
-  margin-top: 3rem;
-  margin-bottom: 2rem;
-  padding-top: 2rem;
-  border-top: 1px solid var(--glass-border);
-}
-
-.resourcesTitle {
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  opacity: 0.5;
-  display: block;
-  margin-bottom: 1rem;
-}
-
-.resourcesNav {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.resourceLink {
-  position: relative;
-  font-size: 1rem;
-  color: var(--foreground);
-  opacity: 0.5;
-  display: block;
-  padding: 0.5rem 0;
-  cursor: pointer;
-  pointer-events: auto;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.resourceLink:hover {
-  opacity: 1;
   transform: translateX(8px);
+  color: var(--accent-color);
+}
+
+/* Social icons section below menu items */
+.socialsSection {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.socialLink {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(14, 45, 84, 0.04);
+  border: 1px solid rgba(14, 45, 84, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--foreground);
+  opacity: 0.65;
+  transition: all 0.3s ease;
+}
+
+[data-theme='dark'] .socialLink {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.socialLink:hover {
+  transform: translateY(-2px);
+  opacity: 1;
+  background: var(--foreground);
+  color: var(--background);
+  border-color: var(--foreground);
+}
+
+.socialLabelText {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 800;
 }
 
 @media (max-width: 480px) {
@@ -133,6 +141,37 @@
     bottom: 0;
     width: 100vw;
     max-width: 100vw;
+    max-height: 100vh;
     border-radius: 0;
+    padding: 3.5rem 2rem 3rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .header {
+    width: 100%;
+    margin-bottom: 0;
+  }
+  .nav {
+    width: 100%;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 0;
+  }
+  .navLink {
+    font-size: 2rem;
+    text-align: center;
+    padding: 0.5rem 0;
+  }
+  .navLink:hover {
+    transform: scale(1.05);
+  }
+  .socialsSection {
+    width: 100%;
+    justify-content: center;
+    gap: 1.25rem;
+    margin-top: 0;
+    padding-top: 1.5rem;
   }
 }

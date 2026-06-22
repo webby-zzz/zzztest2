@@ -60,18 +60,17 @@ export default function ContactPage() {
               <div className={`${styles.infoCard} glassmorphism`}>
                 <h3 className={styles.cellTitle}>HEADQUARTERS</h3>
                 <p className={styles.cellText}>
-                  Level 4, Innovate Tech Park,<br/>
-                  Cyber City, New Delhi
+                  Kolkata, India.<br/>
+                  Operating globally.
                 </p>
-                <button className={styles.outlineBtn}>GET DIRECTIONS</button>
               </div>
 
               <div className={`${styles.infoCard} glassmorphism`}>
                 <h3 className={styles.cellTitle}>CONTACT DIRECT</h3>
                 <p className={styles.cellText}>
-                  <a href="mailto:hello@zzz.design" className={styles.link}>hello@zzz.design</a><br/>
-                  <a href="tel:+919876543210" className={styles.link}>+91 98765 43210</a><br/>
-                  <a href="tel:+911122334455" className={styles.link}>+91 11223 34455</a>
+                  <a href="mailto:info@zipzapzop.in" className={styles.link}>info@zipzapzop.in</a><br/>
+                  <a href="mailto:avantika@zipzapzop.in" className={styles.link}>avantika@zipzapzop.in</a><br/>
+                  <a href="tel:+918910976453" className={styles.link}>+91 89109 76453</a>
                 </p>
               </div>
             </div>
@@ -81,7 +80,7 @@ export default function ContactPage() {
               <div className={`${styles.infoCard} glassmorphism`}>
                 <h3 className={styles.cellTitle}>GLOBAL AVAILABILITY</h3>
                 <div className={styles.tableText}>
-                  <div>Primary HQ:</div><div>IST (New Delhi)</div>
+                  <div>Primary HQ:</div><div>IST (Kolkata)</div>
                   <div>US Desk:</div><div>EST (New York)</div>
                   <div>UK Desk:</div><div>GMT (London)</div>
                   <div>Support:</div><div>24/7 Support</div>
@@ -91,10 +90,10 @@ export default function ContactPage() {
               <div className={`${styles.infoCard} glassmorphism`}>
                 <h3 className={styles.cellTitle}>STALK US</h3>
                 <ul className={styles.socialList}>
-                  <li><a href="#" className={styles.link}>LinkedIn</a></li>
-                  <li><a href="#" className={styles.link}>Instagram</a></li>
+                  <li><a href="https://in.linkedin.com/company/zipzapzop" target="_blank" rel="noopener noreferrer" className={styles.link}>LinkedIn</a></li>
+                  <li><a href="https://www.instagram.com/zipzapzop.marketing/" target="_blank" rel="noopener noreferrer" className={styles.link}>Instagram</a></li>
                   <li><a href="#" className={styles.link}>Twitter (X)</a></li>
-                  <li><a href="#" className={styles.link}>Dribbble</a></li>
+                  <li><a href="#" className={styles.link}>Behance</a></li>
                 </ul>
               </div>
             </div>

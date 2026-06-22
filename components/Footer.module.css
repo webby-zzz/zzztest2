@@ -18,6 +18,16 @@
   overflow: hidden;
 }
 
+[data-theme='dark'] .footer {
+  background: linear-gradient(135deg, #020710 0%, #051224 50%, #09203f 100%);
+  --border: rgba(81, 136, 181, 0.2);
+  --glass-bg: rgba(6, 18, 36, 0.45);
+  --glass-border: rgba(81, 136, 181, 0.24);
+  --glass-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+  --accent-color: #00f2fe;
+  --scoop-color: #041020;
+}
+
 .container {
   max-width: 1300px;
   margin: 0 auto;
@@ -92,7 +102,7 @@
   width: 12px;
   height: 12px;
   border-bottom-left-radius: 12px;
-  box-shadow: -3px 3px 0 0 #13345a; /* Blend with local gradient background */
+  box-shadow: -3px 3px 0 0 var(--scoop-color, #13345a); /* Blend with local gradient background */
   z-index: 4;
   pointer-events: none;
 }
@@ -136,7 +146,7 @@
   position: absolute;
   top: -1.5px;
   left: 132px;
-  right: -1.5px;
+  right: 22px; /* Prevent line sticking out past rounded corner */
   height: 1.5px;
   background: var(--glass-border);
   z-index: 3;
@@ -312,10 +322,6 @@
   transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-[data-theme='dark'] .doc {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.08);
-}
 
 .doc1 {
   left: 0;
@@ -352,9 +358,6 @@
   border-radius: 1px;
 }
 
-[data-theme='dark'] .docLine {
-  background: rgba(255, 255, 255, 0.2);
-}
 
 .documentsIllustration:hover .doc1 {
   transform: rotate(-18deg) translate3d(-6px, -8px, 0);

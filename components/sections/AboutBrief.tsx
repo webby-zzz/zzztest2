@@ -65,7 +65,7 @@ export default function AboutBrief() {
           
           <div className={styles.paragraphs} style={{ opacity: 0 }}>
             <p>
-              We are a modern design and engineering collective focused on commercial growth. We replace visual noise and slow templates with bespoke, high-performance visual systems, stripping away the generic to leave only what scales your brand authority.
+              We help brands stand out, stay relevant and grow through thoughtful content, strong design and marketing that actually makes people care.
             </p>
           </div>
 
@@ -92,7 +92,7 @@ export default function AboutBrief() {
               </div>
               <span className={styles.cardTag}>[ ZZZ DIGITAL REEL ]</span>
               <p className={styles.philosophicQuote}>
-                Relentless quality is achieved when there is nothing left to subtract.
+                Make people stop.<br />Then make them stay.
               </p>
             </div>
           </div>

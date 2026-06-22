@@ -26,7 +26,7 @@ export default function Navbar() {
     <nav className={styles.navbar}>
       <div className={styles.logo}>
         <Link href="/" scroll={false}>
-          <Logo size={60} />
+          <Logo size={110} />
         </Link>
       </div>
       <div className={styles.actions}>

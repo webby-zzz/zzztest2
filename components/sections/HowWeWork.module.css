@@ -205,67 +205,65 @@
 /* Tablet & Mobile Fallbacks */
 @media (max-width: 1024px) {
   .section {
-    padding: 6rem 2rem;
+    padding: 6rem 0;
     min-height: auto;
   }
   .headerContainer {
-    padding: 0;
-    margin-bottom: 3.5rem;
+    padding: 0 1.5rem;
+    margin-bottom: 2rem;
   }
   .timelineWrapper {
-    padding-left: 0;
-    flex-direction: column;
-    align-items: flex-start;
+    width: 100vw;
+    overflow: hidden;
+    padding-top: 1.5rem;
+    padding-bottom: 2rem;
+    scrollbar-width: none;
   }
-  .backgroundLine {
-    left: 20px;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    height: 100%;
-    transform: none;
-  }
-  .lineProgress {
-    width: 100%;
-    height: 100%;
+  .timelineWrapper::-webkit-scrollbar {
+    display: none;
   }
   .timelineContainer {
-    flex-direction: column;
-    gap: 2.25rem;
-    padding-left: 2.5rem;
-    padding-right: 0;
-    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 2.5rem;
+    padding-left: calc(50vw - 140px);
+    padding-right: calc(50vw - 140px);
+    width: max-content;
   }
   .timelineItem {
-    width: 100%;
-    max-width: 500px;
-    flex-direction: row;
-    gap: 1.5rem;
+    width: 280px;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.25rem;
+    scroll-snap-align: center;
   }
   .timelineNode {
-    display: none; /* Hide top node in vertical fallback */
+    display: flex !important;
+  }
+  .backgroundLine {
+    left: 0;
+    top: 35px;
+    height: 2px;
+    bottom: unset;
+    transform: none;
   }
   .card {
-    width: 100%;
-    height: auto;
-    opacity: 1 !important;
-    transform: none !important;
+    width: 280px;
+    height: 220px;
+    opacity: 0.3;
+    transform: scale(0.94);
+    transition: all 0.3s ease;
   }
   .cardDescWrapper {
-    opacity: 1 !important;
-    transform: none !important;
-    margin-top: 12px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    margin-top: 0;
   }
 }
 
 @media (max-width: 600px) {
   .section {
-    padding: 6rem 1.5rem;
-  }
-  .timelineContainer {
-    padding-left: 1.5rem;
-  }
-  .backgroundLine {
-    left: 12px;
+    padding: 6rem 0;
   }
 }

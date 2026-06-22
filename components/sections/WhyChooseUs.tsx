@@ -130,6 +130,25 @@ export default function WhyChooseUs() {
           }
         );
       }
+
+      const mm = gsap.matchMedia();
+      mm.add("(max-width: 900px)", () => {
+        if (listRef.current) {
+          const items = Array.from(listRef.current.children) as HTMLElement[];
+          items.forEach((item, index) => {
+            ScrollTrigger.create({
+              trigger: item,
+              start: "top 55%",
+              end: "bottom 45%",
+              onToggle: (self) => {
+                if (self.isActive) {
+                  setActiveIndex(index);
+                }
+              }
+            });
+          });
+        }
+      });
     });
 
     return () => ctx.revert();

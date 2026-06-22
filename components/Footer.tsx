@@ -30,12 +30,11 @@ export default function Footer() {
 
               <h3 className={styles.colTitle}>DIRECTORY</h3>
               <div className={styles.links}>
-                <Link href="/"><span>Home</span> <Folder size={14} className={styles.linkFolderIcon} /></Link>
-                <Link href="/#about-us"><span>About Us</span> <Folder size={14} className={styles.linkFolderIcon} /></Link>
-                <Link href="/#services-grid"><span>Services</span> <Folder size={14} className={styles.linkFolderIcon} /></Link>
-                <Link href="/#portfolio-highlights"><span>Portfolio</span> <Folder size={14} className={styles.linkFolderIcon} /></Link>
-                <Link href="/#testimonials"><span>Testimonials</span> <Folder size={14} className={styles.linkFolderIcon} /></Link>
-                <Link href="/contact"><span>Book a Call</span> <Folder size={14} className={styles.linkFolderIcon} /></Link>
+                <Link href="/#brand-beliefs"><span>Home</span> <Folder size={14} className={styles.linkFolderIcon} /></Link>
+                <Link href="/#about-us"><span>About</span> <Folder size={14} className={styles.linkFolderIcon} /></Link>
+                <Link href="/#hero-gallery"><span>Services</span> <Folder size={14} className={styles.linkFolderIcon} /></Link>
+                <Link href="/#portfolio-highlights"><span>Our Work</span> <Folder size={14} className={styles.linkFolderIcon} /></Link>
+                <Link href="/contact"><span>Connect</span> <Folder size={14} className={styles.linkFolderIcon} /></Link>
               </div>
             </div>
           </div>

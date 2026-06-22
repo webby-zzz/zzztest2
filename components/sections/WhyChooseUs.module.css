@@ -256,9 +256,8 @@
     grid-template-columns: 1fr;
     gap: 2.5rem;
   }
-  
-  .previewImageWrapper {
-    min-height: 280px;
+  .previewCol {
+    display: none !important;
   }
 }
 

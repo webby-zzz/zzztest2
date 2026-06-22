@@ -63,6 +63,7 @@ export default function HowWeWork() {
   const nodesRef = useRef<(HTMLDivElement | null)[]>([]);
   const descRef = useRef<(HTMLDivElement | null)[]>([]);
   const headingRef = useRef<HTMLDivElement>(null);
+  const timelineWrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (headingRef.current) {
@@ -90,9 +91,7 @@ export default function HowWeWork() {
 
     if (!section || !container || !lineProgress || !backgroundLine) return;
 
-    const mm = gsap.matchMedia();
-
-    mm.add("(min-width: 1025px)", () => {
+    let ctx = gsap.context(() => {
       const cards = cardsRef.current.filter(Boolean) as HTMLDivElement[];
       const nodes = nodesRef.current.filter(Boolean) as HTMLDivElement[];
       const descs = descRef.current.filter(Boolean) as HTMLDivElement[];
@@ -259,39 +258,9 @@ export default function HowWeWork() {
           }, centerT);
         }
       });
-    });
+    }, section);
 
-    mm.add("(max-width: 1024px)", () => {
-      // Mobile Fallback: Vertical scroll triggers highlight cards
-      const cards = cardsRef.current.filter(Boolean) as HTMLDivElement[];
-      const descs = descRef.current.filter(Boolean) as HTMLDivElement[];
-
-      cards.forEach((card, idx) => {
-        const desc = descs[idx];
-        if (!desc) return;
-
-        // Set mobile default to fully visible
-        gsap.set(desc, { opacity: 1, y: 0 });
-
-        gsap.fromTo(card,
-          { opacity: 0.3, scale: 0.95 },
-          {
-            opacity: 1,
-            scale: 1,
-            duration: 0.6,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: card,
-              start: "top 75%",
-              end: "bottom 55%",
-              toggleActions: "play reverse play reverse",
-            }
-          }
-        );
-      });
-    });
-
-    return () => mm.revert();
+    return () => ctx.revert();
   }, []);
 
   return (
@@ -304,7 +273,7 @@ export default function HowWeWork() {
         </div>
       </div>
 
-      <div className={styles.timelineWrapper}>
+      <div className={styles.timelineWrapper} ref={timelineWrapperRef}>
         <div className={styles.timelineContainer} ref={containerRef}>
           
           {/* Progress Line inside scrollable container */}

@@ -100,6 +100,118 @@ export default function SocialMediaPage() {
   const [form, setForm] = useState({ name: "", email: "", phone: "", company: "", brief: "", socialLinks: "", location: "" });
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
 
+  // Slider States & Functions for Interactive Featured Work
+  const N_BUBBLES = BRAND_BUBBLES.length;
+  const [activeLogoIndex, setActiveLogoIndex] = useState(BRAND_BUBBLES.length + 9); // Start at middle logo copy for balanced initial rendering
+  const [dragOffset, setDragOffset] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const [transitionEnabled, setTransitionEnabled] = useState(true);
+  const dragStartX = useRef(0);
+  const autoRotateTimer = useRef<NodeJS.Timeout | null>(null);
+  const resumeAutoRotateTimeout = useRef<NodeJS.Timeout | null>(null);
+
+  const startAutoRotate = () => {
+    if (autoRotateTimer.current) clearInterval(autoRotateTimer.current);
+    autoRotateTimer.current = setInterval(() => {
+      setActiveLogoIndex((prev) => prev + 1);
+    }, 1500); // 1.5 seconds auto rotation
+  };
+
+  const resetAutoRotateTimer = () => {
+    if (autoRotateTimer.current) clearInterval(autoRotateTimer.current);
+    if (resumeAutoRotateTimeout.current) clearTimeout(resumeAutoRotateTimeout.current);
+    resumeAutoRotateTimeout.current = setTimeout(() => {
+      startAutoRotate();
+    }, 5000);
+  };
+
+  useEffect(() => {
+    startAutoRotate();
+    return () => {
+      if (autoRotateTimer.current) clearInterval(autoRotateTimer.current);
+      if (resumeAutoRotateTimeout.current) clearTimeout(resumeAutoRotateTimeout.current);
+    };
+  }, []);
+
+  // Infinite wrapping logic
+  useEffect(() => {
+    const N = BRAND_BUBBLES.length;
+    if (activeLogoIndex >= 2 * N) {
+      const timer = setTimeout(() => {
+        setTransitionEnabled(false);
+        setActiveLogoIndex(activeLogoIndex - N);
+      }, 600);
+      return () => clearTimeout(timer);
+    } else if (activeLogoIndex < N) {
+      const timer = setTimeout(() => {
+        setTransitionEnabled(false);
+        setActiveLogoIndex(activeLogoIndex + N);
+      }, 600);
+      return () => clearTimeout(timer);
+    } else {
+      if (!transitionEnabled) {
+        const timer = setTimeout(() => {
+          setTransitionEnabled(true);
+        }, 30);
+        return () => clearTimeout(timer);
+      }
+    }
+  }, [activeLogoIndex, transitionEnabled]);
+
+  const getItemFullWidth = () => {
+    if (typeof window !== "undefined" && window.innerWidth <= 768) {
+      return 90 + 32; // bubble 90 + gap 32
+    }
+    return 110 + 48; // bubble 110 + gap 48
+  };
+
+  const startDrag = (clientX: number) => {
+    setIsDragging(true);
+    dragStartX.current = clientX;
+    setDragOffset(0);
+    if (autoRotateTimer.current) clearInterval(autoRotateTimer.current);
+    if (resumeAutoRotateTimeout.current) clearTimeout(resumeAutoRotateTimeout.current);
+  };
+
+  const moveDrag = (clientX: number) => {
+    if (!isDragging) return;
+    const deltaX = clientX - dragStartX.current;
+    let newOffset = deltaX;
+    const itemFullWidth = getItemFullWidth();
+    const maxOffset = activeLogoIndex * itemFullWidth;
+    const minOffset = -((BRAND_BUBBLES.length * 3) - 1 - activeLogoIndex) * itemFullWidth;
+    if (newOffset > maxOffset + 60) {
+      newOffset = maxOffset + 60;
+    } else if (newOffset < minOffset - 60) {
+      newOffset = minOffset - 60;
+    }
+    setDragOffset(newOffset);
+  };
+
+  const endDrag = () => {
+    if (!isDragging) return;
+    setIsDragging(false);
+    const itemFullWidth = getItemFullWidth();
+    const shift = Math.round(-dragOffset / itemFullWidth);
+    let newIndex = activeLogoIndex + shift;
+    const maxIndex = (BRAND_BUBBLES.length * 3) - 1;
+    newIndex = Math.max(0, Math.min(newIndex, maxIndex));
+    setActiveLogoIndex(newIndex);
+    setDragOffset(0);
+    resumeAutoRotateTimeout.current = setTimeout(() => {
+      startAutoRotate();
+    }, 5000);
+  };
+
+  const handleMouseDown = (e: React.MouseEvent) => startDrag(e.clientX);
+  const handleMouseMove = (e: React.MouseEvent) => moveDrag(e.clientX);
+  const handleMouseUp = () => endDrag();
+  const handleMouseLeave = () => endDrag();
+
+  const handleTouchStart = (e: React.TouchEvent) => startDrag(e.touches[0].clientX);
+  const handleTouchMove = (e: React.TouchEvent) => moveDrag(e.touches[0].clientX);
+  const handleTouchEnd = () => endDrag();
+
   // Scroll to top instantly on mount
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -244,6 +356,23 @@ export default function SocialMediaPage() {
             ease: "power3.out",
             scrollTrigger: {
               trigger: inclusionsRef.current?.querySelector(`.${styles.inclusionsGridCompact}`),
+              start: "top 92%",
+            }
+          }
+        );
+      }
+
+      const youGetCard = inclusionsRef.current?.querySelector(`.${styles.youGetContainer}`);
+      if (youGetCard) {
+        gsap.fromTo(youGetCard,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.9,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: youGetCard,
               start: "top 92%",
             }
           }
@@ -511,41 +640,15 @@ export default function SocialMediaPage() {
 
           <div className={styles.inclusionsLayout}>
 
-            {/* Left Column: Title Block & "You Get" Visual Badge */}
+            {/* Left Column: Title Block */}
             <div className={`${styles.inclusionsLeft} gsap-reveal-inclusions-left`}>
               <span className={styles.badge} style={{ opacity: 0 }}>[ 01 / PACKAGE INCLUSIONS ]</span>
               <h2 style={{ opacity: 0 }} className={styles.inclusionsTitle}>
-                What's included in our packages.
+                What's included in our packages?
               </h2>
               <p style={{ opacity: 0 }} className={styles.inclusionsSub}>
                 Everything you need to build a consistent, engaging and professionally managed social media presence.
               </p>
-
-              <div className={`${styles.youGetContainer} glassmorphism`} style={{ opacity: 0 }}>
-                <div className={styles.youGetLabel}>you also get</div>
-                <div className={styles.youGetSpecs}>
-                  <div className={styles.specItem}>
-                    <span className={styles.specDot} />
-                    <span>Dedicated Account Manager</span>
-                  </div>
-                  <div className={styles.specItem}>
-                    <span className={styles.specDot} />
-                    <span>Fast Turnaround & Communication</span>
-                  </div>
-                  <div className={styles.specItem}>
-                    <span className={styles.specDot} />
-                    <span>Monthly Analytics & Recommendations</span>
-                  </div>
-                  <div className={styles.specItem}>
-                    <span className={styles.specDot} />
-                    <span>Monthly Strategy Calls</span>
-                  </div>
-                  <div className={styles.specItem}>
-                    <span className={styles.specDot} />
-                    <span>Creative Collaboration Support</span>
-                  </div>
-                </div>
-              </div>
             </div>
 
             {/* Right Column: Inclusions Grid */}
@@ -572,6 +675,33 @@ export default function SocialMediaPage() {
                   </div>
                 </div>
               ))}
+            </div>
+
+            {/* You Also Get Section */}
+            <div className={`${styles.youGetContainer} glassmorphism`} style={{ opacity: 0 }}>
+              <div className={styles.youGetLabel}>you also get</div>
+              <div className={styles.youGetSpecs}>
+                <div className={styles.specItem}>
+                  <span className={styles.specDot} />
+                  <span>Dedicated Account Manager</span>
+                </div>
+                <div className={styles.specItem}>
+                  <span className={styles.specDot} />
+                  <span>Fast Turnaround & Communication</span>
+                </div>
+                <div className={styles.specItem}>
+                  <span className={styles.specDot} />
+                  <span>Monthly Analytics & Recommendations</span>
+                </div>
+                <div className={styles.specItem}>
+                  <span className={styles.specDot} />
+                  <span>Monthly Strategy Calls</span>
+                </div>
+                <div className={styles.specItem}>
+                  <span className={styles.specDot} />
+                  <span>Creative Collaboration Support</span>
+                </div>
+              </div>
             </div>
 
           </div>
@@ -630,36 +760,72 @@ export default function SocialMediaPage() {
 
         </div>
 
-        {/* 2-Row Marquee Carousel */}
-        <div className={styles.marqueeContainer}>
-          {/* Row 1: Left to Right */}
-          <div className={`${styles.marqueeRow} ${styles.marqueeRowLTR}`}>
-            <div className={styles.marqueeTrack}>
-              {[...BRAND_BUBBLES.slice(0, 10), ...BRAND_BUBBLES.slice(0, 10), ...BRAND_BUBBLES.slice(0, 10)].map((b, i) => (
-                <div className={styles.carouselBubble} key={`r1-${i}`}>
-                  <img 
-                    src={`/zzz clientele optimized/${b.logoFile}`} 
-                    alt={b.brandName} 
-                    className={styles.clientLogoImg}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
+        {/* 1-Line Interactive Slider (Click, Drag, Snap Back & Center Scaling) */}
+        <div 
+          className={styles.sliderContainer}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseLeave}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
+          <div 
+            className={styles.sliderTrack}
+            style={{
+              "--active-index": activeLogoIndex,
+              "--drag-offset": `${dragOffset}px`,
+              transition: (isDragging || !transitionEnabled) ? "none" : "transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)",
+            } as React.CSSProperties}
+          >
+            {[...BRAND_BUBBLES, ...BRAND_BUBBLES, ...BRAND_BUBBLES].map((b, i) => {
+              const distance = Math.abs(i - activeLogoIndex);
+              
+              // Calculate size scaling, opacity, and z-index based on proximity to active center
+              let scale = 0.7;
+              let opacity = 0.45;
+              let zIndex = 1;
+              
+              if (distance === 0) {
+                scale = 1.35;
+                opacity = 1;
+                zIndex = 10;
+              } else if (distance === 1) {
+                scale = 1.05;
+                opacity = 0.8;
+                zIndex = 5;
+              } else if (distance === 2) {
+                scale = 0.85;
+                opacity = 0.6;
+                zIndex = 3;
+              }
 
-          {/* Row 2: Right to Left */}
-          <div className={`${styles.marqueeRow} ${styles.marqueeRowRTL}`}>
-            <div className={styles.marqueeTrack}>
-              {[...BRAND_BUBBLES.slice(10), ...BRAND_BUBBLES.slice(10), ...BRAND_BUBBLES.slice(10)].map((b, i) => (
-                <div className={styles.carouselBubble} key={`r2-${i}`}>
+              return (
+                <div 
+                  key={i}
+                  className={`${styles.sliderBubble} ${distance === 0 ? styles.activeBubble : ""}`}
+                  style={{
+                    transform: `scale(${scale})`,
+                    opacity: opacity,
+                    zIndex: zIndex,
+                  }}
+                  onClick={() => {
+                    if (!isDragging) {
+                      setActiveLogoIndex(i);
+                      resetAutoRotateTimer();
+                    }
+                  }}
+                >
                   <img 
                     src={`/zzz clientele optimized/${b.logoFile}`} 
                     alt={b.brandName} 
                     className={styles.clientLogoImg}
+                    draggable="false"
                   />
                 </div>
-              ))}
-            </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -721,16 +887,6 @@ export default function SocialMediaPage() {
               <h3 style={{ opacity: 0 }}>Ready to grow your brand on <br /><span className={styles.serifAccent}>social media</span>?</h3>
               <p style={{ opacity: 0 }}>Tell us about your brand and goals. We'll review your current presence and explore how social media can drive meaningful growth for your business.</p>
 
-              <div className={styles.formDetails}>
-                <div style={{ opacity: 0 }}>
-                  <span className={styles.formLabel}>Response Guarantee</span>
-                  <p className={styles.formValue}>Under 24 Hours</p>
-                </div>
-                <div style={{ opacity: 0 }}>
-                  <span className={styles.formLabel}>Studio Mailbox</span>
-                  <p className={styles.formValue}>socials@zzz.design</p>
-                </div>
-              </div>
             </div>
 
             {/* Form Card */}
