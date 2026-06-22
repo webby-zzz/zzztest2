@@ -613,14 +613,16 @@ export default function SocialMediaPage() {
 
         {/* HERO BACKGROUND IMAGE */}
         <div className={styles.heroBackground}>
-          <picture className={styles.heroImageContainer}>
-            <source media="(max-width: 768px)" srcSet={banners.mobile} />
-            <img 
-              src={banners.desktop} 
-              alt="Social Media Marketing Banner" 
-              className={styles.heroImage}
-            />
-          </picture>
+          <img 
+            src={banners.desktop} 
+            alt="Social Media Marketing Banner" 
+            className={`${styles.heroImage} ${styles.desktopBanner}`}
+          />
+          <img 
+            src={banners.mobile} 
+            alt="Social Media Marketing Banner Mobile" 
+            className={`${styles.heroImage} ${styles.mobileBanner}`}
+          />
         </div>
 
         {/* HERO CONTENT */}

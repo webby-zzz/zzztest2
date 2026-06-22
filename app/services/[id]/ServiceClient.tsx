@@ -211,14 +211,16 @@ export default function ServiceClient({ service }: { service: any }) {
     <div className={styles.container} ref={containerRef}>
       
       <section className={styles.hero}>
-        <picture className={styles.heroImageContainer}>
-          <source media="(max-width: 768px)" srcSet={banners.mobile} />
-          <img 
-            src={banners.desktop} 
-            alt={service.name} 
-            className={styles.heroImage}
-          />
-        </picture>
+        <img 
+          src={banners.desktop} 
+          alt={service.name} 
+          className={`${styles.heroImage} ${styles.desktopBanner}`}
+        />
+        <img 
+          src={banners.mobile} 
+          alt={`${service.name} Mobile`} 
+          className={`${styles.heroImage} ${styles.mobileBanner}`}
+        />
         <div className={styles.heroOverlay} ref={heroOverlayRef} />
       </section>
 
