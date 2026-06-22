@@ -47,7 +47,11 @@
   font-family: var(--font-serif);
   font-style: italic;
   font-weight: 400;
-  color: var(--accent-color);
+  color: var(--brand-navy);
+}
+
+[data-theme='dark'] .headingAccent {
+  color: var(--brand-yellow);
 }
 
 .headingBlock p {
@@ -70,36 +74,45 @@
 .listCol {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 1.15rem;
+  padding: 1rem 0;
 }
 
 .listItem {
-  padding: 1.25rem 1.5rem;
-  border-radius: 20px;
-  border: 1px solid transparent;
+  padding: 1.1rem 2.25rem;
+  border-radius: 40px;
+  border: 1.5px solid rgba(255, 255, 255, 0.08);
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-  background: rgba(14, 45, 84, 0.015);
+  background-color: var(--tab-bg);
+  color: var(--tab-text);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.3s ease, box-shadow 0.4s ease;
+}
+
+.listItem:nth-child(even) {
+  margin-left: 20px;
+  transform: rotate(1.5deg);
+}
+
+.listItem:nth-child(odd) {
+  margin-left: -10px;
+  transform: rotate(-1.5deg);
 }
 
 .listItem:hover {
-  background: rgba(14, 45, 84, 0.04);
+  transform: scale(1.02) rotate(0deg);
 }
 
-.activeItem {
-  background: rgba(14, 45, 84, 0.06);
-  border-color: rgba(14, 45, 84, 0.08);
+.activeItem, .listItem.activeItem:hover {
+  transform: scale(1.04) rotate(0deg) !important;
+  margin-left: 5px !important;
+  border-color: var(--tab-bg) !important;
+  box-shadow: 0 15px 35px color-mix(in srgb, var(--tab-bg) 40%, transparent), 0 5px 15px rgba(0, 0, 0, 0.2);
+  z-index: 5;
 }
 
 [data-theme='dark'] .listItem {
-  background: rgba(255, 255, 255, 0.015);
-}
-[data-theme='dark'] .listItem:hover {
-  background: rgba(255, 255, 255, 0.04);
-}
-[data-theme='dark'] .activeItem {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 .itemHeader {
@@ -118,27 +131,27 @@
   font-family: var(--font-sans);
   font-size: 0.85rem;
   font-weight: 700;
-  opacity: 0.4;
-  color: var(--foreground);
+  opacity: 0.6;
+  color: var(--tab-text);
 }
 
 .itemTitle {
   font-family: var(--font-sans);
   font-size: 1.2rem;
   font-weight: 700;
-  color: var(--foreground);
+  color: var(--tab-text);
 }
 
 .itemIcon {
-  opacity: 0.35;
+  opacity: 0.6;
   transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease, color 0.3s ease;
-  color: var(--foreground);
+  color: var(--tab-text);
 }
 
 .activeItem .itemIcon {
   transform: rotate(45deg);
   opacity: 1;
-  color: var(--accent-color);
+  color: var(--tab-text);
 }
 
 /* Collapsible Body */
@@ -151,14 +164,14 @@
 
 .activeItem .itemBody {
   max-height: 120px;
-  opacity: 0.8;
+  opacity: 0.95;
   margin-top: 0.75rem;
 }
 
 .itemDesc {
   font-size: 0.925rem;
   line-height: 1.6;
-  color: var(--foreground);
+  color: var(--tab-desc);
 }
 
 /* Right Column Preview Frame */

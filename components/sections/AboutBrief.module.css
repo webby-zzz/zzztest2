@@ -43,8 +43,12 @@
   font-family: var(--font-serif);
   font-style: italic;
   font-weight: 400;
-  color: var(--accent-color);
+  color: var(--brand-coral);
   text-transform: lowercase;
+}
+
+[data-theme='dark'] .serifAccent {
+  color: var(--brand-lavender);
 }
 
 .boldAccent {

@@ -1,7 +1,7 @@
 .galleryContainer {
   position: relative;
   width: 100%;
-  background-color: var(--background);
+  background: var(--hero-bg);
 }
 
 .stickyContent {
@@ -13,7 +13,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: var(--background);
+  background-color: transparent;
 }
 
 
@@ -60,8 +60,8 @@
 .heroSubtitle {
   font-family: var(--font-serif);
   font-style: italic;
-  font-size: clamp(1.1rem, 2.2vw, 1.65rem);
-  font-weight: 500;
+  font-size: clamp(1.4rem, 2.8vw, 2.25rem);
+  font-weight: 700;
   letter-spacing: -0.01em;
   background: linear-gradient(135deg, var(--accent-color) 0%, var(--brand-blue) 100%);
   -webkit-background-clip: text;

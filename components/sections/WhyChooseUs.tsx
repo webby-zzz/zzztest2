@@ -71,8 +71,19 @@ const INDUSTRIES = [
   }
 ];
 
+const TAB_COLORS = [
+  { bg: "#0E2D54", text: "#FFFFFF", desc: "rgba(255, 255, 255, 0.75)" }, // Navy
+  { bg: "#5188B5", text: "#FFFFFF", desc: "rgba(255, 255, 255, 0.8)" },  // Blue
+  { bg: "#DCC5DF", text: "#0E2D54", desc: "rgba(14, 45, 84, 0.75)" },  // Lavender
+  { bg: "#FFB703", text: "#0E2D54", desc: "rgba(14, 45, 84, 0.75)" },  // Yellow
+  { bg: "#FAF8F1", text: "#F66C51", desc: "rgba(246, 108, 81, 0.8)" },   // Cream
+  { bg: "#C0E1D2", text: "#0E2D54", desc: "rgba(14, 45, 84, 0.75)" },  // Mint
+  { bg: "#0E2D54", text: "#FAF8F1", desc: "rgba(250, 248, 241, 0.75)" }, // Navy
+  { bg: "#F66C51", text: "#FFFFFF", desc: "rgba(255, 255, 255, 0.8)" }   // Coral
+];
+
 export default function WhyChooseUs() {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const headingRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
   const previewRef = useRef<HTMLDivElement>(null);
@@ -130,25 +141,6 @@ export default function WhyChooseUs() {
           }
         );
       }
-
-      const mm = gsap.matchMedia();
-      mm.add("(max-width: 900px)", () => {
-        if (listRef.current) {
-          const items = Array.from(listRef.current.children) as HTMLElement[];
-          items.forEach((item, index) => {
-            ScrollTrigger.create({
-              trigger: item,
-              start: "top 55%",
-              end: "bottom 45%",
-              onToggle: (self) => {
-                if (self.isActive) {
-                  setActiveIndex(index);
-                }
-              }
-            });
-          });
-        }
-      });
     });
 
     return () => ctx.revert();
@@ -169,17 +161,27 @@ export default function WhyChooseUs() {
         <div className={styles.splitLayout}>
           
           {/* Left Column: Vertical Interactive List */}
-          <div className={styles.listCol} ref={listRef}>
+          <div 
+            className={styles.listCol} 
+            ref={listRef}
+            onMouseLeave={() => setActiveIndex(null)}
+          >
             {INDUSTRIES.map((industry, index) => {
               const Icon = industry.icon;
               const isActive = index === activeIndex;
+              const colors = TAB_COLORS[index % TAB_COLORS.length];
               return (
                 <div
                   key={index}
                   className={`${styles.listItem} ${isActive ? styles.activeItem : ""} gsap-reveal-item`}
                   onMouseEnter={() => setActiveIndex(index)}
-                  onClick={() => setActiveIndex(index)}
-                  style={{ opacity: 0 }}
+                  onClick={() => setActiveIndex(activeIndex === index ? null : index)}
+                  style={{ 
+                    opacity: 0,
+                    "--tab-bg": colors.bg,
+                    "--tab-text": colors.text,
+                    "--tab-desc": colors.desc,
+                  } as React.CSSProperties}
                 >
                   <div className={styles.itemHeader}>
                     <div className={styles.itemTitleBlock}>
@@ -211,15 +213,17 @@ export default function WhyChooseUs() {
               <div className={styles.previewImageWrapper}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img 
-                  src={INDUSTRIES[activeIndex].image} 
-                  alt={INDUSTRIES[activeIndex].title} 
+                  src={INDUSTRIES[activeIndex !== null ? activeIndex : 0].image} 
+                  alt={INDUSTRIES[activeIndex !== null ? activeIndex : 0].title} 
                   className={styles.previewImage}
-                  key={activeIndex} // Triggers remount animation
+                  key={activeIndex !== null ? activeIndex : "default"} // Triggers remount animation
                 />
                 <div className={styles.previewOverlay}>
                   <div className={styles.previewLabelRow}>
                     <span className={styles.previewTag}>[ PREVIEW ]</span>
-                    <span className={styles.previewIndustryName}>{INDUSTRIES[activeIndex].title}</span>
+                    <span className={styles.previewIndustryName}>
+                      {activeIndex !== null ? INDUSTRIES[activeIndex].title : "Select an Industry"}
+                    </span>
                   </div>
                 </div>
               </div>

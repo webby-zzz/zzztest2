@@ -17,7 +17,7 @@ interface StatCardProps {
   accentWord: string;
 }
 
-function StatCard({ number, suffix, label, accentWord }: StatCardProps) {
+function StatCard({ number, suffix, label, accentWord, accentColor }: StatCardProps & { accentColor: string }) {
   const card = use3DTilt(10, -15);
   const numRef = useRef<HTMLSpanElement>(null);
 
@@ -56,7 +56,11 @@ function StatCard({ number, suffix, label, accentWord }: StatCardProps) {
   return (
     <div 
       ref={card.ref} 
-      style={{ ...card.style, opacity: 0 }} 
+      style={{ 
+        ...card.style, 
+        opacity: 0,
+        "--card-accent": accentColor
+      } as React.CSSProperties} 
       className={`${styles.card} glassmorphism gsap-reveal-item`}
     >
       <div className={styles.numberWrapper}>
@@ -69,6 +73,14 @@ function StatCard({ number, suffix, label, accentWord }: StatCardProps) {
     </div>
   );
 }
+
+const CARD_ACCENTS = [
+  "#5188B5", // Blue
+  "#FFB703", // Yellow
+  "#F66C51", // Coral
+  "#DCC5DF", // Lavender
+  "#C0E1D2", // Mint
+];
 
 const STATS_DATA = [
   { number: "4", suffix: "+", label: "years in", accentWord: "business" },
@@ -136,9 +148,16 @@ export default function StatsSection() {
         </div>
 
         <div className={styles.grid} ref={gridRef}>
-          {STATS_DATA.map((stat, index) => (
-            <StatCard key={index} {...stat} />
-          ))}
+          {STATS_DATA.map((stat, index) => {
+            const accentColor = CARD_ACCENTS[index % CARD_ACCENTS.length];
+            return (
+              <StatCard 
+                key={index} 
+                {...stat} 
+                accentColor={accentColor} 
+              />
+            );
+          })}
         </div>
       </div>
     </section>

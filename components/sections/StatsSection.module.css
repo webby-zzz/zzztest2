@@ -47,7 +47,11 @@
   font-family: var(--font-serif);
   font-style: italic;
   font-weight: 400;
-  color: var(--accent-color);
+  color: var(--brand-mint);
+}
+
+[data-theme='dark'] .headingAccent {
+  color: var(--brand-lavender);
 }
 
 .headingBlock p {
@@ -71,6 +75,13 @@
   gap: 1rem;
   min-height: 150px;
   cursor: default;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  border-color: var(--card-accent) !important;
+  box-shadow: 0 15px 35px color-mix(in srgb, var(--card-accent) 20%, transparent);
 }
 
 .numberWrapper {
@@ -85,14 +96,17 @@
   font-weight: 800;
   letter-spacing: -0.04em;
   line-height: 1;
+  color: var(--card-accent, var(--foreground));
+  transition: color 0.3s ease;
 }
 
 .suffix {
   font-family: var(--font-sans);
   font-size: clamp(1.25rem, 2vw, 1.75rem);
   font-weight: 700;
-  color: var(--accent-color);
+  color: var(--card-accent, var(--accent-color));
   margin-left: 0.25rem;
+  transition: color 0.3s ease;
 }
 
 .label {
@@ -109,7 +123,8 @@
   font-style: italic;
   font-weight: 400;
   text-transform: lowercase;
-  color: var(--accent-color);
+  color: var(--card-accent, var(--accent-color));
+  transition: color 0.3s ease;
 }
 
 @media (max-width: 1024px) {

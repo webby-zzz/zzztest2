@@ -1,14 +1,17 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import Logo from "./Logo";
 import gsap from "gsap";
+import Logo from "./Logo";
 import styles from "./Preloader.module.css";
 
 export default function Preloader() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const panelRef = useRef<HTMLDivElement>(null);
-  const logoRef = useRef<HTMLDivElement>(null);
+  const logoWrapperRef = useRef<HTMLDivElement>(null);
+  const frontLogoRef = useRef<HTMLDivElement>(null);
+  const progressBarRef = useRef<HTMLDivElement>(null);
+  const progressTextRef = useRef<HTMLDivElement>(null);
+  
   const [shouldRender, setShouldRender] = useState(false);
 
   useEffect(() => {
@@ -26,30 +29,50 @@ export default function Preloader() {
   useEffect(() => {
     if (!shouldRender || !containerRef.current) return;
 
-    // Entrance Animation
+    // Timeline configuration
     const tl = gsap.timeline({
-      defaults: { ease: "power3.out" }
+      defaults: { ease: "none" }
     });
 
-    // Fade in and scale up the glass panel
-    tl.fromTo(panelRef.current,
-      { scale: 0.85, opacity: 0 },
-      { scale: 1, opacity: 1, duration: 1.0 }
-    );
+    // Initial state setup
+    gsap.set(logoWrapperRef.current, { scale: 0.95, opacity: 0 });
+    if (frontLogoRef.current) gsap.set(frontLogoRef.current, { clipPath: "inset(100% 0px 0px 0px)" });
+    if (progressBarRef.current) gsap.set(progressBarRef.current, { width: "0%" });
 
-    // Fade in the logo and trigger pulse glow
-    tl.fromTo(logoRef.current,
-      { scale: 0.9, opacity: 0 },
-      { scale: 1, opacity: 1, duration: 0.8 },
-      "-=0.4"
-    );
+    // Fade logo container in
+    tl.to(logoWrapperRef.current, {
+      opacity: 1,
+      scale: 1,
+      duration: 0.6,
+      ease: "power2.out"
+    });
 
-    // Fade out and collapse preloader after a short display delay
+    // Simulate progress fill with color change and bar width
+    const progressObj = { value: 0 };
+    tl.to(progressObj, {
+      value: 100,
+      duration: 2.0,
+      ease: "power2.out",
+      onUpdate: () => {
+        const val = progressObj.value;
+        if (frontLogoRef.current) {
+          frontLogoRef.current.style.clipPath = `inset(${100 - val}% 0px 0px 0px)`;
+        }
+        if (progressBarRef.current) {
+          progressBarRef.current.style.width = `${val}%`;
+        }
+        if (progressTextRef.current) {
+          progressTextRef.current.textContent = `${Math.round(val)}%`;
+        }
+      }
+    });
+
+    // Fade out and collapse preloader
     tl.to(containerRef.current, {
       opacity: 0,
-      duration: 0.7,
-      ease: "power2.inOut",
-      delay: 1.2,
+      duration: 0.6,
+      ease: "power3.inOut",
+      delay: 0.3,
       onComplete: () => {
         setShouldRender(false);
       }
@@ -64,13 +87,29 @@ export default function Preloader() {
 
   return (
     <div className={styles.preloader} ref={containerRef}>
-      <div className={`${styles.glassPanel} glassmorphism`} ref={panelRef}>
-        {/* Glow effect back layer */}
+      <div className={styles.loaderContainer}>
+        {/* Pulsing backdrop glow behind the logo */}
         <div className={styles.glowBackdrop} />
-        
-        {/* Centered logo */}
-        <div ref={logoRef} className={styles.logoWrapper}>
-          <Logo size={100} />
+
+        {/* Double-layered Logo Container */}
+        <div ref={logoWrapperRef} className={styles.logoWrapper}>
+          {/* Back Logo Layer (grayscale, low opacity) */}
+          <div className={styles.logoBack}>
+            <Logo size={140} />
+          </div>
+          
+          {/* Front Logo Layer (full opacity color fill) */}
+          <div ref={frontLogoRef} className={styles.logoFront}>
+            <Logo size={140} />
+          </div>
+        </div>
+
+        {/* Loading Bar section */}
+        <div className={styles.progressContainer}>
+          <div className={styles.progressTrack}>
+            <div ref={progressBarRef} className={styles.progressBar} />
+          </div>
+          <div ref={progressTextRef} className={styles.progressText}>0%</div>
         </div>
       </div>
     </div>

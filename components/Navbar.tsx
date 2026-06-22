@@ -12,9 +12,24 @@ export default function Navbar() {
   const { theme, setTheme, systemTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+    
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+    
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    // Run once on mount to handle pre-scrolled page loads
+    handleScroll();
+    
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const toggleTheme = () => {
@@ -23,10 +38,10 @@ export default function Navbar() {
   };
 
   return (
-    <nav className={styles.navbar}>
+    <nav className={`${styles.navbar} ${isScrolled ? styles.navbarScrolled : ""}`}>
       <div className={styles.logo}>
         <Link href="/" scroll={false}>
-          <Logo size={110} />
+          <Logo size={145} />
         </Link>
       </div>
       <div className={styles.actions}>

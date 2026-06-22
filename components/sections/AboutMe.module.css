@@ -43,7 +43,11 @@
   font-family: var(--font-serif);
   font-style: italic;
   font-weight: 400;
-  color: var(--accent-color);
+  color: var(--brand-coral);
+}
+
+[data-theme='dark'] .headingAccent {
+  color: var(--brand-mint);
 }
 
 .headingBlock p {

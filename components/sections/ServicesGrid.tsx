@@ -86,6 +86,14 @@ const SERVICES_GRID_DATA = [
   }
 ];
 
+const CARD_ACCENTS = [
+  "#5188B5", // Blue
+  "#FFB703", // Yellow
+  "#F66C51", // Coral
+  "#DCC5DF", // Lavender
+  "#C0E1D2", // Mint
+];
+
 interface ServiceCardProps {
   id: string;
   title: string;
@@ -96,10 +104,16 @@ interface ServiceCardProps {
   tags: string[];
 }
 
-function ServiceCard({ id, title, desc, image, category, tags }: Omit<ServiceCardProps, 'timeframe'>) {
+function ServiceCard({ id, title, desc, image, category, tags, accentColor }: Omit<ServiceCardProps, 'timeframe'> & { accentColor: string }) {
   return (
     <Link href={`/services/${id}`} className={styles.cardLink} scroll={false}>
-      <div className={`${styles.card} glassmorphism gsap-reveal-item`} style={{ opacity: 0 }}>
+      <div 
+        className={`${styles.card} glassmorphism gsap-reveal-item`} 
+        style={{ 
+          opacity: 0,
+          "--card-accent": accentColor
+        } as React.CSSProperties}
+      >
         <div className={styles.imageWrapper}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={image} alt={title} className={styles.image} />
@@ -184,9 +198,16 @@ export default function ServicesGrid() {
         </div>
 
         <div className={styles.grid} ref={containerRef}>
-          {SERVICES_GRID_DATA.map((srv, index) => (
-            <ServiceCard key={index} {...srv} />
-          ))}
+          {SERVICES_GRID_DATA.map((srv, index) => {
+            const accentColor = CARD_ACCENTS[index % CARD_ACCENTS.length];
+            return (
+              <ServiceCard 
+                key={index} 
+                {...srv} 
+                accentColor={accentColor} 
+              />
+            );
+          })}
         </div>
       </div>
     </section>

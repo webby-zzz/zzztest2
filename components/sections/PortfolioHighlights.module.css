@@ -42,7 +42,11 @@
   font-family: var(--font-serif);
   font-style: italic;
   font-weight: 400;
-  color: var(--accent-color);
+  color: var(--brand-coral);
+}
+
+[data-theme='dark'] .headingAccent {
+  color: var(--brand-mint);
 }
 
 .headingBlock p {
@@ -228,29 +232,76 @@
     padding: 0.45rem 0.65rem !important;
     letter-spacing: 0.02em !important;
   }
-  .masonryGrid {
-    display: flex !important;
-    flex-direction: row !important;
+  .filterWrapper {
+    justify-content: flex-start !important;
     overflow-x: auto !important;
-    scroll-snap-type: x mandatory !important;
-    column-count: unset !important;
-    gap: 1.25rem !important;
-    padding: 0.5rem 1.5rem !important;
-    margin: 0 -1.5rem !important;
-    width: calc(100% + 3rem) !important;
+    white-space: nowrap !important;
+    padding: 0.5rem 1rem !important;
     scrollbar-width: none !important;
+    margin: 0 -1rem 1rem -1rem !important;
+    width: calc(100% + 2rem) !important;
   }
-  .masonryGrid::-webkit-scrollbar {
+  .filterWrapper::-webkit-scrollbar {
     display: none !important;
   }
-  .portfolioItem {
-    flex: 0 0 80% !important;
-    scroll-snap-align: center !important;
-    margin-bottom: 0 !important;
+  .filterPills {
+    flex-wrap: nowrap !important;
   }
-  .short .imageWrapper,
-  .medium .imageWrapper,
-  .tall .imageWrapper {
-    aspect-ratio: 1 / 1.15 !important;
+}
+
+.logosGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.logoItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.75rem 1.25rem;
+  border-radius: 20px;
+  background: rgba(250, 248, 241, 0.95); /* Cream base for client logo readability */
+  border: 1.5px solid rgba(14, 45, 84, 0.06);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.02);
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  height: 110px;
+  box-sizing: border-box;
+}
+
+[data-theme='dark'] .logoItem {
+  background: rgba(255, 255, 255, 0.95); /* High-contrast white base for transparent black-text logos in dark mode */
+  border-color: rgba(81, 136, 181, 0.2);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.logoItem:hover {
+  transform: translateY(-4px) scale(1.025);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+  border-color: var(--accent-color);
+}
+
+.clientLogo {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: grayscale(15%) contrast(95%);
+  transition: all 0.3s ease;
+}
+
+.logoItem:hover .clientLogo {
+  filter: grayscale(0%) contrast(105%);
+}
+
+@media (max-width: 480px) {
+  .logosGrid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1rem !important;
+  }
+  .logoItem {
+    height: 90px !important;
+    padding: 1rem !important;
   }
 }

@@ -45,7 +45,11 @@
   font-family: var(--font-serif);
   font-style: italic;
   font-weight: 400;
-  color: var(--accent-color);
+  color: var(--brand-coral);
+}
+
+[data-theme='dark'] .headingAccent {
+  color: var(--brand-yellow);
 }
 
 .infoCol p {
@@ -93,6 +97,18 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+@media (max-width: 600px) {
+  .formRow {
+    grid-template-columns: 1fr;
+  }
 }
 
 .inputGroup {

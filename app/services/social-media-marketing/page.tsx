@@ -24,6 +24,7 @@ import {
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useTheme } from "next-themes";
+import { use3DTilt } from "@/lib/use3DTilt";
 import styles from "./page.module.css";
 import { CASE_STUDIES_DATA } from "@/lib/data";
 
@@ -88,6 +89,7 @@ export default function SocialMediaPage() {
   const approachRef = useRef<HTMLDivElement>(null);
   const whatWeDoRef = useRef<HTMLDivElement>(null);
   const inclusionsRef = useRef<HTMLDivElement>(null);
+  const tiltFrame = use3DTilt(5, -10);
   const bubblesRef = useRef<HTMLDivElement>(null);
   const faqRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
@@ -532,7 +534,7 @@ export default function SocialMediaPage() {
         );
       }
 
-      const ctaForm = ctaRef.current?.querySelector(`.${styles.formCard}`);
+      const ctaForm = ctaRef.current?.querySelector(`.gsap-reveal-form-card`);
       if (ctaForm) {
         gsap.fromTo(ctaForm,
           { opacity: 0, y: 50, scale: 0.97 },
@@ -891,117 +893,123 @@ export default function SocialMediaPage() {
 
             </div>
 
-            {/* Form Card */}
-            <div className={`${styles.formCard} glassmorphism`} style={{ opacity: 0 }}>
-              <form onSubmit={handleFormSubmit} className={styles.form}>
+            {/* Form Card Wrapper for GSAP */}
+            <div className="gsap-reveal-form-card" style={{ opacity: 0, width: "100%" }}>
+              <div 
+                ref={tiltFrame.ref}
+                style={{ ...tiltFrame.style, width: "100%" }}
+                className={`${styles.formCard} glassmorphism`}
+              >
+                <form onSubmit={handleFormSubmit} className={styles.form}>
 
-                <div className={styles.formRow}>
+                  <div className={styles.formRow}>
+                    <div className={styles.inputGroup}>
+                      <label htmlFor="name" className={styles.label}>Your Name</label>
+                      <input
+                        type="text"
+                        id="name"
+                        required
+                        placeholder="e.g. Jean Doe"
+                        value={form.name}
+                        onChange={(e) => setForm({ ...form, name: e.target.value })}
+                        className={styles.input}
+                      />
+                    </div>
+
+                    <div className={styles.inputGroup}>
+                      <label htmlFor="email" className={styles.label}>Email Address</label>
+                      <input
+                        type="email"
+                        id="email"
+                        required
+                        placeholder="e.g. jean@example.com"
+                        value={form.email}
+                        onChange={(e) => setForm({ ...form, email: e.target.value })}
+                        className={styles.input}
+                      />
+                    </div>
+                  </div>
+
+                  <div className={styles.formRow}>
+                    <div className={styles.inputGroup}>
+                      <label htmlFor="phone" className={styles.label}>Phone Number</label>
+                      <input
+                        type="text"
+                        id="phone"
+                        required
+                        placeholder="e.g. +91 99999 99999"
+                        value={form.phone}
+                        onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                        className={styles.input}
+                      />
+                    </div>
+
+                    <div className={styles.inputGroup}>
+                      <label htmlFor="company" className={styles.label}>Company Name</label>
+                      <input
+                        type="text"
+                        id="company"
+                        required
+                        placeholder="e.g. Acme Corp"
+                        value={form.company}
+                        onChange={(e) => setForm({ ...form, company: e.target.value })}
+                        className={styles.input}
+                      />
+                    </div>
+                  </div>
+
+                  <div className={styles.formRow}>
+                    <div className={styles.inputGroup}>
+                      <label htmlFor="socialLinks" className={styles.label}>Website & Social links</label>
+                      <input
+                        type="text"
+                        id="socialLinks"
+                        placeholder="e.g. instagram.com/brandname"
+                        value={form.socialLinks}
+                        onChange={(e) => setForm({ ...form, socialLinks: e.target.value })}
+                        className={styles.input}
+                      />
+                    </div>
+
+                    <div className={styles.inputGroup}>
+                      <label htmlFor="location" className={styles.label}>City / Country</label>
+                      <input
+                        type="text"
+                        id="location"
+                        required
+                        placeholder="e.g. Mumbai, India"
+                        value={form.location}
+                        onChange={(e) => setForm({ ...form, location: e.target.value })}
+                        className={styles.input}
+                      />
+                    </div>
+                  </div>
+
                   <div className={styles.inputGroup}>
-                    <label htmlFor="name" className={styles.label}>Your Name</label>
-                    <input
-                      type="text"
-                      id="name"
+                    <label htmlFor="brief" className={styles.label}>Tell us about your brand</label>
+                    <textarea
+                      id="brief"
+                      rows={4}
                       required
-                      placeholder="e.g. Jean Doe"
-                      value={form.name}
-                      onChange={(e) => setForm({ ...form, name: e.target.value })}
-                      className={styles.input}
+                      placeholder="What do you do, what are your goals, and what challenges are you currently facing?"
+                      value={form.brief}
+                      onChange={(e) => setForm({ ...form, brief: e.target.value })}
+                      className={styles.textarea}
                     />
                   </div>
 
-                  <div className={styles.inputGroup}>
-                    <label htmlFor="email" className={styles.label}>Email Address</label>
-                    <input
-                      type="email"
-                      id="email"
-                      required
-                      placeholder="e.g. jean@example.com"
-                      value={form.email}
-                      onChange={(e) => setForm({ ...form, email: e.target.value })}
-                      className={styles.input}
-                    />
-                  </div>
-                </div>
+                  <button
+                    type="submit"
+                    disabled={status !== "idle"}
+                    className={styles.submitBtn}
+                  >
+                    {status === "idle" && "Book A Discovery Call →"}
+                    {status === "sending" && "Sending Enquiry..."}
+                    {status === "sent" && "Proposal Request Sent ✓"}
+                  </button>
 
-                <div className={styles.formRow}>
-                  <div className={styles.inputGroup}>
-                    <label htmlFor="phone" className={styles.label}>Phone Number</label>
-                    <input
-                      type="text"
-                      id="phone"
-                      required
-                      placeholder="e.g. +91 99999 99999"
-                      value={form.phone}
-                      onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                      className={styles.input}
-                    />
-                  </div>
-
-                  <div className={styles.inputGroup}>
-                    <label htmlFor="company" className={styles.label}>Company Name</label>
-                    <input
-                      type="text"
-                      id="company"
-                      required
-                      placeholder="e.g. Acme Corp"
-                      value={form.company}
-                      onChange={(e) => setForm({ ...form, company: e.target.value })}
-                      className={styles.input}
-                    />
-                  </div>
-                </div>
-
-                <div className={styles.formRow}>
-                  <div className={styles.inputGroup}>
-                    <label htmlFor="socialLinks" className={styles.label}>Website & Social links</label>
-                    <input
-                      type="text"
-                      id="socialLinks"
-                      placeholder="e.g. instagram.com/brandname"
-                      value={form.socialLinks}
-                      onChange={(e) => setForm({ ...form, socialLinks: e.target.value })}
-                      className={styles.input}
-                    />
-                  </div>
-
-                  <div className={styles.inputGroup}>
-                    <label htmlFor="location" className={styles.label}>City / Country</label>
-                    <input
-                      type="text"
-                      id="location"
-                      required
-                      placeholder="e.g. Mumbai, India"
-                      value={form.location}
-                      onChange={(e) => setForm({ ...form, location: e.target.value })}
-                      className={styles.input}
-                    />
-                  </div>
-                </div>
-
-                <div className={styles.inputGroup}>
-                  <label htmlFor="brief" className={styles.label}>Tell us about your brand</label>
-                  <textarea
-                    id="brief"
-                    rows={4}
-                    required
-                    placeholder="What do you do, what are your goals, and what challenges are you currently facing?"
-                    value={form.brief}
-                    onChange={(e) => setForm({ ...form, brief: e.target.value })}
-                    className={styles.textarea}
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={status !== "idle"}
-                  className={styles.submitBtn}
-                >
-                  {status === "idle" && "Book A Discovery Call →"}
-                  {status === "sending" && "Sending Enquiry..."}
-                  {status === "sent" && "Proposal Request Sent ✓"}
-                </button>
-
-              </form>
+                </form>
+              </div>
             </div>
 
           </div>

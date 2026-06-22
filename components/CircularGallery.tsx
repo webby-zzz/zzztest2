@@ -20,6 +20,8 @@ const colors = [
   "--brand-coral",
   "--brand-lavender",
   "--brand-mint",
+  "--brand-white",
+  "--brand-cream",
 ];
 
 export default function CircularGallery() {
@@ -52,7 +54,9 @@ export default function CircularGallery() {
       
       // Calculate radius dynamically to ensure it stays on screen but is large enough for gaps
       const vh = window.innerHeight;
-      const radius = Math.min(vh * 0.85, 800); 
+      const vw = window.innerWidth;
+      const isMobile = vw <= 768;
+      const radius = isMobile ? Math.min(vh * 0.45, 225) : Math.min(vh * 0.73, 620); 
 
       // 1. Position items in a full circle
       items.forEach((item, i) => {
@@ -73,7 +77,7 @@ export default function CircularGallery() {
       });
 
       gsap.set(wrapperRef.current, {
-        top: "100%",
+        top: isMobile ? "118%" : "100%",
         y: 0, 
         rotation: 0,
       });
@@ -233,8 +237,8 @@ export default function CircularGallery() {
           <div className={styles.galleryWrapper} ref={wrapperRef}>
             {SERVICES.map((service, i) => {
               const colorVar = colors[i % colors.length];
-              // Navy (0), Blue (1), Coral (3) are dark backgrounds; Yellow (2), Lavender (4), Mint (5) are light backgrounds
-              const isDark = i % 6 === 0 || i % 6 === 1 || i % 6 === 3;
+              const darkColors = ["--brand-navy", "--brand-blue", "--brand-coral"];
+              const isDark = darkColors.includes(colorVar);
               const textColor = isDark ? "var(--brand-cream)" : "var(--brand-navy)";
               return (
                 <div 

@@ -47,7 +47,7 @@
   font-family: var(--font-serif);
   font-style: italic;
   font-weight: 400;
-  color: var(--accent-color);
+  color: var(--brand-coral);
 }
 
 .headingBlock p {
@@ -109,7 +109,8 @@
 
 .card:hover {
   transform: translateY(-5px);
-  border-color: var(--accent-color);
+  border-color: var(--card-accent, var(--accent-color)) !important;
+  box-shadow: 0 15px 30px color-mix(in srgb, var(--card-accent, var(--accent-color)) 22%, transparent), var(--glass-shadow);
 }
 
 .imageWrapper {
@@ -157,7 +158,8 @@
 }
 
 [data-theme='dark'] .categoryTag {
-  background: rgba(255, 255, 255, 0.08);
+  background: color-mix(in srgb, var(--card-accent, var(--accent-color)) 15%, transparent);
+  color: var(--card-accent, var(--accent-color));
 }
 
 .timeframeText {

@@ -4,6 +4,7 @@ import React, { useRef, useEffect } from "react";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { use3DTilt } from "@/lib/use3DTilt";
 import styles from "./AboutBrief.module.css";
 
 if (typeof window !== "undefined") {
@@ -13,6 +14,7 @@ if (typeof window !== "undefined") {
 export default function AboutBrief() {
   const textRef = useRef<HTMLDivElement>(null);
   const visualRef = useRef<HTMLDivElement>(null);
+  const tiltFrame = use3DTilt(10, -12);
 
   useEffect(() => {
     if (!textRef.current || !visualRef.current) return;
@@ -74,7 +76,11 @@ export default function AboutBrief() {
 
         {/* Right Side: Looping Reel Illustration */}
         <div className={`${styles.visualCol} gsap-reveal-item`} style={{ opacity: 0 }} ref={visualRef}>
-          <div className={`${styles.glassCard} glassmorphism`}>
+          <div 
+            ref={tiltFrame.ref}
+            style={tiltFrame.style}
+            className={`${styles.glassCard} glassmorphism`}
+          >
             <div className={styles.dotRow}>
               <span className={styles.dot} style={{ backgroundColor: "var(--brand-coral)" }} />
               <span className={styles.dot} style={{ backgroundColor: "var(--brand-yellow)" }} />

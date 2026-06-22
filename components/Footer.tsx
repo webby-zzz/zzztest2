@@ -132,44 +132,15 @@ export default function Footer() {
                 >
                   <Linkedin size={18} className={styles.linkedin} />
                 </a>
-                <a href="#" className={styles.socialPaperCard} aria-label="Behance">
-                  <span className={styles.behanceText}>Bē</span>
-                </a>
-                <a href="#" className={styles.socialPaperCard} aria-label="Dribbble">
-                  <span className={styles.dribbbleEmoji}>🏀</span>
-                </a>
-                <a href="#" className={styles.socialPaperCard} aria-label="Twitter">
-                  <Twitter size={18} className={styles.twitter} />
-                </a>
-                <a href="#" className={styles.socialPaperCard} aria-label="X">
-                  <span className={styles.xText}>X</span>
-                </a>
               </div>
             </div>
           </div>
 
-          {/* Right Column Grid Group (Row 1: Resources & Agency Info, Row 2: Copyright bar) */}
+          {/* Right Column Grid Group (Row 1: Agency Info, Row 2: Copyright bar) */}
           <div className={styles.rightColumnGroup}>
 
-            {/* Row 1: RESOURCES & AGENCY INFO */}
+            {/* Row 1: AGENCY INFO */}
             <div className={styles.rowOneGrid}>
-
-              {/* Card 4: RESOURCES */}
-              <div className={styles.folderCard}>
-                <div className={styles.folderTab}>
-                  <span className={styles.tabCover} />
-                  <span className={styles.tabCurve} />
-                </div>
-                <div className={styles.folderBody}>
-                  <h3 className={styles.colTitle}>RESOURCES</h3>
-                  <div className={styles.links}>
-                    <Link href="#">Client Portal</Link>
-                    <Link href="/#portfolio-highlights">Our Work</Link>
-                    <Link href="#">Whitepapers</Link>
-                    <Link href="#">Download Brochure</Link>
-                  </div>
-                </div>
-              </div>
 
               {/* Card 5: AGENCY INFO */}
               <div className={styles.folderCard}>
@@ -180,7 +151,7 @@ export default function Footer() {
                 <div className={styles.folderBody}>
                   <h3 className={styles.colTitle}>AGENCY INFO</h3>
                   <div className={styles.agencyContent}>
-                    <h4>ZZZ<span className={styles.agencyCo}>&CO.</span></h4>
+                    <h4>Zip Zap Zop Marketing</h4>
                     <p>Designing premium digital experiences that elevate progressive brands.</p>
                   </div>
                 </div>
@@ -197,11 +168,13 @@ export default function Footer() {
               <div className={styles.folderBody}>
                 <div className={styles.copyrightInner}>
                   <div className={styles.copyrightLinks}>
+                    {/* Hide for now
                     <Link href="#">Privacy Policy</Link>
                     <Link href="#">Terms of Use</Link>
+                    */}
                   </div>
                   <div className={styles.copyrightText}>
-                    © 2026 ZZZ & CO. All Rights Reserved.
+                    © 2026 Zip Zap Zop Marketing. All Rights Reserved.
                   </div>
                 </div>
               </div>

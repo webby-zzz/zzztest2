@@ -302,6 +302,18 @@
   gap: 1.5rem;
 }
 
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+@media (max-width: 768px) {
+  .formRow {
+    grid-template-columns: 1fr;
+  }
+}
+
 .inputGroup {
   display: flex;
   flex-direction: column;

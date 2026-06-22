@@ -3,19 +3,21 @@
 import React, { useState } from "react";
 import styles from "./page.module.css";
 import { ArrowUpRight } from "lucide-react";
+import { use3DTilt } from "@/lib/use3DTilt";
 
 export default function ContactPage() {
-  const [form, setForm] = useState({ name: "", email: "", brief: "" });
+  const [form, setForm] = useState({ name: "", email: "", phone: "", company: "", brief: "", socialLinks: "", location: "" });
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
+  const tiltFrame = use3DTilt(5, -10);
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.name || !form.email) return;
+    if (!form.name || !form.email || !form.phone || !form.company || !form.location || !form.brief) return;
 
     setStatus("sending");
     setTimeout(() => {
       setStatus("sent");
-      setForm({ name: "", email: "", brief: "" });
+      setForm({ name: "", email: "", phone: "", company: "", brief: "", socialLinks: "", location: "" });
       setTimeout(() => setStatus("idle"), 4000);
     }, 1500);
   };
@@ -35,7 +37,7 @@ export default function ContactPage() {
                 Drop us<br/>a <span className={styles.serifAccent}>line</span>.
               </h1>
               <p className={styles.heroSubText}>
-                We are available to help with any queries regarding new campaigns, digital transformations, or creative partnerships. Reach out to our strategy team and you will receive a response within 12 hours. We look forward to scaling your vision.
+                We are available to help with any queries regarding new campaigns, digital transformations, or creative partnerships. Reach out to our strategy team to discuss your goals and we will begin structuring a roadmap to scale your vision.
               </p>
               
               <div className={styles.badgeWrapper}>
@@ -75,25 +77,13 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* Column 3: Global Reach & Socials */}
+            {/* Column 3: Socials */}
             <div className={styles.heroColSide}>
-              <div className={`${styles.infoCard} glassmorphism`}>
-                <h3 className={styles.cellTitle}>GLOBAL AVAILABILITY</h3>
-                <div className={styles.tableText}>
-                  <div>Primary HQ:</div><div>IST (Kolkata)</div>
-                  <div>US Desk:</div><div>EST (New York)</div>
-                  <div>UK Desk:</div><div>GMT (London)</div>
-                  <div>Support:</div><div>24/7 Support</div>
-                </div>
-              </div>
-
               <div className={`${styles.infoCard} glassmorphism`}>
                 <h3 className={styles.cellTitle}>STALK US</h3>
                 <ul className={styles.socialList}>
                   <li><a href="https://in.linkedin.com/company/zipzapzop" target="_blank" rel="noopener noreferrer" className={styles.link}>LinkedIn</a></li>
                   <li><a href="https://www.instagram.com/zipzapzop.marketing/" target="_blank" rel="noopener noreferrer" className={styles.link}>Instagram</a></li>
-                  <li><a href="#" className={styles.link}>Twitter (X)</a></li>
-                  <li><a href="#" className={styles.link}>Behance</a></li>
                 </ul>
               </div>
             </div>
@@ -111,52 +101,118 @@ export default function ContactPage() {
         </div>
         
         <div className={styles.formContainerWrapper}>
-          <div className={`${styles.formContainer} glassmorphism`}>
+          <div 
+            ref={tiltFrame.ref}
+            style={{ ...tiltFrame.style, width: "100%" }}
+            className={`${styles.formContainer} glassmorphism`}
+          >
             <h3 className={styles.formTitle}>Send a Message</h3>
             <form className={styles.form} onSubmit={handleFormSubmit}>
-              <div className={styles.inputGroup}>
-                <label htmlFor="name">Full Name</label>
-                <input 
-                  type="text" 
-                  id="name"
-                  required
-                  placeholder="John Doe" 
-                  value={form.name}
-                  onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  className={styles.input} 
-                />
+              
+              <div className={styles.formRow}>
+                <div className={styles.inputGroup}>
+                  <label htmlFor="name">Your Name</label>
+                  <input 
+                    type="text" 
+                    id="name"
+                    required
+                    placeholder="e.g. Jean Doe" 
+                    value={form.name}
+                    onChange={(e) => setForm({ ...form, name: e.target.value })}
+                    className={styles.input} 
+                  />
+                </div>
+
+                <div className={styles.inputGroup}>
+                  <label htmlFor="email">Email Address</label>
+                  <input 
+                    type="email" 
+                    id="email"
+                    required
+                    placeholder="e.g. jean@example.com" 
+                    value={form.email}
+                    onChange={(e) => setForm({ ...form, email: e.target.value })}
+                    className={styles.input} 
+                  />
+                </div>
               </div>
-              <div className={styles.inputGroup}>
-                <label htmlFor="email">Work Email</label>
-                <input 
-                  type="email" 
-                  id="email"
-                  required
-                  placeholder="john@company.com" 
-                  value={form.email}
-                  onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  className={styles.input} 
-                />
+
+              <div className={styles.formRow}>
+                <div className={styles.inputGroup}>
+                  <label htmlFor="phone">Phone Number</label>
+                  <input 
+                    type="text" 
+                    id="phone"
+                    required
+                    placeholder="e.g. +91 99999 99999" 
+                    value={form.phone}
+                    onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                    className={styles.input} 
+                  />
+                </div>
+
+                <div className={styles.inputGroup}>
+                  <label htmlFor="company">Company Name</label>
+                  <input 
+                    type="text" 
+                    id="company"
+                    required
+                    placeholder="e.g. Acme Corp" 
+                    value={form.company}
+                    onChange={(e) => setForm({ ...form, company: e.target.value })}
+                    className={styles.input} 
+                  />
+                </div>
               </div>
+
+              <div className={styles.formRow}>
+                <div className={styles.inputGroup}>
+                  <label htmlFor="socialLinks">Website & Social links</label>
+                  <input 
+                    type="text" 
+                    id="socialLinks"
+                    placeholder="e.g. instagram.com/brandname" 
+                    value={form.socialLinks}
+                    onChange={(e) => setForm({ ...form, socialLinks: e.target.value })}
+                    className={styles.input} 
+                  />
+                </div>
+
+                <div className={styles.inputGroup}>
+                  <label htmlFor="location">City / Country</label>
+                  <input 
+                    type="text" 
+                    id="location"
+                    required
+                    placeholder="e.g. Mumbai, India" 
+                    value={form.location}
+                    onChange={(e) => setForm({ ...form, location: e.target.value })}
+                    className={styles.input} 
+                  />
+                </div>
+              </div>
+
               <div className={styles.inputGroup}>
-                <label htmlFor="brief">Project Details</label>
+                <label htmlFor="brief">Tell us about your brand</label>
                 <textarea 
                   id="brief"
                   required
-                  placeholder="Tell us about your brand, timeframe, and goals..." 
+                  rows={4}
+                  placeholder="What do you do, what are your goals, and what challenges are you currently facing?" 
                   value={form.brief}
                   onChange={(e) => setForm({ ...form, brief: e.target.value })}
                   className={styles.textarea}
                 />
               </div>
+
               <button 
                 type="submit" 
                 disabled={status !== "idle"}
                 className={styles.submitBtn}
               >
-                {status === "idle" && "Submit Request →"}
-                {status === "sending" && "Submitting..."}
-                {status === "sent" && "Enquiry Received ✓"}
+                {status === "idle" && "Book A Discovery Call →"}
+                {status === "sending" && "Sending Enquiry..."}
+                {status === "sent" && "Proposal Request Sent ✓"}
               </button>
             </form>
           </div>

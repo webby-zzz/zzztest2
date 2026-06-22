@@ -109,13 +109,13 @@ export default function HamburgerMenu({ isOpen, onClose }: HamburgerMenuProps) {
           ))}
         </nav>
 
-        {/* Social Icons Section */}
         <div 
           className={styles.socialsSection}
           ref={(el) => { linksRef.current[menuItems.length] = el; }}
         >
+          <span className={styles.socialLabelText}>STALK US:</span>
           <a 
-            href="https://www.instagram.com/zipzapzop.marketing/" 
+            href="https://instagram.com" 
             target="_blank" 
             rel="noopener noreferrer" 
             className={styles.socialLink}
@@ -124,7 +124,7 @@ export default function HamburgerMenu({ isOpen, onClose }: HamburgerMenuProps) {
             <Instagram size={18} />
           </a>
           <a 
-            href="https://in.linkedin.com/company/zipzapzop" 
+            href="https://linkedin.com" 
             target="_blank" 
             rel="noopener noreferrer" 
             className={styles.socialLink}
@@ -132,34 +132,9 @@ export default function HamburgerMenu({ isOpen, onClose }: HamburgerMenuProps) {
           >
             <Linkedin size={18} />
           </a>
-          <a 
-            href="https://x.com" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className={styles.socialLink}
-            aria-label="Twitter / X"
-          >
-            <Twitter size={18} />
-          </a>
-          <a 
-            href="https://behance.net" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className={styles.socialLink}
-            aria-label="Behance"
-          >
-            <span className={styles.socialLabelText}>Bē</span>
-          </a>
-          <a 
-            href="https://dribbble.com" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className={styles.socialLink}
-            aria-label="Dribbble"
-          >
-            <span className={styles.socialLabelText}>🏀</span>
-          </a>
         </div>
+
+
       </div>
     </>
   );
