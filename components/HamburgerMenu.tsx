@@ -69,9 +69,9 @@ export default function HamburgerMenu({ isOpen, onClose }: HamburgerMenuProps) {
   }, [isOpen]);
 
   const menuItems = [
-    { label: "Home", href: "/#brand-beliefs" },
+    { label: "Home", href: "/" },
     { label: "About", href: "/#about-us" },
-    { label: "Services", href: "/#hero-gallery" },
+    { label: "Services", href: "/#services-grid" },
     { label: "Our Work", href: "/#portfolio-highlights" },
     { label: "Connect", href: "/contact" },
   ];
@@ -102,7 +102,6 @@ export default function HamburgerMenu({ isOpen, onClose }: HamburgerMenuProps) {
               className={styles.navLink}
               ref={(el) => { linksRef.current[index] = el; }}
               onClick={onClose}
-              scroll={false}
             >
               {item.label}
             </Link>
@@ -115,7 +114,7 @@ export default function HamburgerMenu({ isOpen, onClose }: HamburgerMenuProps) {
         >
           <span className={styles.socialLabelText}>STALK US:</span>
           <a 
-            href="https://instagram.com" 
+            href="https://www.instagram.com/zipzapzop.marketing/" 
             target="_blank" 
             rel="noopener noreferrer" 
             className={styles.socialLink}
@@ -124,7 +123,7 @@ export default function HamburgerMenu({ isOpen, onClose }: HamburgerMenuProps) {
             <Instagram size={18} />
           </a>
           <a 
-            href="https://linkedin.com" 
+            href="https://in.linkedin.com/company/zipzapzop" 
             target="_blank" 
             rel="noopener noreferrer" 
             className={styles.socialLink}

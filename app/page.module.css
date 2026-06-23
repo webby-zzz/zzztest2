@@ -954,11 +954,11 @@
     height: auto;
     gap: 1.5rem;
   }
-  .bubble1 { width: 110px; height: 110px; }
-  .bubble2 { width: 100px; height: 100px; }
-  .bubble3 { width: 130px; height: 130px; }
-  .bubble4 { width: 100px; height: 100px; }
-  .bubble5 { width: 110px; height: 110px; }
+  .bubble1 { width: 130px; height: 130px; }
+  .bubble2 { width: 115px; height: 115px; }
+  .bubble3 { width: 150px; height: 150px; }
+  .bubble4 { width: 115px; height: 115px; }
+  .bubble5 { width: 130px; height: 130px; }
   .bubbleLabel { font-size: 0.55rem; }
   
   .formRow {
@@ -980,11 +980,11 @@
     height: auto;
     gap: 1rem;
   }
-  .bubble1 { width: 90px; height: 90px; }
-  .bubble2 { width: 80px; height: 80px; }
-  .bubble3 { width: 110px; height: 110px; }
-  .bubble4 { width: 80px; height: 80px; }
-  .bubble5 { width: 90px; height: 90px; }
+  .bubble1 { width: 110px; height: 110px; }
+  .bubble2 { width: 95px; height: 95px; }
+  .bubble3 { width: 130px; height: 130px; }
+  .bubble4 { width: 95px; height: 95px; }
+  .bubble5 { width: 110px; height: 110px; }
 }
 
 /* Specialty Package Inclusion Style */

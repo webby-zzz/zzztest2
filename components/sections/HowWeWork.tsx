@@ -108,15 +108,31 @@ export default function HowWeWork() {
       // Initialize progress line to 0 width
       gsap.set(lineProgress, { left: 0, width: 0 });
 
+      // Calculate snap points corresponding to each step being centered
+      const snapPoints: number[] = [];
+      const stepsCount = items.length;
+      for (let i = 0; i < stepsCount; i++) {
+        const nodeLeft = items[i].offsetLeft + items[i].offsetWidth / 2;
+        const centerT_phase2 = (nodeLeft - node1Left) / lineDistance;
+        const centerT = 0.15 + centerT_phase2;
+        snapPoints.push(centerT / 1.15); // normalized by dividing by total timeline duration (1.15)
+      }
+
       // Create main timeline for horizontal scroll
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
           start: "top top",
-          end: `+=${lineDistance * 1.5}`,
+          end: `+=${lineDistance * 3.5}`, // Slower horizontal scroll transition
           pin: true,
           scrub: 0.5,
           invalidateOnRefresh: true,
+          snap: {
+            snapTo: snapPoints,
+            duration: { min: 0.2, max: 0.5 },
+            delay: 0.05,
+            ease: "power2.out"
+          }
         }
       });
 
@@ -165,31 +181,31 @@ export default function HowWeWork() {
         ease: "none",
       }, 0.15);
 
-      // Card 0 fades back down as it leaves the center
+      // Card 0 fades back down as it leaves the center (delayed to remain centered)
       tl.to(cards[0], {
         opacity: 0.3,
         scale: 0.94,
         borderColor: "var(--glass-border)",
         boxShadow: "none",
-        duration: 0.15,
+        duration: 0.1,
         ease: "power2.in"
-      }, 0.15);
+      }, 0.25);
 
       tl.to(nodes[0], {
         backgroundColor: "var(--background)",
         borderColor: "var(--border)",
         scale: 1,
         boxShadow: "none",
-        duration: 0.15,
+        duration: 0.1,
         ease: "power2.in"
-      }, 0.15);
+      }, 0.25);
 
       tl.to(descs[0], {
         opacity: 0,
         y: 10,
-        duration: 0.15,
+        duration: 0.1,
         ease: "power2.in"
-      }, 0.15);
+      }, 0.25);
 
       // Animate intermediate/last cards and nodes as they align with the center
       cards.forEach((card, idx) => {
@@ -202,60 +218,59 @@ export default function HowWeWork() {
         const nodeLeft = item.offsetLeft + item.offsetWidth / 2;
         const centerT_phase2 = (nodeLeft - node1Left) / lineDistance;
         const centerT = 0.15 + centerT_phase2;
-        const fadeDuration = 0.15;
 
-        // Fade In / Highlight
+        // Fade In / Highlight (reaches peak exactly at centerT)
         tl.to(card, {
           opacity: 1,
           scale: 1.06,
           borderColor: "var(--accent-color)",
           boxShadow: "0 10px 40px rgba(96, 165, 250, 0.05)",
-          duration: fadeDuration,
-          ease: "power2.out"
-        }, centerT - fadeDuration);
+          duration: 0.1,
+          ease: "power1.out"
+        }, centerT - 0.1);
 
         tl.to(node, {
           backgroundColor: "var(--accent-color)",
           borderColor: "var(--accent-color)",
           scale: 1.35,
           boxShadow: "0 0 15px var(--accent-color)",
-          duration: fadeDuration,
-          ease: "power2.out"
-        }, centerT - fadeDuration);
+          duration: 0.1,
+          ease: "power1.out"
+        }, centerT - 0.1);
 
         tl.to(desc, {
           opacity: 1,
           y: 0,
-          duration: fadeDuration,
-          ease: "power2.out"
-        }, centerT - fadeDuration);
+          duration: 0.1,
+          ease: "power1.out"
+        }, centerT - 0.1);
 
-        // Fade Out / Unhighlight (if not the last card)
+        // Fade Out / Unhighlight (starts after a stable holding delay at centerT + 0.1)
         if (idx < cards.length - 1) {
           tl.to(card, {
             opacity: 0.3,
             scale: 0.94,
             borderColor: "var(--glass-border)",
             boxShadow: "none",
-            duration: fadeDuration,
-            ease: "power2.in"
-          }, centerT);
+            duration: 0.1,
+            ease: "power1.in"
+          }, centerT + 0.1);
 
           tl.to(node, {
             backgroundColor: "var(--background)",
             borderColor: "var(--border)",
             scale: 1,
             boxShadow: "none",
-            duration: fadeDuration,
-            ease: "power2.in"
-          }, centerT);
+            duration: 0.1,
+            ease: "power1.in"
+          }, centerT + 0.1);
 
           tl.to(desc, {
             opacity: 0,
             y: 10,
-            duration: fadeDuration,
-            ease: "power2.in"
-          }, centerT);
+            duration: 0.1,
+            ease: "power1.in"
+          }, centerT + 0.1);
         }
       });
     }, section);

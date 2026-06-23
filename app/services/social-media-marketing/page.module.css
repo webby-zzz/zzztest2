@@ -33,22 +33,46 @@
 .heroImage {
   width: 100%;
   height: 100%;
-  display: block;
   object-fit: cover;
   object-position: center;
-  opacity: 1;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: opacity;
 }
 
 .desktopBanner {
   display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .mobileBanner {
   display: none;
 }
 
-[data-theme='dark'] .heroImage {
+.mobileBanner.darkBanner {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.mobileBanner.lightBanner {
+  position: relative;
+}
+
+.lightBanner {
+  opacity: 1;
+}
+
+.darkBanner {
+  opacity: 0;
+}
+
+[data-theme='dark'] .lightBanner {
+  opacity: 0;
+}
+
+[data-theme='dark'] .darkBanner {
   opacity: 1;
 }
 
@@ -174,12 +198,12 @@
 
 .platformCard:hover {
   border-color: var(--accent-color);
-  box-shadow: inset 0 8px 32px rgba(14, 45, 84, 0.05), var(--glass-shadow);
-  transform: translateY(4px) scale(0.98);
+  box-shadow: 0 16px 36px rgba(14, 45, 84, 0.12), var(--glass-shadow);
+  transform: translateY(-8px) scale(1.015);
 }
 
 [data-theme='dark'] .platformCard:hover {
-  box-shadow: inset 0 8px 32px rgba(255, 255, 255, 0.02), var(--glass-shadow);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35), var(--glass-shadow);
 }
 
 .iconWrapper {
@@ -321,8 +345,8 @@
 
 .approachCard:hover {
   border-color: var(--brand-coral) !important;
-  box-shadow: 0 12px 40px rgba(14, 45, 84, 0.12) !important;
-  transform: translateY(4px) scale(0.98) !important;
+  box-shadow: 0 16px 36px rgba(14, 45, 84, 0.12) !important;
+  transform: translateY(-8px) scale(1.015) !important;
 }
 
 [data-theme='dark'] .approachCard {
@@ -332,7 +356,8 @@
 }
 
 [data-theme='dark'] .approachCard:hover {
-  border-color: var(--brand-yellow);
+  border-color: var(--brand-yellow) !important;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35) !important;
 }
 
 .approachNum {
@@ -619,11 +644,11 @@
     height: auto;
     gap: 1.5rem;
   }
-  .bubble1 { width: 110px; height: 110px; }
-  .bubble2 { width: 100px; height: 100px; }
-  .bubble3 { width: 130px; height: 130px; }
-  .bubble4 { width: 100px; height: 100px; }
-  .bubble5 { width: 110px; height: 110px; }
+  .bubble1 { width: 130px; height: 130px; }
+  .bubble2 { width: 115px; height: 115px; }
+  .bubble3 { width: 150px; height: 150px; }
+  .bubble4 { width: 115px; height: 115px; }
+  .bubble5 { width: 130px; height: 130px; }
   .bubbleLabel { font-size: 0.55rem; }
   
   .headingBlock h2 {
@@ -662,11 +687,11 @@
     height: auto;
     gap: 1rem;
   }
-  .bubble1 { width: 90px; height: 90px; }
-  .bubble2 { width: 80px; height: 80px; }
-  .bubble3 { width: 110px; height: 110px; }
-  .bubble4 { width: 80px; height: 80px; }
-  .bubble5 { width: 90px; height: 90px; }
+  .bubble1 { width: 110px; height: 110px; }
+  .bubble2 { width: 95px; height: 95px; }
+  .bubble3 { width: 130px; height: 130px; }
+  .bubble4 { width: 95px; height: 95px; }
+  .bubble5 { width: 110px; height: 110px; }
 }
 
 /* Specialty Package Inclusion Style */
@@ -754,7 +779,7 @@
 
 .zBubbles {
   z-index: 5;
-  background-color: var(--brand-coral);
+  background: linear-gradient(135deg, #0E2D54 0%, #5188B5 100%) !important;
   color: #FFFFFF;
   display: flex;
   flex-direction: column;
@@ -775,10 +800,10 @@
   color: var(--brand-yellow) !important;
 }
 .zBubbles .serifAccent {
-  color: var(--brand-navy) !important;
+  color: var(--brand-yellow) !important; /* Standout yellow accent on blue background */
 }
 [data-theme='dark'] .zBubbles {
-  background: linear-gradient(135deg, #180705 0%, #38120c 100%);
+  background: linear-gradient(135deg, #0E2D54 0%, #5188B5 100%) !important;
   color: var(--brand-cream);
 }
 [data-theme='dark'] .zBubbles .serifAccent {
@@ -787,7 +812,7 @@
 
 .zFaq {
   z-index: 6;
-  background-color: var(--brand-lavender);
+  background-color: #ECEFF3;
   color: var(--brand-navy);
 }
 .zFaq h2,
@@ -796,7 +821,7 @@
   color: var(--brand-navy) !important;
 }
 [data-theme='dark'] .zFaq {
-  background: linear-gradient(135deg, #0e0712 0%, #211326 100%);
+  background: linear-gradient(135deg, #0C121D 0%, #161F2E 100%);
   color: var(--brand-cream);
 }
 [data-theme='dark'] .zFaq h2,
@@ -923,13 +948,13 @@
 
 .platformCardCompact:hover {
   border-color: var(--brand-coral);
-  box-shadow: 0 10px 30px rgba(14, 45, 84, 0.12);
-  transform: translateY(4px) scale(0.98);
+  box-shadow: 0 16px 36px rgba(14, 45, 84, 0.12);
+  transform: translateY(-8px) scale(1.015);
 }
 
 [data-theme='dark'] .platformCardCompact:hover {
   border-color: var(--brand-yellow);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
 }
 
 .platformCardCompact:hover .iconWrapperCompact {
@@ -981,19 +1006,48 @@
   opacity: 0.7;
 }
 
+.inclusionsMainContent {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 3.5rem;
+  align-items: start;
+  width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .inclusionsMainContent {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
 .youGetContainer {
-  margin-top: 1rem;
-  padding: 2rem 2.25rem;
+  padding: 2.25rem;
   border-radius: 28px;
   background: rgba(14, 45, 84, 0.02);
   border: 1.5px dashed rgba(14, 45, 84, 0.15);
   position: relative;
   overflow: hidden;
+  height: auto;
+  box-sizing: border-box;
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
+}
+
+.youGetContainer:hover {
+  border-color: var(--brand-coral) !important;
+  box-shadow: 0 20px 45px rgba(246, 108, 81, 0.18), 0 8px 32px rgba(14, 45, 84, 0.05) !important;
 }
 
 [data-theme='dark'] .youGetContainer {
   background: rgba(255, 255, 255, 0.02);
   border: 1.5px dashed rgba(255, 255, 255, 0.15);
+}
+
+[data-theme='dark'] .youGetContainer:hover {
+  border-color: var(--brand-yellow) !important;
+  box-shadow: 0 20px 45px rgba(255, 183, 3, 0.25), 0 8px 32px rgba(0, 0, 0, 0.4) !important;
 }
 
 .youGetLabel {
@@ -1047,53 +1101,58 @@
   grid-template-columns: 1fr;
   gap: 0.85rem;
 }
-.youGetContainer {
-  margin-top: 1rem;
-}.inclusionCard {
+.inclusionCard {
   display: flex;
   gap: 1rem;
   align-items: center;
   padding: 1.1rem 1.25rem;
   border-radius: 20px;
-  background: rgba(255, 255, 255, 0.45);
-  border: 1.5px solid rgba(14, 45, 84, 0.04);
+  background: var(--inc-bg);
+  color: var(--inc-text);
+  border: 1.5px solid rgba(14, 45, 84, 0.05);
   transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
+.zWhatWeDoInclusions .inclusionCard h4 {
+  color: var(--inc-text) !important;
+}
+
+.zWhatWeDoInclusions .inclusionCard p {
+  color: var(--inc-text) !important;
+  opacity: 0.85;
+}
+
 [data-theme='dark'] .inclusionCard {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1.5px solid rgba(255, 255, 255, 0.12) !important;
 }
 
 .inclusionCard:hover {
-  background: rgba(255, 255, 255, 0.85) !important;
-  border: 1.5px dashed var(--brand-coral) !important;
-  box-shadow: 0 10px 25px rgba(246, 108, 81, 0.15);
-  transform: translateY(4px) scale(0.98);
+  background: var(--inc-bg) !important;
+  border: 1.5px dashed var(--inc-icon-color) !important;
+  box-shadow: 0 12px 30px rgba(14, 45, 84, 0.18);
+  transform: translateY(-8px) scale(1.02);
 }
 
 [data-theme='dark'] .inclusionCard:hover {
-  background: rgba(255, 255, 255, 0.08) !important;
-  border: 1.5px dashed var(--brand-yellow) !important;
-  box-shadow: 0 10px 25px rgba(255, 183, 3, 0.08);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
 }
 
 .inclusionIconWrapper {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: rgba(246, 108, 81, 0.1);
+  background: var(--inc-icon-bg);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--brand-coral);
+  color: var(--inc-icon-color);
   flex-shrink: 0;
   transition: transform 0.3s ease;
 }
 
 [data-theme='dark'] .inclusionIconWrapper {
-  background: rgba(255, 183, 3, 0.1);
-  color: var(--brand-yellow);
+  background: var(--inc-icon-bg);
+  color: var(--inc-icon-color);
 }
 
 .inclusionCard:hover .inclusionIconWrapper {
@@ -1191,8 +1250,8 @@
   width: max-content;
   will-change: transform;
   
-  --item-width: 110px;
-  --item-gap: 48px;
+  --item-width: 150px;
+  --item-gap: 60px;
   --item-full-width: calc(var(--item-width) + var(--item-gap));
   --half-item-width: calc(var(--item-width) / 2);
   
@@ -1200,8 +1259,8 @@
 }
 
 .sliderBubble {
-  width: 110px;
-  height: 110px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.95);
   border: 1.5px solid rgba(14, 45, 84, 0.12);
@@ -1218,9 +1277,9 @@
 }
 
 [data-theme='dark'] .sliderBubble {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1.5px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(135deg, #0E2D54 0%, #5188B5 100%) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
 }
 
 .activeBubble {
@@ -1243,21 +1302,18 @@
 
 @media (max-width: 768px) {
   .sliderTrack {
-    --item-width: 90px;
-    --item-gap: 32px;
+    --item-width: 110px;
+    --item-gap: 40px;
   }
   .sliderBubble {
-    width: 90px;
-    height: 90px;
+    width: 110px;
+    height: 110px;
   }
 }
 
 /* Glowing Frosted Glass Overrides in Dark Mode */
 [data-theme='dark'] .inclusionCard {
-  background: rgba(255, 255, 255, 0.05) !important;
   border: 1.5px solid rgba(255, 255, 255, 0.12) !important;
-  backdrop-filter: blur(24px) !important;
-  -webkit-backdrop-filter: blur(24px) !important;
 }
 
 [data-theme='dark'] .approachCard {

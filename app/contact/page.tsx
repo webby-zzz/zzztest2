@@ -97,7 +97,6 @@ export default function ContactPage() {
         <div className={styles.bookingHeader}>
           <span className={styles.badge}>[ Let's Connect ]</span>
           <h2>Ready to <span className={styles.serifAccent}>scale</span>?</h2>
-          <p>Send us a direct message and let's start building something extraordinary.</p>
         </div>
         
         <div className={styles.formContainerWrapper}>

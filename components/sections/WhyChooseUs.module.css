@@ -60,6 +60,21 @@
   opacity: 0.6;
 }
 
+.mobileTapHint {
+  font-family: var(--font-sans);
+  font-size: 0.825rem;
+  font-weight: 650;
+  color: var(--accent-color);
+  margin-top: 0.25rem;
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .mobileTapHint {
+    display: block;
+  }
+}
+
 /* Split Layout */
 .splitLayout {
   display: grid;

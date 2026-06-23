@@ -155,6 +155,7 @@ export default function WhyChooseUs() {
           <span className={styles.badge} style={{ opacity: 0 }}>[ 04 / INDUSTRIES ]</span>
           <h2 style={{ opacity: 0 }}>Industries we <span className={styles.headingAccent}>partner</span> with.</h2>
           <p style={{ opacity: 0 }}>We apply high-fidelity interfaces and optimization metrics to diverse niches.</p>
+          <span className={styles.mobileTapHint} style={{ opacity: 0 }}>*Tap an industry to know more</span>
         </div>
 
         {/* Split Layout */}
@@ -164,7 +165,11 @@ export default function WhyChooseUs() {
           <div 
             className={styles.listCol} 
             ref={listRef}
-            onMouseLeave={() => setActiveIndex(null)}
+            onMouseLeave={() => {
+              if (window.matchMedia('(hover: hover)').matches) {
+                setActiveIndex(null);
+              }
+            }}
           >
             {INDUSTRIES.map((industry, index) => {
               const Icon = industry.icon;
@@ -174,7 +179,11 @@ export default function WhyChooseUs() {
                 <div
                   key={index}
                   className={`${styles.listItem} ${isActive ? styles.activeItem : ""} gsap-reveal-item`}
-                  onMouseEnter={() => setActiveIndex(index)}
+                  onMouseEnter={() => {
+                    if (window.matchMedia('(hover: hover)').matches) {
+                      setActiveIndex(index);
+                    }
+                  }}
                   onClick={() => setActiveIndex(activeIndex === index ? null : index)}
                   style={{ 
                     opacity: 0,

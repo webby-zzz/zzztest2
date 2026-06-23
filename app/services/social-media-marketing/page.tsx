@@ -83,6 +83,15 @@ const FAQS = [
   }
 ];
 
+const INCLUSION_COLORS = [
+  { bg: "#0E2D54", text: "#FAF8F1", desc: "rgba(250, 248, 241, 0.8)", iconBg: "rgba(246, 108, 81, 0.2)", iconColor: "#F66C51" }, // Navy bg, Cream text, Coral check
+  { bg: "#5188B5", text: "#FFFFFF", desc: "rgba(255, 255, 255, 0.85)", iconBg: "rgba(255, 183, 3, 0.25)", iconColor: "#FFB703" }, // Blue bg, White text, Yellow check
+  { bg: "#DCC5DF", text: "#0E2D54", desc: "rgba(14, 45, 84, 0.8)", iconBg: "rgba(14, 45, 84, 0.1)", iconColor: "#0E2D54" },      // Lavender bg, Navy text, Navy check
+  { bg: "#FFB703", text: "#0E2D54", desc: "rgba(14, 45, 84, 0.8)", iconBg: "rgba(14, 45, 84, 0.1)", iconColor: "#0E2D54" },      // Yellow bg, Navy text, Navy check
+  { bg: "#FAF8F1", text: "#0E2D54", desc: "rgba(14, 45, 84, 0.8)", iconBg: "rgba(246, 108, 81, 0.15)", iconColor: "#F66C51" },  // Cream bg, Navy text, Coral check
+  { bg: "#C0E1D2", text: "#0E2D54", desc: "rgba(14, 45, 84, 0.8)", iconBg: "rgba(14, 45, 84, 0.1)", iconColor: "#0E2D54" },      // Mint bg, Navy text, Navy check
+];
+
 export default function SocialMediaPage() {
   const containerRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLDivElement>(null);
@@ -90,6 +99,7 @@ export default function SocialMediaPage() {
   const whatWeDoRef = useRef<HTMLDivElement>(null);
   const inclusionsRef = useRef<HTMLDivElement>(null);
   const tiltFrame = use3DTilt(5, -10);
+  const youGetTilt = use3DTilt(10, -12); // Deep 3D dip-in hover effect
   const bubblesRef = useRef<HTMLDivElement>(null);
   const faqRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
@@ -113,15 +123,20 @@ export default function SocialMediaPage() {
   const resumeAutoRotateTimeout = useRef<NodeJS.Timeout | null>(null);
 
   const startAutoRotate = () => {
-    if (autoRotateTimer.current) clearInterval(autoRotateTimer.current);
+    stopAutoRotate();
     autoRotateTimer.current = setInterval(() => {
+      setTransitionEnabled(true);
       setActiveLogoIndex((prev) => prev + 1);
-    }, 1500); // 1.5 seconds auto rotation
+    }, 3200);
+  };
+
+  const stopAutoRotate = () => {
+    if (autoRotateTimer.current) clearInterval(autoRotateTimer.current);
+    if (resumeAutoRotateTimeout.current) clearTimeout(resumeAutoRotateTimeout.current);
   };
 
   const resetAutoRotateTimer = () => {
-    if (autoRotateTimer.current) clearInterval(autoRotateTimer.current);
-    if (resumeAutoRotateTimeout.current) clearTimeout(resumeAutoRotateTimeout.current);
+    stopAutoRotate();
     resumeAutoRotateTimeout.current = setTimeout(() => {
       startAutoRotate();
     }, 5000);
@@ -129,10 +144,7 @@ export default function SocialMediaPage() {
 
   useEffect(() => {
     startAutoRotate();
-    return () => {
-      if (autoRotateTimer.current) clearInterval(autoRotateTimer.current);
-      if (resumeAutoRotateTimeout.current) clearTimeout(resumeAutoRotateTimeout.current);
-    };
+    return () => stopAutoRotate();
   }, []);
 
   // Infinite wrapping logic
@@ -160,49 +172,41 @@ export default function SocialMediaPage() {
     }
   }, [activeLogoIndex, transitionEnabled]);
 
-  const getItemFullWidth = () => {
-    if (typeof window !== "undefined" && window.innerWidth <= 768) {
-      return 90 + 32; // bubble 90 + gap 32
-    }
-    return 110 + 48; // bubble 110 + gap 48
-  };
-
   const startDrag = (clientX: number) => {
     setIsDragging(true);
+    setTransitionEnabled(false);
     dragStartX.current = clientX;
-    setDragOffset(0);
-    if (autoRotateTimer.current) clearInterval(autoRotateTimer.current);
-    if (resumeAutoRotateTimeout.current) clearTimeout(resumeAutoRotateTimeout.current);
+    stopAutoRotate();
   };
 
   const moveDrag = (clientX: number) => {
     if (!isDragging) return;
     const deltaX = clientX - dragStartX.current;
-    let newOffset = deltaX;
-    const itemFullWidth = getItemFullWidth();
-    const maxOffset = activeLogoIndex * itemFullWidth;
-    const minOffset = -((BRAND_BUBBLES.length * 3) - 1 - activeLogoIndex) * itemFullWidth;
-    if (newOffset > maxOffset + 60) {
-      newOffset = maxOffset + 60;
-    } else if (newOffset < minOffset - 60) {
-      newOffset = minOffset - 60;
-    }
-    setDragOffset(newOffset);
+    setDragOffset(deltaX);
   };
 
   const endDrag = () => {
     if (!isDragging) return;
     setIsDragging(false);
-    const itemFullWidth = getItemFullWidth();
-    const shift = Math.round(-dragOffset / itemFullWidth);
-    let newIndex = activeLogoIndex + shift;
-    const maxIndex = (BRAND_BUBBLES.length * 3) - 1;
-    newIndex = Math.max(0, Math.min(newIndex, maxIndex));
-    setActiveLogoIndex(newIndex);
+    
+    // Determine closest snap item based on drag offset and width
+    const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
+    const itemWidth = isMobile ? 110 : 150;
+    const itemGap = isMobile ? 40 : 60;
+    const itemFullWidth = itemWidth + itemGap;
+    const threshold = itemFullWidth * 0.25;
+    let offsetIndex = 0;
+    
+    if (dragOffset < -threshold) {
+      offsetIndex = Math.ceil(-dragOffset / itemFullWidth);
+    } else if (dragOffset > threshold) {
+      offsetIndex = -Math.ceil(dragOffset / itemFullWidth);
+    }
+    
+    setTransitionEnabled(true);
+    setActiveLogoIndex((prev) => prev + offsetIndex);
     setDragOffset(0);
-    resumeAutoRotateTimeout.current = setTimeout(() => {
-      startAutoRotate();
-    }, 5000);
+    resetAutoRotateTimer();
   };
 
   const handleMouseDown = (e: React.MouseEvent) => startDrag(e.clientX);
@@ -223,17 +227,6 @@ export default function SocialMediaPage() {
     }
     setMounted(true);
   }, []);
-
-  const { resolvedTheme } = useTheme();
-  const isDark = mounted && resolvedTheme === "dark";
-  const banners = {
-    desktop: isDark 
-      ? "/zzz banners optimized/SMM banner - dark.webp" 
-      : "/zzz banners optimized/SMM banner - light.webp",
-    mobile: isDark 
-      ? "/zzz banners optimized/SMM mobile banner - dark.webp" 
-      : "/zzz banners optimized/SMM mobile banner - light.webp"
-  };
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -327,6 +320,7 @@ export default function SocialMediaPage() {
         );
       }
 
+      // Scroll Reveal for Inclusions List
       const inclusionsLeft = inclusionsRef.current?.querySelector(".gsap-reveal-inclusions-left");
       if (inclusionsLeft) {
         gsap.fromTo(inclusionsLeft.children,
@@ -336,7 +330,7 @@ export default function SocialMediaPage() {
             y: 0,
             scale: 1,
             stagger: 0.1,
-            duration: 0.9,
+            duration: 0.8,
             ease: "power3.out",
             scrollTrigger: {
               trigger: inclusionsLeft,
@@ -346,9 +340,9 @@ export default function SocialMediaPage() {
         );
       }
 
-      const inclusionItems = inclusionsRef.current?.querySelectorAll(`.${styles.inclusionCard}`);
-      if (inclusionItems && inclusionItems.length > 0) {
-        gsap.fromTo(inclusionItems,
+      const inclusionCards = inclusionsRef.current?.querySelectorAll(`.${styles.inclusionCard}`);
+      if (inclusionCards && inclusionCards.length > 0) {
+        gsap.fromTo(inclusionCards,
           { opacity: 0, y: 30 },
           {
             opacity: 1,
@@ -459,24 +453,6 @@ export default function SocialMediaPage() {
         );
       }
 
-      const marqueeRows = bubblesRef.current?.querySelectorAll(`.${styles.marqueeRow}`);
-      if (marqueeRows && marqueeRows.length > 0) {
-        gsap.fromTo(marqueeRows,
-          { opacity: 0, y: 30 },
-          {
-            opacity: 1,
-            y: 0,
-            stagger: 0.2,
-            duration: 1.0,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: bubblesRef.current?.querySelector(`.${styles.marqueeContainer}`),
-              start: "top 92%",
-            }
-          }
-        );
-      }
-
       // 7. Scroll Reveal: FAQ Section
       const faqHead = faqRef.current?.querySelector(".gsap-reveal-head");
       if (faqHead) {
@@ -557,40 +533,39 @@ export default function SocialMediaPage() {
     return () => ctx.revert();
   }, []);
 
-  // Accordion smooth height animation
-  useEffect(() => {
-    faqBodiesRef.current.forEach((body, idx) => {
-      if (!body) return;
-      if (activeFaq === idx) {
-        gsap.to(body, {
-          height: body.scrollHeight,
-          duration: 0.45,
-          ease: "power3.out",
-          overwrite: "auto",
-          onUpdate: () => ScrollTrigger.refresh(),
-          onComplete: () => ScrollTrigger.refresh()
-        });
-      } else {
-        gsap.to(body, {
-          height: 0,
-          duration: 0.45,
-          ease: "power3.out",
-          overwrite: "auto",
-          onUpdate: () => ScrollTrigger.refresh(),
-          onComplete: () => ScrollTrigger.refresh()
-        });
-      }
-    });
-  }, [activeFaq]);
-
   const handleAuditClick = () => {
-    const lenis = (window as any).lenis;
-    if (lenis) {
-      lenis.scrollTo("#audit-form", { duration: 1.5 });
-    } else {
-      const formEl = document.getElementById("audit-form");
-      if (formEl) {
-        formEl.scrollIntoView({ behavior: "smooth" });
+    const auditSection = document.getElementById("audit-form");
+    if (auditSection) {
+      const lenis = (window as any).lenis;
+      if (lenis) {
+        lenis.scrollTo(auditSection, { duration: 1.5 });
+      } else {
+        auditSection.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  };
+
+  const handleFaqClick = (index: number) => {
+    setActiveFaq(activeFaq === index ? null : index);
+    
+    // Toggle body height animation using GSAP
+    const body = faqBodiesRef.current[index];
+    if (body) {
+      if (activeFaq === index) {
+        gsap.to(body, { height: 0, duration: 0.4, ease: "power2.inOut" });
+      } else {
+        // Close other open ones first
+        faqBodiesRef.current.forEach((b, idx) => {
+          if (b && idx !== index) {
+            gsap.to(b, { height: 0, duration: 0.4, ease: "power2.inOut" });
+          }
+        });
+        
+        // Measure target height and animate
+        gsap.set(body, { height: "auto" });
+        const targetHeight = body.offsetHeight;
+        gsap.set(body, { height: 0 });
+        gsap.to(body, { height: targetHeight, duration: 0.45, ease: "power3.out" });
       }
     }
   };
@@ -616,14 +591,24 @@ export default function SocialMediaPage() {
         {/* HERO BACKGROUND IMAGE */}
         <div className={styles.heroBackground}>
           <img 
-            src={banners.desktop} 
+            src="/zzz banners optimized/SMM banner - light.webp" 
             alt="Social Media Marketing Banner" 
-            className={`${styles.heroImage} ${styles.desktopBanner}`}
+            className={`${styles.heroImage} ${styles.desktopBanner} ${styles.lightBanner}`}
           />
           <img 
-            src={banners.mobile} 
+            src="/zzz banners optimized/SMM banner - dark.webp" 
+            alt="Social Media Marketing Banner" 
+            className={`${styles.heroImage} ${styles.desktopBanner} ${styles.darkBanner}`}
+          />
+          <img 
+            src="/zzz banners optimized/SMM mobile banner - light.webp" 
             alt="Social Media Marketing Banner Mobile" 
-            className={`${styles.heroImage} ${styles.mobileBanner}`}
+            className={`${styles.heroImage} ${styles.mobileBanner} ${styles.lightBanner}`}
+          />
+          <img 
+            src="/zzz banners optimized/SMM mobile banner - dark.webp" 
+            alt="Social Media Marketing Banner Mobile" 
+            className={`${styles.heroImage} ${styles.mobileBanner} ${styles.darkBanner}`}
           />
         </div>
 
@@ -655,55 +640,72 @@ export default function SocialMediaPage() {
               </p>
             </div>
 
-            {/* Right Column: Inclusions Grid */}
-            <div className={styles.inclusionsGridCompact}>
-              {[
-                { title: "Strategic Monthly Content Planning", desc: "Content calendars designed around your goals, audience and brand positioning." },
-                { title: "Reels Production & Creative Direction", desc: "From concepts and scripting to editing and publishing-ready content." },
-                { title: "Custom Visual & Brand Assets", desc: "Branded posts, stories and creatives that keep your feed cohesive." },
-                { title: "Social Media Management", desc: "Content scheduling, profile maintenance and day-to-day account handling." },
-                { title: "Analytics, Reporting & Optimisation", desc: "Performance tracking with insights to continuously improve results." },
-                { title: "Dedicated Account Support", desc: "A single point of contact to ensure smooth communication and execution." }
-              ].map((inc, i) => (
-                <div
-                  key={i}
-                  className={styles.inclusionCard}
-                  style={{ opacity: 0 }}
-                >
-                  <div className={styles.inclusionIconWrapper}>
-                    <Check size={16} />
-                  </div>
-                  <div className={styles.inclusionContentCompact}>
-                    <h4>{inc.title}</h4>
-                    <p>{inc.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
+            {/* Inclusions Main Grid Content wrapper */}
+            <div className={styles.inclusionsMainContent}>
+              {/* Left Column: Inclusions Grid */}
+              <div className={styles.inclusionsGridCompact}>
+                {[
+                  { title: "Strategic Monthly Content Planning", desc: "Content calendars designed around your goals, audience and brand positioning." },
+                  { title: "Reels Production & Creative Direction", desc: "From concepts and scripting to editing and publishing-ready content." },
+                  { title: "Custom Visual & Brand Assets", desc: "Branded posts, stories and creatives that keep your feed cohesive." },
+                  { title: "Social Media Management", desc: "Content scheduling, profile maintenance and day-to-day account handling." },
+                  { title: "Analytics, Reporting & Optimisation", desc: "Performance tracking with insights to continuously improve results." },
+                  { title: "Dedicated Account Support", desc: "A single point of contact to ensure smooth communication and execution." }
+                ].map((inc, i) => {
+                  const colors = INCLUSION_COLORS[i % INCLUSION_COLORS.length];
+                  return (
+                    <div
+                      key={i}
+                      className={styles.inclusionCard}
+                      style={{ 
+                        opacity: 0,
+                        "--inc-bg": colors.bg,
+                        "--inc-text": colors.text,
+                        "--inc-desc": colors.desc,
+                        "--inc-icon-bg": colors.iconBg,
+                        "--inc-icon-color": colors.iconColor,
+                      } as React.CSSProperties}
+                    >
+                      <div className={styles.inclusionIconWrapper}>
+                        <Check size={16} />
+                      </div>
+                      <div className={styles.inclusionContentCompact}>
+                        <h4>{inc.title}</h4>
+                        <p>{inc.desc}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
 
-            {/* You Also Get Section */}
-            <div className={`${styles.youGetContainer} glassmorphism`} style={{ opacity: 0 }}>
-              <div className={styles.youGetLabel}>you also get</div>
-              <div className={styles.youGetSpecs}>
-                <div className={styles.specItem}>
-                  <span className={styles.specDot} />
-                  <span>Dedicated Account Manager</span>
-                </div>
-                <div className={styles.specItem}>
-                  <span className={styles.specDot} />
-                  <span>Fast Turnaround & Communication</span>
-                </div>
-                <div className={styles.specItem}>
-                  <span className={styles.specDot} />
-                  <span>Monthly Analytics & Recommendations</span>
-                </div>
-                <div className={styles.specItem}>
-                  <span className={styles.specDot} />
-                  <span>Monthly Strategy Calls</span>
-                </div>
-                <div className={styles.specItem}>
-                  <span className={styles.specDot} />
-                  <span>Creative Collaboration Support</span>
+              {/* You Also Get Section */}
+              <div 
+                ref={youGetTilt.ref}
+                style={{ ...youGetTilt.style, opacity: 0 }}
+                className={`${styles.youGetContainer} glassmorphism`}
+              >
+                <div className={styles.youGetLabel}>you also get</div>
+                <div className={styles.youGetSpecs}>
+                  <div className={styles.specItem}>
+                    <span className={styles.specDot} />
+                    <span>Dedicated Account Manager</span>
+                  </div>
+                  <div className={styles.specItem}>
+                    <span className={styles.specDot} />
+                    <span>Fast Turnaround & Communication</span>
+                  </div>
+                  <div className={styles.specItem}>
+                    <span className={styles.specDot} />
+                    <span>Monthly Analytics & Recommendations</span>
+                  </div>
+                  <div className={styles.specItem}>
+                    <span className={styles.specDot} />
+                    <span>Monthly Strategy Calls</span>
+                  </div>
+                  <div className={styles.specItem}>
+                    <span className={styles.specDot} />
+                    <span>Creative Collaboration Support</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -855,7 +857,7 @@ export default function SocialMediaPage() {
               >
                 <button
                   className={styles.accordionHeader}
-                  onClick={() => setActiveFaq(activeFaq === i ? null : i)}
+                  onClick={() => handleFaqClick(i)}
                 >
                   <span>{faq.q}</span>
                   <ChevronDown

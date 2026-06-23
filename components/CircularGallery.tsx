@@ -56,7 +56,7 @@ export default function CircularGallery() {
       const vh = window.innerHeight;
       const vw = window.innerWidth;
       const isMobile = vw <= 768;
-      const radius = isMobile ? Math.min(vh * 0.45, 225) : Math.min(vh * 0.73, 620); 
+      const radius = isMobile ? Math.min(vh * 0.53, 310) : Math.min(vh * 0.73, 620); 
 
       // 1. Position items in a full circle
       items.forEach((item, i) => {
@@ -77,7 +77,7 @@ export default function CircularGallery() {
       });
 
       gsap.set(wrapperRef.current, {
-        top: isMobile ? "118%" : "100%",
+        top: isMobile ? "72%" : "100%",
         y: 0, 
         rotation: 0,
       });

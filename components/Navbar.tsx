@@ -13,6 +13,7 @@ export default function Navbar() {
   const [mounted, setMounted] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isLogoHidden, setIsLogoHidden] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -22,6 +23,13 @@ export default function Navbar() {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
+      }
+
+      // Hide logo after 3 scrolls (approx 300px threshold)
+      if (window.scrollY > 300) {
+        setIsLogoHidden(true);
+      } else {
+        setIsLogoHidden(false);
       }
     };
     
@@ -39,7 +47,7 @@ export default function Navbar() {
 
   return (
     <nav className={`${styles.navbar} ${isScrolled ? styles.navbarScrolled : ""}`}>
-      <div className={styles.logo}>
+      <div className={`${styles.logo} ${isLogoHidden ? styles.logoHidden : ""}`}>
         <Link href="/" scroll={false}>
           <Logo size={145} />
         </Link>

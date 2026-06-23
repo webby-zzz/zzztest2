@@ -32,7 +32,7 @@ export default function Footer() {
               <div className={styles.links}>
                 <Link href="/#brand-beliefs"><span>Home</span> <Folder size={14} className={styles.linkFolderIcon} /></Link>
                 <Link href="/#about-us"><span>About</span> <Folder size={14} className={styles.linkFolderIcon} /></Link>
-                <Link href="/#hero-gallery"><span>Services</span> <Folder size={14} className={styles.linkFolderIcon} /></Link>
+                <Link href="/#services-grid"><span>Services</span> <Folder size={14} className={styles.linkFolderIcon} /></Link>
                 <Link href="/#portfolio-highlights"><span>Our Work</span> <Folder size={14} className={styles.linkFolderIcon} /></Link>
                 <Link href="/contact"><span>Connect</span> <Folder size={14} className={styles.linkFolderIcon} /></Link>
               </div>
