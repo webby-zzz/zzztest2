@@ -583,24 +583,57 @@ export default function ServiceClient({ service }: { service: any }) {
     }
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.name || !form.email || !form.phone || !form.company || !form.location || !form.brief) return;
 
     setStatus("sending");
-    setTimeout(() => {
-      setStatus("sent");
-      setForm({ 
-        name: "", 
-        email: "", 
-        phone: "", 
-        company: "", 
-        brief: "", 
-        socialLinks: "", 
-        location: "",
-        selectedServices: []
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: "edf00ae3-b8ce-480b-8fd6-145cbf610df6",
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          company: form.company,
+          location: form.location,
+          brief: form.brief,
+          socialLinks: form.socialLinks,
+          selectedServices: form.selectedServices.join(", "),
+          subject: `New Lead for ${service.name} from ${form.name} (${form.company})`
+        }),
       });
-    }, 1500);
+
+      const result = await response.json();
+      if (result.success) {
+        setStatus("sent");
+        setForm({ 
+          name: "", 
+          email: "", 
+          phone: "", 
+          company: "", 
+          brief: "", 
+          socialLinks: "", 
+          location: "",
+          selectedServices: []
+        });
+        setTimeout(() => setStatus("idle"), 4000);
+      } else {
+        console.error("Web3Forms submission failed:", result);
+        setStatus("idle");
+        alert("Failed to send message. Please try again or email us directly at info@zipzapzop.in");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setStatus("idle");
+      alert("An error occurred. Please try again or email us directly at info@zipzapzop.in");
+    }
   };
 
   const toggleService = (srv: string) => {
