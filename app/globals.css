@@ -108,6 +108,18 @@
   padding: 0;
 }
 
+html {
+  font-size: 14px; /* Decreases overall font size by 2px globally */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance; /* Prevents awkward headline wrapping */
+}
+
+p, li {
+  text-wrap: pretty; /* Prevents single-word orphan wraps on second line */
+}
+
 html,
 body {
   max-width: 100vw;

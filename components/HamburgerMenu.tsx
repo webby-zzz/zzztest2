@@ -72,7 +72,6 @@ export default function HamburgerMenu({ isOpen, onClose }: HamburgerMenuProps) {
     { label: "Home", href: "/" },
     { label: "About", href: "/#about-us" },
     { label: "Services", href: "/#services-grid" },
-    { label: "Our Work", href: "/#portfolio-highlights" },
     { label: "Connect", href: "/contact" },
   ];
 

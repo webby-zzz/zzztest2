@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import styles from "./page.module.css";
-import { ArrowUpRight, Mail, Phone } from "lucide-react";
+import { ArrowUpRight, Mail, Phone, Instagram, Linkedin } from "lucide-react";
 import { use3DTilt } from "@/lib/use3DTilt";
 
 const SERVICE_OPTIONS = [
@@ -120,8 +120,14 @@ export default function ContactPage() {
               <div className={`${styles.infoCard} glassmorphism`}>
                 <h3 className={styles.cellTitle}>STALK US</h3>
                 <ul className={styles.socialList}>
-                  <li><a href="https://in.linkedin.com/company/zipzapzop" target="_blank" rel="noopener noreferrer" className={styles.link}>LinkedIn</a></li>
-                  <li><a href="https://www.instagram.com/zipzapzop.marketing/" target="_blank" rel="noopener noreferrer" className={styles.link}>Instagram</a></li>
+                  <li style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                    <Linkedin size={16} className={styles.contactIcon} />
+                    <a href="https://in.linkedin.com/company/zipzapzop" target="_blank" rel="noopener noreferrer" className={styles.link}>LinkedIn</a>
+                  </li>
+                  <li style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                    <Instagram size={16} className={styles.contactIcon} />
+                    <a href="https://www.instagram.com/zipzapzop.marketing/" target="_blank" rel="noopener noreferrer" className={styles.link}>Instagram</a>
+                  </li>
                 </ul>
               </div>
             </div>

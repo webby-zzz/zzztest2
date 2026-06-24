@@ -109,7 +109,7 @@ const STATS_DATA = [
   { number: "500", suffix: "+", label: "Projects", accentWord: "Delivered" },
   { number: "95", suffix: "%", label: "Client", accentWord: "Retention" },
   { number: "50", suffix: "M+", label: "Content Views", accentWord: "Generated" },
-  { number: "Countless", suffix: "", label: "Ideas Brought", accentWord: "To Life" },
+  { number: "∞", suffix: "", label: "Ideas Brought", accentWord: "To Life" },
 ];
 
 export default function StatsSection() {

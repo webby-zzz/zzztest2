@@ -162,8 +162,8 @@
 }
 
 .quote {
-  font-family: var(--font-serif);
-  font-style: italic;
+  font-family: var(--font-sans);
+  font-style: normal;
   font-size: 0.95rem;
   line-height: 1.45;
   font-weight: 400;
@@ -193,12 +193,14 @@
 }
 
 .authorName {
+  font-family: var(--font-serif);
   font-size: 0.9rem;
   font-weight: 700;
   color: var(--foreground);
 }
 
 .authorRole {
+  font-family: var(--font-serif);
   font-size: 0.75rem;
   opacity: 0.6;
 }

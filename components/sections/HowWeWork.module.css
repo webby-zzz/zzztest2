@@ -188,7 +188,8 @@
 .serifWord {
   font-family: var(--font-serif);
   font-style: italic;
-  font-weight: 400;
+  font-weight: 750;
+  font-size: 1.15em;
   color: var(--accent-color);
 }
 

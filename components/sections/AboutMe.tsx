@@ -14,7 +14,6 @@ if (typeof window !== "undefined") {
 export default function AboutMe() {
   const headingRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-  const imageFrame = use3DTilt(8, -12);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -78,8 +77,6 @@ export default function AboutMe() {
             style={{ opacity: 0 }}
           >
             <div 
-              ref={imageFrame.ref}
-              style={{ ...imageFrame.style }}
               className={`${styles.imageWrapper} glassmorphism`}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}

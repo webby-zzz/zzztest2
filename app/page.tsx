@@ -20,7 +20,7 @@ export default function Home() {
       <ServicesGrid />
       <WhyChooseUs />
       <StatsSection />
-      <PortfolioHighlights />
+      {/* <PortfolioHighlights /> */}
       <TrustedBy />
       <Testimonials />
       <div id="methodology">

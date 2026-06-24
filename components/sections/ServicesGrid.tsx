@@ -43,7 +43,7 @@ const SERVICES_GRID_DATA = [
     id: "website-development",
     title: "Website Development",
     desc: "Clean, user-friendly websites built to represent your business online.",
-    image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=600&auto=format&fit=crop",
+    image: "/our%20services%20hompage/web%20development.webp",
     category: "DEVELOPMENT",
     timeframe: "4-8 WEEKS",
     tags: ["Shopify", "UI/UX", "Industrial Websites"]

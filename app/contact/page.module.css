@@ -265,7 +265,7 @@
 }
 
 .formContainerWrapper {
-  max-width: 650px;
+  max-width: 760px;
   width: 100%;
   margin: 0 auto;
 }
@@ -276,7 +276,7 @@
   -webkit-backdrop-filter: blur(20px);
   border: 1.5px solid rgba(14, 45, 84, 0.08);
   border-radius: 28px;
-  padding: 3rem;
+  padding: 2rem;
   box-shadow: 0 12px 40px rgba(14, 45, 84, 0.05);
 }
 
@@ -299,7 +299,7 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 .formRow {
@@ -333,7 +333,7 @@
   background: rgba(255, 255, 255, 0.4);
   border: 1.5px solid rgba(14, 45, 84, 0.12);
   border-radius: 12px;
-  padding: 1rem 1.25rem;
+  padding: 0.7rem 0.9rem;
   color: var(--brand-navy);
   font-family: var(--font-sans);
   font-size: 0.95rem;
@@ -367,7 +367,7 @@
 
 .submitBtn {
   margin-top: 1rem;
-  padding: 1.1rem;
+  padding: 0.8rem;
   background: var(--brand-navy);
   color: var(--brand-cream);
   border: none;

@@ -44,8 +44,8 @@ const ROW2_DATA = [
   {
     quote: "Got my website built from them, great work, would definitely recommend to people looking to get any of their marketing needs met!",
     author: "Satwik Agarwal",
-    role: "70/30 Logo",
-    company: "70/30 Logo",
+    role: "70/30",
+    company: "70/30",
     avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150&auto=format&fit=crop",
   },
   {

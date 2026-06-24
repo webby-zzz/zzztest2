@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useRef, useEffect } from "react";
-import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { use3DTilt } from "@/lib/use3DTilt";
@@ -71,7 +70,6 @@ export default function AboutBrief() {
             </p>
           </div>
 
-
         </div>
 
         {/* Right Side: Looping Reel Illustration */}
@@ -97,7 +95,6 @@ export default function AboutBrief() {
                   <circle cx="50" cy="50" r="8" className={styles.innerDot} />
                 </svg>
               </div>
-              <span className={styles.cardTag}>[ ZZZ DIGITAL REEL ]</span>
               <p className={styles.philosophicQuote}>
                 Make people stop.<br />Then make them stay.
               </p>

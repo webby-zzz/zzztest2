@@ -25,49 +25,49 @@ const INDUSTRIES = [
     title: "Fashion",
     desc: "Helping brands stay relevant in a fast-moving industry.",
     icon: Sparkles,
-    image: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=800&auto=format&fit=crop"
+    image: "/industries/fashion.webp"
   },
   {
     title: "Jewellery",
     desc: "Highlighting the details that make every collection unique.",
     icon: Gem,
-    image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=800&auto=format&fit=crop"
+    image: "/industries/jewelery.webp"
   },
   {
     title: "Food & Beverage",
     desc: "Making products look as good as they taste.",
     icon: Utensils,
-    image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop"
+    image: "/industries/Food & Beverage.webp"
   },
   {
     title: "Health & Wellness",
     desc: "Building confidence through clear and trustworthy communication.",
     icon: Heart,
-    image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=800&auto=format&fit=crop"
+    image: "/industries/Health & Wellness.webp"
   },
   {
     title: "Furniture & Interiors",
     desc: "Showcasing spaces, products and design with purpose.",
     icon: Home,
-    image: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=800&auto=format&fit=crop"
+    image: "/industries/Furniture & Interiors.webp"
   },
   {
     title: "Real Estate",
     desc: "Helping buyers see more than just a property listing.",
     icon: Building2,
-    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=800&auto=format&fit=crop"
+    image: "/industries/Real Estate.webp"
   },
   {
     title: "Institutions & Education",
     desc: "Communicating values, credibility and student experiences.",
     icon: BookOpen,
-    image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=800&auto=format&fit=crop"
+    image: "/industries/Institutions & Education.webp"
   },
   {
     title: "FMCG Brands",
     desc: "Helping products stand out where purchase decisions happen.",
     icon: ShoppingBag,
-    image: "https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=800&auto=format&fit=crop"
+    image: "/industries/FMCG Brands.webp"
   }
 ];
 

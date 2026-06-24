@@ -1,7 +1,10 @@
-/* Footer Main Wrap */
 .footer {
   width: 100%;
-  background: linear-gradient(to bottom, transparent 0%, rgba(14, 45, 84, 0.98) 12%, rgba(14, 45, 84, 1) 100%);
+  background: linear-gradient(to bottom, 
+    transparent 0%, 
+    rgba(14, 45, 84, 0.95) 8%, 
+    var(--brand-navy) 25%
+  );
   color: var(--brand-cream);
   --foreground: var(--brand-cream);
   --background: var(--brand-navy);
@@ -11,6 +14,7 @@
   --glass-shadow: 0 12px 36px rgba(0, 0, 0, 0.2);
   --glass-blur: blur(16px);
   --accent-color: var(--brand-yellow);
+  --scoop-color: rgba(14, 45, 84, 0.95);
   padding: 4rem 0 3rem 0;
   border-top: none;
   position: relative;
@@ -19,13 +23,13 @@
 }
 
 [data-theme='dark'] .footer {
-  background: linear-gradient(to bottom, transparent 0%, rgba(3, 8, 18, 0.98) 12%, #030812 100%);
+  background: #030812;
   --border: rgba(81, 136, 181, 0.15);
   --glass-bg: rgba(14, 45, 84, 0.35);
   --glass-border: rgba(81, 136, 181, 0.18);
   --glass-shadow: 0 15px 36px rgba(0, 0, 0, 0.25);
   --accent-color: var(--brand-yellow);
-  --scoop-color: var(--brand-navy);
+  --scoop-color: #030812;
 }
 
 .container {
