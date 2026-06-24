@@ -654,15 +654,27 @@ export default function ServiceClient({ service }: { service: any }) {
       {/* SECTION: Hero */}
       <section className={styles.hero} ref={heroRef}>
         <div className={styles.heroBackground}>
+          {/* Desktop banners */}
           <img 
-            src={banners.desktop} 
+            src={getBannerPaths(service.id, false).desktop}
             alt={`${service.name} Banner`} 
-            className={`${styles.heroImage} ${styles.desktopBanner} ${isDark ? styles.darkBanner : styles.lightBanner}`}
+            className={`${styles.heroImage} ${styles.desktopBanner} ${styles.lightBanner}`}
           />
           <img 
-            src={banners.mobile} 
+            src={getBannerPaths(service.id, true).desktop}
+            alt={`${service.name} Banner`} 
+            className={`${styles.heroImage} ${styles.desktopBanner} ${styles.darkBanner}`}
+          />
+          {/* Mobile banners */}
+          <img 
+            src={getBannerPaths(service.id, false).mobile}
             alt={`${service.name} Banner Mobile`} 
-            className={`${styles.heroImage} ${styles.mobileBanner} ${isDark ? styles.darkBanner : styles.lightBanner}`}
+            className={`${styles.heroImage} ${styles.mobileBanner} ${styles.lightBanner}`}
+          />
+          <img 
+            src={getBannerPaths(service.id, true).mobile}
+            alt={`${service.name} Banner Mobile`} 
+            className={`${styles.heroImage} ${styles.mobileBanner} ${styles.darkBanner}`}
           />
         </div>
 
