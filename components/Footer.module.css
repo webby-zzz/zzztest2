@@ -1,29 +1,29 @@
 /* Footer Main Wrap */
 .footer {
   width: 100%;
-  background: linear-gradient(135deg, var(--brand-navy) 0%, var(--brand-blue) 100%);
+  background: linear-gradient(to bottom, transparent 0%, rgba(14, 45, 84, 0.98) 12%, rgba(14, 45, 84, 1) 100%);
   color: var(--brand-cream);
   --foreground: var(--brand-cream);
   --background: var(--brand-navy);
-  --border: rgba(250, 248, 241, 0.15);
-  --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.04) 100%);
-  --glass-border: rgba(255, 255, 255, 0.16);
-  --glass-shadow: 0 16px 45px rgba(0, 0, 0, 0.3);
-  --glass-blur: blur(24px);
+  --border: rgba(250, 248, 241, 0.1);
+  --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: 0 12px 36px rgba(0, 0, 0, 0.2);
+  --glass-blur: blur(16px);
   --accent-color: var(--brand-yellow);
-  padding: 8rem 0 4rem 0;
-  border-top: 1px solid var(--border);
+  padding: 4rem 0 3rem 0;
+  border-top: none;
   position: relative;
   z-index: 10;
   overflow: hidden;
 }
 
 [data-theme='dark'] .footer {
-  background: linear-gradient(135deg, var(--brand-navy) 0%, var(--brand-navy) 100%);
-  --border: rgba(81, 136, 181, 0.2);
-  --glass-bg: rgba(14, 45, 84, 0.45);
-  --glass-border: rgba(81, 136, 181, 0.24);
-  --glass-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+  background: linear-gradient(to bottom, transparent 0%, rgba(3, 8, 18, 0.98) 12%, #030812 100%);
+  --border: rgba(81, 136, 181, 0.15);
+  --glass-bg: rgba(14, 45, 84, 0.35);
+  --glass-border: rgba(81, 136, 181, 0.18);
+  --glass-shadow: 0 15px 36px rgba(0, 0, 0, 0.25);
   --accent-color: var(--brand-yellow);
   --scoop-color: var(--brand-navy);
 }
@@ -559,4 +559,41 @@
   .footer {
     padding: 6rem 0 3rem 0;
   }
+  
+  .colTitle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 0 !important;
+    padding: 0.5rem 0;
+  }
+
+  .collapsibleContent {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease, margin-top 0.4s ease;
+    margin-top: 0;
+  }
+
+  .showContent {
+    max-height: 500px; /* High enough to fit the content */
+    opacity: 1;
+    margin-top: 1.5rem;
+  }
+
+  .mobileChevron {
+    display: block !important;
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    color: var(--accent-color);
+  }
+
+  .chevronOpen {
+    transform: rotate(180deg);
+  }
+}
+
+.mobileChevron {
+  display: none;
 }

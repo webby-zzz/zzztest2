@@ -630,3 +630,113 @@
     padding: 2rem 1.5rem;
   }
 }
+
+.servicesGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.serviceChip {
+  background: rgba(14, 45, 84, 0.04);
+  border: 1px solid rgba(14, 45, 84, 0.1);
+  color: var(--brand-navy);
+  border-radius: 99px;
+  padding: 0.55rem 1.1rem;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.serviceChip:hover {
+  border-color: var(--brand-coral);
+  transform: translateY(-1px);
+}
+
+.serviceChipSelected {
+  background: var(--brand-coral) !important;
+  border-color: var(--brand-coral) !important;
+  color: #FFFFFF !important;
+}
+
+/* Force dark-mode contact page to use blue gradient background */
+[data-theme='dark'] .container {
+  background-color: #030812 !important;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(13, 40, 78, 0.45) 0px, transparent 55%),
+    radial-gradient(at 100% 0%, rgba(81, 136, 181, 0.25) 0px, transparent 50%),
+    radial-gradient(at 50% 100%, rgba(192, 225, 210, 0.1) 0px, transparent 50%),
+    linear-gradient(180deg, #030812 0%, #061224 50%, #02070e 100%) !important;
+  background-attachment: fixed !important;
+}
+
+[data-theme='dark'] .heroSection {
+  background: transparent !important;
+  border-bottom-color: rgba(81, 136, 181, 0.22) !important;
+}
+
+[data-theme='dark'] .bookingSection {
+  background-color: transparent !important;
+  border-top-color: rgba(81, 136, 181, 0.22) !important;
+}
+
+/* Force contact form container and all of its elements to stay cream / light mode styles in dark mode */
+[data-theme='dark'] .formContainer {
+  background: var(--brand-cream) !important;
+  border: 1.5px solid rgba(14, 45, 84, 0.1) !important;
+  color: var(--brand-navy) !important;
+  box-shadow: 0 15px 45px rgba(14, 45, 84, 0.08) !important;
+}
+
+[data-theme='dark'] .formContainer label,
+[data-theme='dark'] .formContainer h3 {
+  color: var(--brand-navy) !important;
+}
+
+[data-theme='dark'] .formContainer .input,
+[data-theme='dark'] .formContainer .textarea {
+  background: rgba(255, 255, 255, 0.5) !important;
+  border-color: rgba(14, 45, 84, 0.15) !important;
+  color: var(--brand-navy) !important;
+}
+
+[data-theme='dark'] .formContainer .input:focus,
+[data-theme='dark'] .formContainer .textarea:focus {
+  background: #FFFFFF !important;
+  border-color: var(--brand-coral) !important;
+}
+
+[data-theme='dark'] .formContainer .submitBtn {
+  background: var(--brand-navy) !important;
+  color: var(--brand-cream) !important;
+  box-shadow: 0 6px 16px rgba(14, 45, 84, 0.15) !important;
+}
+
+[data-theme='dark'] .formContainer .serviceChip {
+  background: rgba(14, 45, 84, 0.04) !important;
+  border-color: rgba(14, 45, 84, 0.12) !important;
+  color: var(--brand-navy) !important;
+}
+
+[data-theme='dark'] .formContainer .serviceChipSelected {
+  background: var(--brand-coral) !important;
+  border-color: var(--brand-coral) !important;
+  color: #FFFFFF !important;
+}
+
+.contactLine {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.contactIcon {
+  color: var(--accent-color);
+  flex-shrink: 0;
+}

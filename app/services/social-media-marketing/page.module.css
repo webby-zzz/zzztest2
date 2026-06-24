@@ -1192,11 +1192,11 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 1rem 2.5rem;
+  padding: 0.75rem 1.75rem;
   border-radius: 9999px;
   background: var(--foreground);
   color: var(--background);
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: 600;
   text-decoration: none;
   transition: opacity 0.3s ease, transform 0.3s ease;
@@ -1258,6 +1258,36 @@
   transform: translate3d(calc(50vw - var(--half-item-width) - (var(--active-index) * var(--item-full-width)) + var(--drag-offset)), 0, 0);
 }
 
+.sliderItem {
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.15rem;
+  flex-shrink: 0;
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform, opacity;
+  user-select: none;
+}
+
+.brandNameText {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 750;
+  letter-spacing: 0.03em;
+  color: #FFFFFF;
+  opacity: 0.75;
+  transition: opacity 0.4s ease, font-weight 0.4s ease;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.activeItem .brandNameText {
+  opacity: 1;
+  font-weight: 850;
+  color: var(--brand-yellow);
+}
+
 .sliderBubble {
   width: 150px;
   height: 150px;
@@ -1268,11 +1298,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
   overflow: hidden;
-  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.3s ease;
+  transition: border-color 0.3s ease;
   user-select: none;
-  will-change: transform, opacity;
   -webkit-mask-image: -webkit-radial-gradient(white, black);
 }
 
@@ -1305,9 +1333,16 @@
     --item-width: 110px;
     --item-gap: 40px;
   }
+  .sliderItem {
+    width: 110px;
+    gap: 0.8rem;
+  }
   .sliderBubble {
     width: 110px;
     height: 110px;
+  }
+  .brandNameText {
+    font-size: 0.72rem;
   }
 }
 
@@ -1344,5 +1379,89 @@
   border: 1.5px solid rgba(255, 255, 255, 0.12) !important;
   backdrop-filter: blur(24px) !important;
   -webkit-backdrop-filter: blur(24px) !important;
+}
+
+.servicesGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.25rem;
+}
+
+.serviceChip {
+  background: rgba(0, 0, 0, 0.02);
+  border: 1px solid var(--glass-border);
+  color: var(--foreground);
+  border-radius: 99px;
+  padding: 0.55rem 1.1rem;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+[data-theme='dark'] .serviceChip {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.serviceChip:hover {
+  border-color: var(--accent-color);
+  transform: translateY(-1px);
+}
+
+.serviceChipSelected {
+  background: var(--accent-color) !important;
+  border-color: var(--accent-color) !important;
+  color: var(--background) !important;
+}
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 3rem;
+  opacity: 0.7;
+}
+
+.breadcrumbs a {
+  color: var(--foreground);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.breadcrumbs a:hover {
+  opacity: 0.8;
+}
+
+.breadcrumbsSeparator {
+  opacity: 0.4;
+}
+
+.breadcrumbsActive {
+  color: var(--accent-color);
+}
+
+@media (max-width: 768px) {
+  .breadcrumbs {
+    margin-bottom: 2rem;
+  }
+  .backButtonContainer {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    justify-content: flex-start;
+  }
+  .backButton {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    gap: 0.5rem;
+  }
+  .backButton svg {
+    width: 16px !important;
+    height: 16px !important;
+  }
 }
 

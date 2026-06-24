@@ -10,8 +10,28 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
+const SERVICE_OPTIONS = [
+  "Social Media Marketing",
+  "Content Creation",
+  "Photography & Videography",
+  "Website Development",
+  "Branding & Packaging",
+  "Brochures & Catalogues",
+  "LinkedIn Personal Branding",
+  "Event Invites & Wedding Cards",
+];
+
 export default function ContactCTA() {
-  const [form, setForm] = useState({ name: "", email: "", phone: "", company: "", brief: "", socialLinks: "", location: "" });
+  const [form, setForm] = useState({ 
+    name: "", 
+    email: "", 
+    phone: "", 
+    company: "", 
+    brief: "", 
+    socialLinks: "", 
+    location: "",
+    selectedServices: [] as string[]
+  });
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
   const infoColRef = useRef<HTMLDivElement>(null);
   const formColRef = useRef<HTMLDivElement>(null);
@@ -64,7 +84,16 @@ export default function ContactCTA() {
     setStatus("sending");
     setTimeout(() => {
       setStatus("sent");
-      setForm({ name: "", email: "", phone: "", company: "", brief: "", socialLinks: "", location: "" });
+      setForm({ 
+        name: "", 
+        email: "", 
+        phone: "", 
+        company: "", 
+        brief: "", 
+        socialLinks: "", 
+        location: "",
+        selectedServices: []
+      });
       setTimeout(() => setStatus("idle"), 4000);
     }, 1500);
   };
@@ -76,17 +105,13 @@ export default function ContactCTA() {
           {/* Info Column */}
           <div className={`${styles.infoCol} gsap-reveal-children`} ref={infoColRef}>
             <span className={styles.badge} style={{ opacity: 0 }}>[ 12 / ENGAGEMENT ]</span>
-            <h2 style={{ opacity: 0 }}>Let’s start building something <span className={styles.headingAccent}>extraordinary</span>.</h2>
-            <p style={{ opacity: 0 }}>Have an idea or a brand ready for scaling? Reach out and our strategy team will prepare a custom proposal for your brand.</p>
+            <h2 style={{ opacity: 0 }}>You've got the business. We've got <span className={styles.headingAccent}>ideas</span>.</h2>
+            <p style={{ opacity: 0 }}>Tell us about your brand, your goals and where you'd like to grow. We'll take it from there.</p>
             
             <div className={styles.detailsList} style={{ opacity: 0 }}>
               <div className={styles.detailItem}>
-                <span className={styles.detailLabel}>Direct Line</span>
+                <span className={styles.detailLabel}>Official Email</span>
                 <span className={styles.detailValue}>info@zipzapzop.in</span>
-              </div>
-              <div className={styles.detailItem}>
-                <span className={styles.detailLabel}>Studio Location</span>
-                <span className={styles.detailValue}>Kolkata, India</span>
               </div>
             </div>
           </div>
@@ -180,6 +205,30 @@ export default function ContactCTA() {
                       onChange={(e) => setForm({ ...form, location: e.target.value })}
                       className={styles.input}
                     />
+                  </div>
+                </div>
+
+                <div className={styles.inputGroup}>
+                  <label className={styles.label}>Services you'd like to explore</label>
+                  <div className={styles.servicesGrid}>
+                    {SERVICE_OPTIONS.map((service) => {
+                      const isSelected = form.selectedServices.includes(service);
+                      return (
+                        <button
+                          key={service}
+                          type="button"
+                          className={`${styles.serviceChip} ${isSelected ? styles.serviceChipSelected : ""}`}
+                          onClick={() => {
+                            const updated = isSelected
+                              ? form.selectedServices.filter((s) => s !== service)
+                              : [...form.selectedServices, service];
+                            setForm({ ...form, selectedServices: updated });
+                          }}
+                        >
+                          {service}
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
 

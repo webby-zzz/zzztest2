@@ -14,43 +14,43 @@ const STEPS = [
     step: "01",
     phase: "DISCOVERY CALL",
     title: "Discovery Call",
-    desc: "We understand your brand, goals, and audience requirements in detail.",
-    accent: "brand"
+    desc: "A quick conversation to understand what you need.",
+    accent: "Discovery"
   },
   {
     step: "02",
     phase: "STRATEGY & PROPOSAL",
     title: "Strategy & Proposal",
-    desc: "We put together a tailored deployment plan and a custom commercial quote.",
-    accent: "quote"
+    desc: "We build a tailored plan based on your goals and budget.",
+    accent: "Proposal"
   },
   {
     step: "03",
     phase: "CREATIVE KICKOFF",
     title: "Creative Kickoff",
-    desc: "Our creative leads get to work constructing designs, writing copy, and preparing content.",
-    accent: "work"
+    desc: "Ideas turn into concepts, content and creative direction.",
+    accent: "Creative"
   },
   {
     step: "04",
     phase: "REVIEW & REVISE",
     title: "Review & Revise",
-    desc: "You review the work-in-progress, provide iterative feedback, and we refine.",
-    accent: "refine"
+    desc: "Feedback in, improvements out.",
+    accent: "Review"
   },
   {
     step: "05",
     phase: "DELIVERY & DEPLOYMENT",
     title: "Delivery & Deployment",
-    desc: "Files, technical source code assets, and go-live deployment are handed over cleanly.",
-    accent: "live"
+    desc: "Final assets are delivered and published where needed.",
+    accent: "Delivery"
   },
   {
     step: "06",
     phase: "ONGOING SUPPORT",
     title: "Ongoing Support",
-    desc: "We stay in your corner for regular maintenance, analytics tracking, or ad-hoc tasks.",
-    accent: "corner"
+    desc: "We're here long after the launch.",
+    accent: "Ongoing"
   }
 ];
 
@@ -284,7 +284,7 @@ export default function HowWeWork() {
         <div className={`${styles.headingBlock} gsap-reveal-children`} ref={headingRef}>
           <span className={styles.badge} style={{ opacity: 0 }}>[ 07 / WORKFLOW ]</span>
           <h2 style={{ opacity: 0 }}>How we <span className={styles.headingAccent}>work</span>.</h2>
-          <p style={{ opacity: 0 }}>A transparent timeline mapping our deployment pipeline from kickoff to delivery.</p>
+          <p style={{ opacity: 0 }}>From first conversation to final delivery, here's how we work together.</p>
         </div>
       </div>
 

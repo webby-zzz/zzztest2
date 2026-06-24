@@ -1,5 +1,6 @@
 import CircularGallery from "@/components/CircularGallery";
 import MarqueeTagline from "@/components/sections/MarqueeTagline";
+import TrustedBy from "@/components/sections/TrustedBy";
 import AboutBrief from "@/components/sections/AboutBrief";
 import ServicesGrid from "@/components/sections/ServicesGrid";
 import WhyChooseUs from "@/components/sections/WhyChooseUs";
@@ -20,6 +21,7 @@ export default function Home() {
       <WhyChooseUs />
       <StatsSection />
       <PortfolioHighlights />
+      <TrustedBy />
       <Testimonials />
       <div id="methodology">
         <HowWeWork />

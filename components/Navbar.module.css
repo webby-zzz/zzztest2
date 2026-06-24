@@ -87,3 +87,15 @@
   background-color: var(--accent);
   color: var(--background);
 }
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 1rem 1.25rem !important;
+  }
+  .navbarScrolled {
+    padding: 0.6rem 1.25rem !important;
+  }
+  .logo :global(.logoContainer) {
+    height: 80px !important;
+  }
+}

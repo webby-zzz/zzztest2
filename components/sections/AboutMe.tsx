@@ -4,7 +4,7 @@ import React, { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { use3DTilt } from "@/lib/use3DTilt";
-import { Linkedin, ArrowRight } from "lucide-react";
+import { Linkedin } from "lucide-react";
 import styles from "./AboutMe.module.css";
 
 if (typeof window !== "undefined") {
@@ -65,8 +65,8 @@ export default function AboutMe() {
         {/* Header Block */}
         <div className={`${styles.headingBlock} gsap-reveal-children`} ref={headingRef}>
           <span className={styles.badge} style={{ opacity: 0 }}>[ 09 / ABOUT ME ]</span>
-          <h2 style={{ opacity: 0 }}>The mind behind the <span className={styles.headingAccent}>creations</span>.</h2>
-          <p style={{ opacity: 0 }}>Bridging the gap between creative visual logic and clean frontend performance.</p>
+          <h2 style={{ opacity: 0 }}>Hi, I'm <span className={styles.headingAccent}>Avantika</span>.</h2>
+          <p style={{ opacity: 0 }}>Founder, marketer and believer in authentic brands.</p>
         </div>
 
         {/* Content Layout */}
@@ -97,10 +97,12 @@ export default function AboutMe() {
             className={`${styles.textCol} glassmorphism gsap-reveal-item`} 
             style={{ opacity: 0 }}
           >
-            <h3 className={styles.bioTitle}>A commitment to high-fidelity execution.</h3>
+            <h3 className={styles.bioTitle}>Marketing isn't about being loud. It's about being remembered.</h3>
             
             <p className={styles.bioParagraph}>
-              Hi, I&apos;m Avantika, the founder of ZZZ. I lead a boutique collective focused on crafting pixel-precise, highly optimized web layouts. We believe in relentless subtraction—stripping away visual noise to build high-performance Next.js systems that turn traffic into conversions.
+              I'm Avantika Ginodia, founder of Zip Zap Zop Marketing. With 5+ years in the industry and a background in marketing from MICA, I've worked with 150+ brands across India and beyond.<br /><br />
+              What started as a journey in content creation grew into a passion for helping brands find their voice, build meaningful connections and show up with consistency.<br /><br />
+              Today, Zip Zap Zop helps businesses grow through thoughtful strategy, creative storytelling and content that feels genuine, not forced.
             </p>
 
             <div className={styles.actionRow}>
@@ -111,8 +113,7 @@ export default function AboutMe() {
                 className={styles.linkedinBtn}
               >
                 <Linkedin size={18} />
-                <span>Connect on LinkedIn</span>
-                <ArrowRight size={16} className={styles.arrow} />
+                <span>Let's Connect →</span>
               </a>
             </div>
           </div>

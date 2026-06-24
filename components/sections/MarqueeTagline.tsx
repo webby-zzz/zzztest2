@@ -4,7 +4,7 @@ import React from "react";
 import styles from "./MarqueeTagline.module.css";
 
 const TAGLINES = [
-  "YOUR COMPETITOR IS PROBABLY READING THIS TOO.",
+  "YOUR COMPETITOR IS PROBABLY READING THIS TOO",
 ];
 
 export default function MarqueeTagline() {

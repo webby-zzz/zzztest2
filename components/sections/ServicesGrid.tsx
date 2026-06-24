@@ -15,74 +15,74 @@ const SERVICES_GRID_DATA = [
   {
     id: "social-media-marketing",
     title: "Social Media Marketing",
-    desc: "Engaging brand content and community management across platforms.",
-    image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=600&auto=format&fit=crop",
+    desc: "We plan, create and manage content that keeps your brand active and relevant.",
+    image: "/our%20services%20hompage/Social%20Media%20marketing.webp",
     category: "MARKETING",
     timeframe: "Ongoing",
-    tags: ["INSTAGRAM", "COMMUNITY"]
+    tags: ["Content Strategy", "Community Growth", "Campaign Planning"]
   },
   {
     id: "content-creation",
     title: "Content Creation",
-    desc: "Bespoke reels, carousels, and visual posts tailored for your audience.",
-    image: "https://images.unsplash.com/photo-1542435503-956c469947f6?q=80&w=600&auto=format&fit=crop",
+    desc: "Reels, posts and visuals designed specifically for your audience.",
+    image: "/our%20services%20hompage/Content%20Creation.webp",
     category: "CREATIVE",
     timeframe: "2-4 WEEKS",
-    tags: ["REELS", "GRAPHICS"]
+    tags: ["Reels", "Scripting", "Shooting"]
   },
   {
     id: "photography-videography",
     title: "Photography & Videography",
-    desc: "Premium product shoots and campaign video production.",
-    image: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=600&auto=format&fit=crop",
+    desc: "Professional photo and video content for products, brands and campaigns.",
+    image: "/our%20services%20hompage/photography%20%26%20videography.webp",
     category: "CREATIVE",
     timeframe: "2-4 WEEKS",
-    tags: ["SHOOTS", "EDITING"]
+    tags: ["Product Shoots", "Model Shoots", "Content Production"]
   },
   {
     id: "website-development",
     title: "Website Development",
-    desc: "Ultra-fast Next.js code structures with organic search ranking strategies.",
+    desc: "Clean, user-friendly websites built to represent your business online.",
     image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=600&auto=format&fit=crop",
     category: "DEVELOPMENT",
     timeframe: "4-8 WEEKS",
-    tags: ["NEXT.JS", "SEO"]
+    tags: ["Shopify", "UI/UX", "Industrial Websites"]
   },
   {
     id: "branding-packaging",
     title: "Branding & Packaging",
-    desc: "Distinct visual identities, premium package layouts, and complete brand style guides.",
-    image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=600&auto=format&fit=crop",
+    desc: "Building memorable brands through thoughtful design and packaging.",
+    image: "/our%20services%20hompage/Branding%20%26%20Packaging.webp",
     category: "DESIGN",
     timeframe: "4-6 WEEKS",
-    tags: ["IDENTITY", "TACTILE"]
+    tags: ["Brand Identity", "Packaging Design", "Print Media"]
   },
   {
     id: "brochures-catalogues",
     title: "Brochures & Catalogues",
-    desc: "Elegant print layouts, digital lookbooks, and high-impact catalogues.",
-    image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?q=80&w=600&auto=format&fit=crop",
+    desc: "Marketing materials that present your products and services clearly.",
+    image: "/our%20services%20hompage/Brochures%20%26%20Catalogues.webp",
     category: "DESIGN",
     timeframe: "2-3 WEEKS",
-    tags: ["PRINT", "EDITORIAL"]
+    tags: ["Company Profiles", "Product Catalogues", "E-Catalogues"]
   },
   {
     id: "linkedin-personal-branding",
     title: "LinkedIn Personal Branding",
-    desc: "Authority-building thought leadership content for founders and brands.",
-    image: "https://images.unsplash.com/photo-1557200134-90327ee9fafa?q=60&w=600&auto=format&fit=crop",
+    desc: "Helping founders and professionals build a stronger online presence.",
+    image: "/our%20services%20hompage/LinkedIn%20Personal%20Branding.webp",
     category: "MARKETING",
     timeframe: "Ongoing",
-    tags: ["FOUNDER B2B", "INFLUENCE"]
+    tags: ["Thought Leadership", "Founder Branding", "Profile Optimisation"]
   },
   {
     id: "event-invites-wedding-cards",
     title: "Event Invites & Wedding Cards",
-    desc: "Exclusive bespoke stationery, digital invites, and premium wedding card designs.",
-    image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop",
+    desc: "Custom invitations and cards designed for special occasions.",
+    image: "/our%20services%20hompage/Event%20invites%20%26%20Wedding%20cards.webp",
     category: "CREATIVE",
     timeframe: "2-4 WEEKS",
-    tags: ["STATIONERY", "BESPOKE"]
+    tags: ["Save The Date", "Event Cards", "Digital Invites"]
   }
 ];
 

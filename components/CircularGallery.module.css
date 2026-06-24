@@ -50,11 +50,14 @@
 .heroTitle {
   font-family: var(--font-display);
   font-size: clamp(2.75rem, 6.5vw, 5rem);
-  font-weight: 900;
+  font-weight: 700;
   letter-spacing: -0.04em;
   line-height: 1.05;
   margin-bottom: 0.25rem;
-  color: var(--foreground);
+  background: linear-gradient(90deg, var(--foreground) 0%, color-mix(in srgb, var(--foreground) 15%, transparent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
 }
 
 .heroSubtitle {
@@ -63,7 +66,7 @@
   font-size: clamp(1.4rem, 2.8vw, 2.25rem);
   font-weight: 700;
   letter-spacing: -0.01em;
-  background: linear-gradient(135deg, var(--accent-color) 0%, var(--brand-blue) 100%);
+  background: linear-gradient(90deg, var(--accent-color) 0%, color-mix(in srgb, var(--accent-color) 15%, transparent) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline-block;

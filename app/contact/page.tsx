@@ -2,11 +2,31 @@
 
 import React, { useState } from "react";
 import styles from "./page.module.css";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Mail, Phone } from "lucide-react";
 import { use3DTilt } from "@/lib/use3DTilt";
 
+const SERVICE_OPTIONS = [
+  "Social Media Marketing",
+  "Content Creation",
+  "Photography & Videography",
+  "Website Development",
+  "Branding & Packaging",
+  "Brochures & Catalogues",
+  "LinkedIn Personal Branding",
+  "Event Invites & Wedding Cards",
+];
+
 export default function ContactPage() {
-  const [form, setForm] = useState({ name: "", email: "", phone: "", company: "", brief: "", socialLinks: "", location: "" });
+  const [form, setForm] = useState({ 
+    name: "", 
+    email: "", 
+    phone: "", 
+    company: "", 
+    brief: "", 
+    socialLinks: "", 
+    location: "",
+    selectedServices: [] as string[]
+  });
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
   const tiltFrame = use3DTilt(5, -10);
 
@@ -17,7 +37,16 @@ export default function ContactPage() {
     setStatus("sending");
     setTimeout(() => {
       setStatus("sent");
-      setForm({ name: "", email: "", phone: "", company: "", brief: "", socialLinks: "", location: "" });
+      setForm({ 
+        name: "", 
+        email: "", 
+        phone: "", 
+        company: "", 
+        brief: "", 
+        socialLinks: "", 
+        location: "",
+        selectedServices: []
+      });
       setTimeout(() => setStatus("idle"), 4000);
     }, 1500);
   };
@@ -69,10 +98,19 @@ export default function ContactPage() {
 
               <div className={`${styles.infoCard} glassmorphism`}>
                 <h3 className={styles.cellTitle}>CONTACT DIRECT</h3>
-                <p className={styles.cellText}>
-                  <a href="mailto:info@zipzapzop.in" className={styles.link}>info@zipzapzop.in</a><br/>
-                  <a href="mailto:avantika@zipzapzop.in" className={styles.link}>avantika@zipzapzop.in</a><br/>
-                  <a href="tel:+918910976453" className={styles.link}>+91 89109 76453</a>
+                <p className={styles.cellText} style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                  <span className={styles.contactLine}>
+                    <Mail size={16} className={styles.contactIcon} />
+                    <a href="mailto:info@zipzapzop.in" className={styles.link}>info@zipzapzop.in</a>
+                  </span>
+                  <span className={styles.contactLine}>
+                    <Mail size={16} className={styles.contactIcon} />
+                    <a href="mailto:avantika@zipzapzop.in" className={styles.link}>avantika@zipzapzop.in</a>
+                  </span>
+                  <span className={styles.contactLine}>
+                    <Phone size={16} className={styles.contactIcon} />
+                    <a href="tel:+918910976453" className={styles.link}>+91 89109 76453</a>
+                  </span>
                 </p>
               </div>
             </div>
@@ -188,6 +226,30 @@ export default function ContactPage() {
                     onChange={(e) => setForm({ ...form, location: e.target.value })}
                     className={styles.input} 
                   />
+                </div>
+              </div>
+
+              <div className={styles.inputGroup}>
+                <label className={styles.label}>Services you'd like to explore</label>
+                <div className={styles.servicesGrid}>
+                  {SERVICE_OPTIONS.map((service) => {
+                    const isSelected = form.selectedServices.includes(service);
+                    return (
+                      <button
+                        key={service}
+                        type="button"
+                        className={`${styles.serviceChip} ${isSelected ? styles.serviceChipSelected : ""}`}
+                        onClick={() => {
+                          const updated = isSelected
+                            ? form.selectedServices.filter((s) => s !== service)
+                            : [...form.selectedServices, service];
+                          setForm({ ...form, selectedServices: updated });
+                        }}
+                      >
+                        {service}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
 

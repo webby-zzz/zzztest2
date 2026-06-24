@@ -194,3 +194,39 @@
     padding: 2rem 1.5rem;
   }
 }
+
+.servicesGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.25rem;
+}
+
+.serviceChip {
+  background: rgba(0, 0, 0, 0.02);
+  border: 1px solid var(--glass-border);
+  color: var(--foreground);
+  border-radius: 99px;
+  padding: 0.55rem 1.1rem;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+[data-theme='dark'] .serviceChip {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.serviceChip:hover {
+  border-color: var(--accent-color);
+  transform: translateY(-1px);
+}
+
+.serviceChipSelected {
+  background: var(--accent-color) !important;
+  border-color: var(--accent-color) !important;
+  color: var(--background) !important;
+}

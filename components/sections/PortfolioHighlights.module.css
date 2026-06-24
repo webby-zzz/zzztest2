@@ -226,9 +226,9 @@
     flex-wrap: nowrap !important;
   }
   .filterBtn {
-    font-size: 0.65rem !important;
-    padding: 0.45rem 0.65rem !important;
-    letter-spacing: 0.02em !important;
+    font-size: 0.58rem !important;
+    padding: 0.35rem 0.5rem !important;
+    letter-spacing: 0.01em !important;
   }
   .filterWrapper {
     justify-content: flex-start !important;

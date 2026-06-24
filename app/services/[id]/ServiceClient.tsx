@@ -227,6 +227,13 @@ export default function ServiceClient({ service }: { service: any }) {
       {/* Content Section */}
       <section className={styles.contentSection}>
         
+        {/* Breadcrumbs */}
+        <div className={styles.breadcrumbs}>
+          <Link href="/">Home</Link>
+          <span className={styles.breadcrumbsSeparator}>/</span>
+          <span className={styles.breadcrumbsActive}>{service.name}</span>
+        </div>
+
         {/* Intro & Stats */}
         <div className={styles.introGrid}>
           <div className={styles.introCol}>

@@ -23,49 +23,49 @@ if (typeof window !== "undefined") {
 const INDUSTRIES = [
   {
     title: "Fashion",
-    desc: "Curating high-fidelity lookbooks, visual storytelling campaigns, and premium motion content for fashion lines.",
+    desc: "Helping brands stay relevant in a fast-moving industry.",
     icon: Sparkles,
     image: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=800&auto=format&fit=crop"
   },
   {
     title: "Jewellery",
-    desc: "Designing high-end editorial grids, product-focused showcases, and trust metrics for premium jewellery brands.",
+    desc: "Highlighting the details that make every collection unique.",
     icon: Gem,
     image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=800&auto=format&fit=crop"
   },
   {
-    title: "Food and Beverage",
-    desc: "Crafting scroll-stopping content, aesthetic packaging mockups, and localized digital campaigns.",
+    title: "Food & Beverage",
+    desc: "Making products look as good as they taste.",
     icon: Utensils,
     image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop"
   },
   {
-    title: "Health and Wellness",
-    desc: "Creating calm, trust-focused brand layouts, booking experiences, and organic social authority.",
+    title: "Health & Wellness",
+    desc: "Building confidence through clear and trustworthy communication.",
     icon: Heart,
     image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=800&auto=format&fit=crop"
   },
   {
     title: "Furniture & Interiors",
-    desc: "Developing spatial visual catalogs, architectural portfolios, and elegant interior design aesthetics.",
+    desc: "Showcasing spaces, products and design with purpose.",
     icon: Home,
     image: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=800&auto=format&fit=crop"
   },
   {
     title: "Real Estate",
-    desc: "Constructing immersive digital listings, premium site tour layouts, and high-converting funnel metrics.",
+    desc: "Helping buyers see more than just a property listing.",
     icon: Building2,
     image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=800&auto=format&fit=crop"
   },
   {
     title: "Institutions & Education",
-    desc: "Structuring clean information architectures, academic landing assets, and accessible resource portals.",
+    desc: "Communicating values, credibility and student experiences.",
     icon: BookOpen,
     image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=800&auto=format&fit=crop"
   },
   {
     title: "FMCG Brands",
-    desc: "Designing high-impact package visuals, mass-market social campaigns, and retail scaling assets.",
+    desc: "Helping products stand out where purchase decisions happen.",
     icon: ShoppingBag,
     image: "https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=800&auto=format&fit=crop"
   }
@@ -154,7 +154,7 @@ export default function WhyChooseUs() {
         <div className={`${styles.headingBlock} gsap-reveal-children`} ref={headingRef}>
           <span className={styles.badge} style={{ opacity: 0 }}>[ 04 / INDUSTRIES ]</span>
           <h2 style={{ opacity: 0 }}>Industries we <span className={styles.headingAccent}>partner</span> with.</h2>
-          <p style={{ opacity: 0 }}>We apply high-fidelity interfaces and optimization metrics to diverse niches.</p>
+          <p style={{ opacity: 0 }}>From selling cupcakes to selling square feet, we've done both.</p>
           <span className={styles.mobileTapHint} style={{ opacity: 0 }}>*Tap an industry to know more</span>
         </div>
 

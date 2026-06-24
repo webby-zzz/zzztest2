@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
+import Link from "next/link";
+import { SERVICES_DATA } from "../../lib/data";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styles from "./PortfolioHighlights.module.css";
@@ -9,81 +11,80 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-const SERVICES_TABS = [
-  { id: "social-media-marketing", name: "Social Media Marketing" },
-  { id: "content-creation", name: "Content Creation" },
-  { id: "photography-videography", name: "Photography & Videography" },
-  { id: "website-development", name: "Website Development" },
-  { id: "branding-packaging", name: "Branding & Packaging" },
-  { id: "brochures-catalogues", name: "Brochures & Catalogues" },
-  { id: "linkedin-personal-branding", name: "LinkedIn Personal Branding" },
-  { id: "event-invites-wedding-cards", name: "Event Invites & Wedding Cards" },
+const INDUSTRY_TABS = [
+  { id: "fashion-lifestyle", name: "Fashion & Lifestyle" },
+  { id: "jewellery", name: "Jewellery" },
+  { id: "food-beverage", name: "Food & Beverage" },
+  { id: "health-wellness", name: "Health & Wellness" },
+  { id: "furniture-interiors", name: "Furniture & Interiors" },
+  { id: "real-estate", name: "Real Estate" },
+  { id: "institutions-education", name: "Institutions & Education" },
+  { id: "fmcg-brands", name: "FMCG Brands" },
 ];
 
-const SERVICE_LOGOS: Record<string, string[]> = {
-  "social-media-marketing": [
+const INDUSTRY_LOGOS: Record<string, string[]> = {
+  "fashion-lifestyle": [
+    "Krishna Fashions logo.webp",
+    "Trendz Salon logo.webp",
+    "Hustle Culture logo.webp",
+    "BoldPack logo.webp",
+    "Altwood logo.webp",
+    "Seventy Thirty Logo.webp"
+  ],
+  "jewellery": [
+    "BC Sen logo.webp",
+    "Dragon King logo.webp",
+    "Ekaani logo.webp",
+    "Matri Logo .webp"
+  ],
+  "food-beverage": [
     "Chef TeeDee logo.webp",
     "Crepes Logo.webp",
-    "Funcorp logo.webp",
-    "Hustle Culture logo.webp",
-    "Klocal logo.webp",
-    "Seventy Thirty Logo.webp",
-    "Trendz Salon logo.webp"
-  ],
-  "content-creation": [
-    "Koala Kidz logo.webp",
+    "Gokul logo.webp",
     "Mirosh logo.webp",
-    "Scrapyard logo.webp",
-    "TOHA logo.webp",
-    "Born Scholar logo.webp"
+    "Vedic Fuel logo.webp",
+    "Klocal logo.webp"
   ],
-  "photography-videography": [
+  "health-wellness": [
+    "Koala Kidz logo.webp",
+    "Kidskart logo.webp",
+    "TOHA logo.webp"
+  ],
+  "furniture-interiors": [
     "De Bella Decor logo.webp",
-    "Matri Logo .webp",
-    "Travellers Paraadise logo.webp",
-    "Vedic Fuel logo.webp"
-  ],
-  "website-development": [
-    "Cabcon logo.webp",
-    "Cove logo.webp",
-    "Crescentlite Logo.webp",
-    "PDS logo.webp"
-  ],
-  "branding-packaging": [
-    "BoldPack logo.webp",
-    "Ekaani logo.webp",
-    "SuperPly Logo.webp",
-    "House Of Dreams logo.webp"
-  ],
-  "brochures-catalogues": [
-    "Altwood logo.webp",
     "Deco Imagination logo.webp",
     "Decohome logo.webp",
     "Indecor logo.webp",
-    "Lokaloom logo.webp"
+    "Lokaloom logo.webp",
+    "SuperPly Logo.webp"
   ],
-  "linkedin-personal-branding": [
+  "real-estate": [
+    "Cove logo.webp",
+    "House Of Dreams logo.webp",
+    "Nicco logo.webp",
+    "Cabcon logo.webp"
+  ],
+  "institutions-education": [
+    "Born Scholar logo.webp",
+    "Funcorp logo.webp",
     "Jatan logo.webp",
     "Kaanch logo.webp",
-    "Prakassa logo.webp",
-    "Shhyam Shah logo.webp"
+    "Prakassa logo.webp"
   ],
-  "event-invites-wedding-cards": [
-    "BC Sen logo.webp",
-    "Dragon King logo.webp",
-    "Gabha Kreations logo.webp",
-    "Krishna Fashions logo.webp",
-    "Myaha logo.webp",
-    "Nicco logo.webp"
+  "fmcg-brands": [
+    "Crescentlite Logo.webp",
+    "PDS logo.webp",
+    "Shhyam Shah logo.webp",
+    "Scrapyard logo.webp"
   ]
 };
 
 export default function PortfolioHighlights() {
-  const [activeFilter, setActiveFilter] = useState("social-media-marketing");
+  const [activeFilter, setActiveFilter] = useState("fashion-lifestyle");
   const galleryRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
 
-  const currentLogos = SERVICE_LOGOS[activeFilter] || [];
+  const currentLogos = INDUSTRY_LOGOS[activeFilter] || [];
 
   useEffect(() => {
     if (!galleryRef.current) return;
@@ -160,23 +161,23 @@ export default function PortfolioHighlights() {
         {/* Filter Pills - Service Tabs */}
         <div className={styles.filterWrapper}>
           <div className={`${styles.filterPills} glassmorphism`}>
-            {SERVICES_TABS.map((tab) => (
-              <button
-                key={tab.id}
-                className={`${styles.filterBtn} ${activeFilter === tab.id ? styles.activeFilter : ""}`}
-                onClick={() => setActiveFilter(tab.id)}
+            {SERVICES_DATA.map((service) => (
+              <Link
+                key={service.id}
+                href={`/services/${service.id}`}
+                className={styles.filterBtn}
               >
-                {tab.name}
-              </button>
+                {service.name}
+              </Link>
             ))}
           </div>
         </div>
 
-        {/* Client Logos Grid */}
+        {/* Client Logos Grid hidden for now */}
+        {/*
         <div className={styles.logosGrid} ref={galleryRef}>
           {currentLogos.map((logoFile, index) => (
             <div key={index} className={`${styles.logoItem} gsap-reveal-item`} style={{ opacity: 0 }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img 
                 src={`/zzz clientele optimized/${logoFile}`} 
                 alt={`${activeFilter} client logo ${index}`} 
@@ -185,6 +186,7 @@ export default function PortfolioHighlights() {
             </div>
           ))}
         </div>
+        */}
 
       </div>
     </section>

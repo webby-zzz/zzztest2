@@ -29,7 +29,7 @@
   --preloader-glow: rgba(246, 108, 81, 0.35); /* Coral glow */
 
   /* Hero Gradient Background - Light Mode */
-  --hero-bg: linear-gradient(180deg, var(--brand-soft-blue) 0%, var(--background) 100%);
+  --hero-bg: linear-gradient(180deg, #FAF4E5 0%, var(--background) 100%);
 
   --font-sans: 'Poppins', sans-serif;
   --font-serif: 'Century Expanded', 'Century Schoolbook', 'TeX Gyre Schola', 'Cormorant Garamond', serif;

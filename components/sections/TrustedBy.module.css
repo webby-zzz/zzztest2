@@ -1,0 +1,114 @@
+.section {
+  padding: 4.5rem 0;
+  background-color: var(--background);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+  box-sizing: border-box;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  box-sizing: border-box;
+}
+
+.badge {
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent-color);
+  font-weight: 600;
+  opacity: 0.85;
+  margin-bottom: 0.5rem;
+}
+
+.marqueeContainer {
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 1.5rem 0;
+  mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+  box-sizing: border-box;
+}
+
+.marquee {
+  display: flex;
+  gap: 3.5rem;
+  white-space: nowrap;
+  animation: marquee 50s linear infinite;
+  will-change: transform;
+}
+
+.logoBubble {
+  flex-shrink: 0;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: var(--glass-bg);
+  border: 1.5px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 0;
+  transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+  box-sizing: border-box;
+}
+
+[data-theme='light'] .logoBubble {
+  background: #ffffff;
+  border-color: rgba(14, 45, 84, 0.08);
+  box-shadow: 0 8px 24px rgba(14, 45, 84, 0.04);
+}
+
+[data-theme='dark'] .logoBubble {
+  background: rgba(6, 18, 36, 0.5);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.logoBubble:hover {
+  transform: translateY(-8px) scale(1.06);
+  border-color: var(--accent-color);
+  box-shadow: 0 15px 35px color-mix(in srgb, var(--accent-color) 22%, transparent), var(--glass-shadow);
+}
+
+.logo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: none !important;
+}
+
+@keyframes marquee {
+  0 {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-33.3333%, 0, 0);
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 3.5rem 0;
+  }
+  .logoBubble {
+    height: 100px;
+    width: 100px;
+    padding: 0;
+  }
+  .marquee {
+    gap: 2.25rem;
+    animation-duration: 40s;
+  }
+}

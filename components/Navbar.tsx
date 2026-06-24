@@ -4,12 +4,14 @@ import Link from "next/link";
 import { useTheme } from "next-themes";
 import { Moon, Sun, Menu } from "lucide-react";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import Logo from "./Logo";
 import HamburgerMenu from "./HamburgerMenu";
 import styles from "./Navbar.module.css";
 
 export default function Navbar() {
   const { theme, setTheme, systemTheme } = useTheme();
+  const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -25,20 +27,28 @@ export default function Navbar() {
         setIsScrolled(false);
       }
 
-      // Hide logo after 3 scrolls (approx 300px threshold)
-      if (window.scrollY > 300) {
-        setIsLogoHidden(true);
+      // Hide logo on homepage after scrolling past 1200px. Hide logo on other pages after scrolling past 300px.
+      if (pathname === "/") {
+        if (window.scrollY > 1200) {
+          setIsLogoHidden(true);
+        } else {
+          setIsLogoHidden(false);
+        }
       } else {
-        setIsLogoHidden(false);
+        if (window.scrollY > 300) {
+          setIsLogoHidden(true);
+        } else {
+          setIsLogoHidden(false);
+        }
       }
     };
     
     window.addEventListener("scroll", handleScroll, { passive: true });
-    // Run once on mount to handle pre-scrolled page loads
+    // Run once on mount or route change to handle pre-scrolled pages
     handleScroll();
     
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [pathname]);
 
   const toggleTheme = () => {
     const currentTheme = theme === 'system' ? systemTheme : theme;

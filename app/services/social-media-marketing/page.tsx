@@ -92,6 +92,17 @@ const INCLUSION_COLORS = [
   { bg: "#C0E1D2", text: "#0E2D54", desc: "rgba(14, 45, 84, 0.8)", iconBg: "rgba(14, 45, 84, 0.1)", iconColor: "#0E2D54" },      // Mint bg, Navy text, Navy check
 ];
 
+const SERVICE_OPTIONS = [
+  "Social Media Marketing",
+  "Content Creation",
+  "Photography & Videography",
+  "Website Development",
+  "Branding & Packaging",
+  "Brochures & Catalogues",
+  "LinkedIn Personal Branding",
+  "Event Invites & Wedding Cards",
+];
+
 export default function SocialMediaPage() {
   const containerRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLDivElement>(null);
@@ -109,7 +120,16 @@ export default function SocialMediaPage() {
   // States
   const [mounted, setMounted] = useState(false);
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
-  const [form, setForm] = useState({ name: "", email: "", phone: "", company: "", brief: "", socialLinks: "", location: "" });
+  const [form, setForm] = useState({ 
+    name: "", 
+    email: "", 
+    phone: "", 
+    company: "", 
+    brief: "", 
+    socialLinks: "", 
+    location: "",
+    selectedServices: [] as string[]
+  });
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
 
   // Slider States & Functions for Interactive Featured Work
@@ -577,7 +597,16 @@ export default function SocialMediaPage() {
     setStatus("sending");
     setTimeout(() => {
       setStatus("sent");
-      setForm({ name: "", email: "", phone: "", company: "", brief: "", socialLinks: "", location: "" });
+      setForm({ 
+        name: "", 
+        email: "", 
+        phone: "", 
+        company: "", 
+        brief: "", 
+        socialLinks: "", 
+        location: "",
+        selectedServices: []
+      });
       setTimeout(() => setStatus("idle"), 4000);
     }, 1500);
   };
@@ -627,13 +656,20 @@ export default function SocialMediaPage() {
       <section className={`${styles.section} ${styles.zWhatWeDoInclusions}`} ref={inclusionsRef}>
         <div className={styles.containerInner}>
 
+          {/* Breadcrumbs */}
+          <div className={styles.breadcrumbs}>
+            <Link href="/">Home</Link>
+            <span className={styles.breadcrumbsSeparator}>/</span>
+            <span className={styles.breadcrumbsActive}>Social Media Marketing</span>
+          </div>
+
           <div className={styles.inclusionsLayout}>
 
             {/* Left Column: Title Block */}
             <div className={`${styles.inclusionsLeft} gsap-reveal-inclusions-left`}>
               <span className={styles.badge} style={{ opacity: 0 }}>[ 01 / PACKAGE INCLUSIONS ]</span>
               <h2 style={{ opacity: 0 }} className={styles.inclusionsTitle}>
-                What's included in our packages?
+                What's included in our Social Media plans?
               </h2>
               <p style={{ opacity: 0 }} className={styles.inclusionsSub}>
                 Everything you need to build a consistent, engaging and professionally managed social media presence.
@@ -761,7 +797,7 @@ export default function SocialMediaPage() {
           <div className={`${styles.headingBlock} gsap-reveal-head`}>
             <span className={styles.badge} style={{ opacity: 0 }}>[ 03 / FEATURED WORK ]</span>
             <h2 style={{ opacity: 0 }}>Work <span className={styles.serifAccent}>portfolio</span>.</h2>
-            <p style={{ opacity: 0 }}>Tap on the logos below to explore our recent social media work - feed displays, project briefs & outcomes.</p>
+            <p style={{ opacity: 0 }}>Tap on the bubbles below to explore client accounts, content strategies, feed designs, campaign ideas, and growth outcomes.</p>
           </div>
 
         </div>
@@ -810,7 +846,7 @@ export default function SocialMediaPage() {
               return (
                 <div 
                   key={i}
-                  className={`${styles.sliderBubble} ${distance === 0 ? styles.activeBubble : ""}`}
+                  className={`${styles.sliderItem} ${distance === 0 ? styles.activeItem : ""}`}
                   style={{
                     transform: `scale(${scale})`,
                     opacity: opacity,
@@ -823,12 +859,15 @@ export default function SocialMediaPage() {
                     }
                   }}
                 >
-                  <img 
-                    src={`/zzz clientele optimized/${b.logoFile}`} 
-                    alt={b.brandName} 
-                    className={styles.clientLogoImg}
-                    draggable="false"
-                  />
+                  <div className={`${styles.sliderBubble} ${distance === 0 ? styles.activeBubble : ""}`}>
+                    <img 
+                      src={`/zzz clientele optimized/${b.logoFile}`} 
+                      alt={b.brandName} 
+                      className={styles.clientLogoImg}
+                      draggable="false"
+                    />
+                  </div>
+                  <span className={styles.brandNameText}>{b.brandName}</span>
                 </div>
               );
             })}
@@ -984,6 +1023,30 @@ export default function SocialMediaPage() {
                         onChange={(e) => setForm({ ...form, location: e.target.value })}
                         className={styles.input}
                       />
+                    </div>
+                  </div>
+
+                  <div className={styles.inputGroup}>
+                    <label className={styles.label}>Services you'd like to explore</label>
+                    <div className={styles.servicesGrid}>
+                      {SERVICE_OPTIONS.map((service) => {
+                        const isSelected = form.selectedServices.includes(service);
+                        return (
+                          <button
+                            key={service}
+                            type="button"
+                            className={`${styles.serviceChip} ${isSelected ? styles.serviceChipSelected : ""}`}
+                            onClick={() => {
+                              const updated = isSelected
+                                ? form.selectedServices.filter((s) => s !== service)
+                                : [...form.selectedServices, service];
+                              setForm({ ...form, selectedServices: updated });
+                            }}
+                          >
+                            {service}
+                          </button>
+                        );
+                      })}
                     </div>
                   </div>
 

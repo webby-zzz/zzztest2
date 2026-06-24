@@ -76,6 +76,7 @@ export default function AboutBrief() {
 
         {/* Right Side: Looping Reel Illustration */}
         <div className={`${styles.visualCol} gsap-reveal-item`} style={{ opacity: 0 }} ref={visualRef}>
+          <div className={styles.glowBackdrop} />
           <div 
             ref={tiltFrame.ref}
             style={tiltFrame.style}
