@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title: "ZZZ | Social Media Marketing Agency",
   description: "Test for ZZZ - Replicating offmenu.design",
   icons: {
-    icon: "/logo%20dark%20mode.webp",
+    icon: "/logo-dark.webp",
   },
 };
 
