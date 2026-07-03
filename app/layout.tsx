@@ -10,6 +10,9 @@ import Preloader from "@/components/Preloader";
 export const metadata: Metadata = {
   title: "ZZZ | Design Agency",
   description: "Test for ZZZ - Replicating offmenu.design",
+  icons: {
+    icon: "/logo dark mode.webp",
+  },
 };
 
 export default function RootLayout({
