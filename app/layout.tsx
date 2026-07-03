@@ -8,10 +8,10 @@ import ScrollToTop from "@/components/ScrollToTop";
 import Preloader from "@/components/Preloader";
 
 export const metadata: Metadata = {
-  title: "ZZZ | Design Agency",
+  title: "ZZZ | Social Media Marketing Agency",
   description: "Test for ZZZ - Replicating offmenu.design",
   icons: {
-    icon: "/logo dark mode.webp",
+    icon: "/favicon.webp",
   },
 };
 

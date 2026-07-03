@@ -201,7 +201,7 @@ export default function CircularGallery() {
         <div className={styles.heroText} ref={heroTextRef}>
           <h1 style={{ opacity: 0 }} className={styles.heroTitle}>ZIP ZAP ZOP</h1>
           <p style={{ opacity: 0 }} className={styles.heroSubtitle}>
-            Digital Marketing & Design Agency
+            Social Media Marketing Agency
           </p>
           <div className={styles.centerActions} style={{ opacity: 0 }}>
             <div 
