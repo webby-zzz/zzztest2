@@ -2,18 +2,19 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import { useSearchParams } from "next/navigation";
 import PageAnimator from "../../../components/PageAnimator";
 import ScopeAccordion from "../../../components/ScopeAccordion";
 import styles from "./ProjectPage.module.css";
 
 interface ProjectClientProps {
   slug: string;
-  searchParams?: { [key: string]: string | string[] | undefined };
 }
 
-export default function ProjectClient({ slug, searchParams }: ProjectClientProps) {
+export default function ProjectClient({ slug }: ProjectClientProps) {
+  const searchParams = useSearchParams();
   const projectName = slug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-  const isSeamless = searchParams?.transition === 'seamless';
+  const isSeamless = searchParams.get('transition') === 'seamless';
   
   const titleRef = useRef<HTMLHeadingElement>(null);
   const introRef = useRef<HTMLParagraphElement>(null);

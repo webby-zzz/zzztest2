@@ -1,5 +1,6 @@
 import { CASE_STUDIES_DATA } from "../../../lib/data";
 import ProjectClient from "./ProjectClient";
+import { Suspense } from "react";
 
 export function generateStaticParams() {
   return CASE_STUDIES_DATA.map((project) => ({
@@ -8,16 +9,13 @@ export function generateStaticParams() {
 }
 
 export default function ProjectPage({ 
-  params,
-  searchParams 
+  params 
 }: { 
   params: { slug: string };
-  searchParams?: { [key: string]: string | string[] | undefined };
 }) {
   return (
-    <ProjectClient 
-      slug={params.slug} 
-      searchParams={searchParams} 
-    />
+    <Suspense fallback={null}>
+      <ProjectClient slug={params.slug} />
+    </Suspense>
   );
 }
