@@ -12,16 +12,16 @@ export const metadata: Metadata = {
   title: "ZZZ | Social Media Marketing Agency",
   description: "ZZZ is a premier social media marketing agency specializing in brand growth, content creation, and high-impact digital strategies.",
   icons: {
-    icon: "/circle-favicon.png",
-    shortcut: "/circle-favicon.png",
-    apple: "/circle-favicon.png",
+    icon: "/favicon.webp",
+    shortcut: "/favicon.webp",
+    apple: "/favicon.webp",
   },
   openGraph: {
     title: "ZZZ | Social Media Marketing Agency",
     description: "ZZZ is a premier social media marketing agency specializing in brand growth, content creation, and high-impact digital strategies.",
     images: [
       {
-        url: "/circle-favicon.png",
+        url: "/favicon.webp",
         width: 800,
         height: 800,
         alt: "ZZZ Logo",
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     card: "summary",
     title: "ZZZ | Social Media Marketing Agency",
     description: "ZZZ is a premier social media marketing agency specializing in brand growth, content creation, and high-impact digital strategies.",
-    images: ["/circle-favicon.png"],
+    images: ["/favicon.webp"],
   },
 };
 
