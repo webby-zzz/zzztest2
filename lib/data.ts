@@ -1287,304 +1287,34 @@ export interface BrandCaseStudy {
   timeframe?: string;
 }
 
-const BRAND_CASE_STUDIES_CUSTOM: Record<string, Partial<BrandCaseStudy>> = {
-  "Dragon King": {
-    industry: "Culinary & Fine Dining",
-    vision: "To establish Dragon King as an iconic dining destination through scroll-stopping culinary reels, vibrant storytelling, and elevated visual branding.",
-    workDone: [
-      "Shot cinematic 4K food & beverage reels for Instagram & YouTube Shorts",
-      "Redesigned digital menu carousels with mouth-watering visual hierarchy",
-      "Executed targeted local ad campaigns driving weekend table reservations",
-      "Managed weekly organic content posting and customer review highlights"
-    ],
-    metrics: [
-      { label: "Total Reach", value: "2.4M+" },
-      { label: "Reservations", value: "+140%" },
-      { label: "Engagement", value: "18.5%" }
-    ],
-    images: [
-      "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1000&auto=format&fit=crop"
-    ]
-  },
-  "Gokul": {
-    industry: "FMCG & Heritage Foods",
-    vision: "Modernise a beloved heritage food brand to connect with younger digital audiences while honoring traditional taste and purity.",
-    workDone: [
-      "Weekly reel shoots capturing kitchen craftsmanship and authentic recipes",
-      "Festive packaging redesign & promotional print collateral",
-      "End-to-end social media account management and community engagement",
-      "Product launch photography for new packaged delicacy lines"
-    ],
-    metrics: [
-      { label: "Monthly Impressions", value: "1.8M+" },
-      { label: "Follower Growth", value: "+220%" },
-      { label: "Direct Orders", value: "+95%" }
-    ],
-    images: [
-      "https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1000&auto=format&fit=crop"
-    ]
-  },
-  "Matri": {
-    industry: "Luxury Jewellery & Fine Art",
-    vision: "Elevate Matri's handcrafted jewellery collections through macro studio photography, elegant visual guidelines, and high-converting campaign aesthetics.",
-    workDone: [
-      "Macro studio product photography highlighting fine gemstone details",
-      "Editorial catalogue and digital lookbook design for seasonal bridal launches",
-      "Aesthetic Instagram grid curation with gold-foil visual accents",
-      "Private VIP buyer invitation suite design"
-    ],
-    metrics: [
-      { label: "High-Intent Leads", value: "+185%" },
-      { label: "Catalogue Downloads", value: "12,500+" },
-      { label: "ROAS on Ads", value: "5.4x" }
-    ],
-    images: [
-      "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=1000&auto=format&fit=crop"
-    ]
-  },
-  "Lokaloom": {
-    industry: "Artisanal Home & Interiors",
-    vision: "Build an organic storytelling ecosystem showcasing handcrafted home textiles and sustainable interior decor.",
-    workDone: [
-      "Responsive Next.js website & e-commerce shop optimization",
-      "Pinterest & Instagram aesthetic grid design featuring artisanal weaving",
-      "Founder-led video series highlighting master weavers and eco-dyes",
-      "Comprehensive product catalogue and lookbook layout"
-    ],
-    metrics: [
-      { label: "E-Commerce Revenue", value: "+310%" },
-      { label: "Organic Traffic", value: "45K/mo" },
-      { label: "Dwell Time", value: "3m 40s" }
-    ],
-    images: [
-      "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=1000&auto=format&fit=crop"
-    ]
-  },
-  "Travellers Paraadise": {
-    industry: "Travel & Bespoke Experiences",
-    vision: "Drive high-ticket vacation bookings through cinematic wanderlust reels and streamlined digital itinerary portals.",
-    workDone: [
-      "Curated travel destination spotlight video series",
-      "Custom booking inquiry landing page with interactive itinerary previews",
-      "User-generated travel story highlight system and social management",
-      "Brochures & digital guidebooks for luxury international circuits"
-    ],
-    metrics: [
-      { label: "Reel Views", value: "5.1M+" },
-      { label: "Bookings Converted", value: "+95%" },
-      { label: "Lead Cost", value: "-40%" }
-    ],
-    images: [
-      "https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=1000&auto=format&fit=crop"
-    ]
-  },
-  "Koala Kidz": {
-    industry: "Baby Care & Kids Apparel",
-    vision: "Establish trust with young parents by crafting cheerful, educational, and premium product showcase content.",
-    workDone: [
-      "Soft pastels brand aesthetic photoshoot with baby models",
-      "Short-form parenting tips and organic reels strategy",
-      "Packaging box design for organic cotton gift sets",
-      "Social media feed management & influencer collaboration outreach"
-    ],
-    metrics: [
-      { label: "Brand Reach", value: "1.2M+" },
-      { label: "Instagram Sales", value: "+165%" },
-      { label: "Save Rate", value: "14.2%" }
-    ],
-    images: [
-      "https://images.unsplash.com/photo-1519689680058-324335c77eba?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?q=80&w=1000&auto=format&fit=crop"
-    ]
-  },
-  "Vedic Fuel": {
-    industry: "Health, Wellness & Nutrition",
-    vision: "Position Vedic Fuel as an everyday wellness essential through clean nutrition storytelling and high-energy video content.",
-    workDone: [
-      "Fitness & daily routine video creation for Reels and TikTok",
-      "3D product render & eco-packaging pouch design",
-      "Conversion-focused landing page for subscription trial boxes",
-      "Monthly social media strategy, captions, and hashtag analytics"
-    ],
-    metrics: [
-      { label: "Trial Box Sales", value: "+240%" },
-      { label: "Engagement Rate", value: "9.8%" },
-      { label: "ROAS", value: "4.2x" }
-    ],
-    images: [
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1498837167922-ddd27525d352?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1540420773420-3366772f4999?q=80&w=1000&auto=format&fit=crop"
-    ]
-  },
-  "House Of Dreams": {
-    industry: "Architecture & Premium Real Estate",
-    vision: "Showcase ultra-luxury architectural residences and luxury interiors to high-net-worth buyers.",
-    workDone: [
-      "Architectural video walkthroughs & FPV drone coverage",
-      "Minimalist hardcover sales catalogue and interactive digital PDF",
-      "Targeted lead generation campaigns for private villa releases",
-      "Custom web portal featuring immersive 360 virtual walkthroughs"
-    ],
-    metrics: [
-      { label: "Inquiries", value: "450+ HNW" },
-      { label: "Property Sales", value: "$4.2M" },
-      { label: "Video Views", value: "890K" }
-    ],
-    images: [
-      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1000&auto=format&fit=crop"
-    ]
-  },
-  "Cabcon": {
-    industry: "Industrial & Electrical Infrastructure",
-    vision: "Transform a traditional B2B cable manufacturer into a modern, trusted industry authority.",
-    workDone: [
-      "Corporate video documentary detailing factory precision & safety standards",
-      "Technical product catalogue & engineering spec sheet redesign",
-      "LinkedIn thought leadership campaign for B2B procurement heads",
-      "Modern corporate website overhaul with instant inquiry calculator"
-    ],
-    metrics: [
-      { label: "B2B RFP Leads", value: "+130%" },
-      { label: "Corporate Views", value: "350K+" },
-      { label: "LinkedIn Connections", value: "+8,500" }
-    ],
-    images: [
-      "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1581092160607-ee22621dd758?q=80&w=1000&auto=format&fit=crop"
-    ]
-  },
-  "Crepes": {
-    industry: "Cafe & Casual Dining",
-    vision: "Build a trendy, vibrant dessert brand presence that captivates Gen-Z and food lovers on social media.",
-    workDone: [
-      "Viral reel creation focused on melt-in-mouth product closeups",
-      "Playful menu board & takeaway box packaging illustration",
-      "Local store footfall campaigns with geotargeted Instagram ads",
-      "Daily story engagement & interactive polls"
-    ],
-    metrics: [
-      { label: "Store Footfall", value: "+175%" },
-      { label: "Reel Reach", value: "1.6M+" },
-      { label: "UGC Shares", value: "3,200+" }
-    ],
-    images: [
-      "https://images.unsplash.com/photo-1519676867240-f03562e64548?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1587314168485-3236d6710814?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1551024709-8f23befc6f87?q=80&w=1000&auto=format&fit=crop"
-    ]
-  },
-  "Funcorp": {
-    industry: "Kids Toys, Gaming & Entertainment",
-    vision: "Create an energetic, joyful brand experience that connects with kids and buying parents alike.",
-    workDone: [
-      "Unboxing video strategy & product demonstration reels",
-      "E-commerce product photography featuring active play",
-      "Festive promotional campaign banners & brochure designs",
-      "Social media account growth management & paid ad campaigns"
-    ],
-    metrics: [
-      { label: "Toy Sales", value: "+210%" },
-      { label: "Ad CTR", value: "4.6%" },
-      { label: "Community", value: "35K Parents" }
-    ],
-    images: [
-      "https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1531651008558-ed1740375b39?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?q=80&w=1000&auto=format&fit=crop"
-    ]
-  },
-  "Hustle Culture": {
-    industry: "Streetwear & Lifestyle Apparel",
-    vision: "Craft a bold, edgy streetwear brand identity with high-intensity video lookbooks and social buzz.",
-    workDone: [
-      "Urban lifestyle photography & drop launch teaser reels",
-      "High-converting landing page with limited release countdown timer",
-      "Custom streetwear packaging tape, box, and garment tag design",
-      "TikTok & Instagram Reels streetwear styling guides"
-    ],
-    metrics: [
-      { label: "Drop Sold Out", value: "18 Mins" },
-      { label: "Social Reach", value: "3.8M+" },
-      { label: "Return Buyers", value: "42%" }
-    ],
-    images: [
-      "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1000&auto=format&fit=crop"
-    ]
-  }
-};
-
 export function getCaseStudyForBrand(
   brand: { brandName: string; logoFile?: string },
   currentServiceName?: string
 ): BrandCaseStudy {
-  const name = brand.brandName;
-  const custom = BRAND_CASE_STUDIES_CUSTOM[name];
-
-  if (custom) {
-    return {
-      brandName: name,
-      logoFile: brand.logoFile,
-      industry: custom.industry || "Featured Client",
-      serviceCategory: currentServiceName || "Branding & Digital Services",
-      vision: custom.vision || `Drive meaningful growth and category leadership for ${name}.`,
-      workDone: custom.workDone || [
-        "Comprehensive brand strategy & visual positioning",
-        "High-quality digital content production & creative direction",
-        "Targeted marketing campaigns and continuous performance optimization"
-      ],
-      metrics: custom.metrics || [
-        { label: "Overall Growth", value: "+180%" },
-        { label: "Engagement", value: "14.5%" }
-      ],
-      images: custom.images || [
-        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1542744094-3a317272018a?q=80&w=1000&auto=format&fit=crop"
-      ],
-      role: "Strategy, Production & Growth",
-      timeframe: "Ongoing Retainer"
-    };
-  }
-
-  // Fallback for any client logo in the portfolio
   return {
-    brandName: name,
+    brandName: brand.brandName,
     logoFile: brand.logoFile,
     industry: "Brand Showcase",
     serviceCategory: currentServiceName || "Creative & Strategic Services",
-    vision: `Establish ${name} as a prominent player in their industry with intentional visual storytelling and growth-focused execution.`,
+    vision: "To build an authentic brand presence, drive organic engagement, and establish market leadership through modern visual storytelling.",
     workDone: [
-      `Tailored content strategy designed around ${name}'s core target audience`,
-      "High-impact visual creatives, reels, and platform-first assets",
-      "Consistent account oversight, performance tracking, and conversion refinement"
+      "Strategic monthly content planning aligned with core brand objectives",
+      "High-converting visual assets, reels, and creative direction",
+      "Platform-first social media management and community curation",
+      "Continuous performance tracking, analytics, and audience optimization"
     ],
     metrics: [
-      { label: "Brand Reach", value: "+150%" },
-      { label: "Audience Retention", value: "85%" }
+      { label: "Overall Growth", value: "+180%" },
+      { label: "Total Reach", value: "2.5M+" },
+      { label: "Engagement", value: "14.2%" }
     ],
     images: [
-      "https://images.unsplash.com/photo-1542744094-3a317272018a?q=80&w=1000&auto=format&fit=crop",
       "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1000&auto=format&fit=crop"
+      "https://images.unsplash.com/photo-1542744094-3a317272018a?q=80&w=1000&auto=format&fit=crop"
     ],
-    role: "Full-Service Creative Partner",
-    timeframe: "3 - 6 Months"
+    role: "Strategy, Production & Growth",
+    timeframe: "Sample Project Mockup"
   };
 }
+
 
