@@ -26,7 +26,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useTheme } from "next-themes";
 import { use3DTilt } from "@/lib/use3DTilt";
 import styles from "./page.module.css";
-import { CASE_STUDIES_DATA } from "@/lib/data";
+import { CASE_STUDIES_DATA, getCaseStudyForBrand, BrandCaseStudy } from "@/lib/data";
+import CaseStudyModal from "@/components/CaseStudyModal";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -131,6 +132,7 @@ export default function SocialMediaPage() {
     selectedServices: [] as string[]
   });
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
+  const [selectedCaseStudy, setSelectedCaseStudy] = useState<BrandCaseStudy | null>(null);
 
   // Slider States & Functions for Interactive Featured Work
   const N_BUBBLES = BRAND_BUBBLES.length;
@@ -888,6 +890,7 @@ export default function SocialMediaPage() {
                     if (!isDragging) {
                       setActiveLogoIndex(i);
                       resetAutoRotateTimer();
+                      setSelectedCaseStudy(getCaseStudyForBrand(b, "Social Media Marketing"));
                     }
                   }}
                 >
@@ -1121,6 +1124,12 @@ export default function SocialMediaPage() {
         </Link>
       </div>
 
+      {/* Case Study Modal Popup */}
+      <CaseStudyModal
+        caseStudy={selectedCaseStudy}
+        onClose={() => setSelectedCaseStudy(null)}
+        onEnquireClick={handleAuditClick}
+      />
     </div>
   );
 }
